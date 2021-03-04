@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_main"
+    android:orientation="vertical"
+    tools:context=".ui.activity.CustomerTypeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/customerTypeBackIv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="返回上一界面"
+            android:padding="10dp"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:contentDescription="客户类别"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="客户类别"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingStart="20dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp"
+        android:text="请选择客户类别："
+        android:textColor="@color/black" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/customerTypeRv"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/white"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="3" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/customerTypeSaveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/bg_button_round_green"
+        android:contentDescription="保存"
+        android:gravity="center"
+        android:paddingStart="80dp"
+        android:paddingEnd="80dp"
+        android:text="保存"
+        android:textColor="@color/white" />
+
+</LinearLayout>

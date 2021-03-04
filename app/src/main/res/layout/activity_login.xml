@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.LoginActivity">
+
+    <ImageView
+        android:id="@+id/appIconIv"
+        android:layout_width="162dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/ic_logo" />
+
+    <EditText
+        android:id="@+id/loginAccountNumEt"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/appIconIv"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/bg_button_round_gray"
+        android:digits="0123456789x"
+        android:gravity="center"
+        android:hint="手机号/身份证号"
+        android:imeOptions="actionNext"
+        android:maxLength="18"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="13839266111" />
+
+    <EditText
+        android:id="@+id/loginAccountPwdEt"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/loginAccountNumEt"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/bg_button_round_gray"
+        android:gravity="center"
+        android:hint="密码"
+        android:imeOptions="actionNext"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="123456" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginAccountPwdEt"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="87dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/bg_button_round_red"
+        android:text="登录"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginBtn"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
+
+        <TextView
+            android:id="@+id/registerTv"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_gravity="center_vertical"
+            android:text="注册"
+            android:textColor="@color/red_main"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/forgetTv"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_gravity="center_vertical"
+            android:text="忘记密码"
+            android:textColor="@color/red_main"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.fjkyly.paradise">
+    <!-- 拍照权限 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 震动器权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 联网权限 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 访问网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 访问WiFi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 管理外部存储权限 -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 网络定位权限 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- GPS定位权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION " />
+
+    <application
+        android:name=".base.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Paradise"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.activity.TestActivity"></activity>
+        <activity android:name=".ui.activity.UserNameSettingActivity" />
+        <activity android:name=".ui.activity.CustomerTypeActivity" />
+        <activity android:name=".ui.activity.PersonalNameActivity" />
+        <activity android:name=".ui.activity.PersonalDetailsActivity" />
+        <activity android:name=".ui.activity.AccountManagerActivity" />
+        <activity android:name=".ui.activity.TempUploadSettingActivity" />
+        <activity android:name=".ui.activity.VolumeSettingActivity" />
+        <activity android:name=".ui.activity.AddKinsfolkActivity" />
+        <activity android:name=".ui.activity.FamilyNumberActivity" />
+        <activity android:name=".ui.activity.SmartBandsSettingActivity" />
+        <activity
+            android:name=".ui.activity.ScanQrCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.SmartBandsActivity" />
+        <activity android:name=".ui.activity.AddFacilityActivity" />
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="注册界面"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="登录界面"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActivityTranslucent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="主界面"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" /> <!-- 适配 Android 7.0 文件意图 -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <service
+            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+            android:label="dexopt"
+            android:process=":dexopt" />
+    </application>
+
+</manifest>

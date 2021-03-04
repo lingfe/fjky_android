@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.HealthDataFragment">
+
+    <TextView
+        android:id="@+id/healthDataTitleContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="18dp"
+        android:text="健康中心" />
+
+    <View
+        android:id="@+id/healthUserInfoBg"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_below="@id/healthDataTitleContainer"
+        android:background="#00D193" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/healthUserAvatarIv"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_above="@id/healthUserInfoBg"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="-90dp"
+        android:src="@drawable/ic_user" />
+
+    <TextView
+        android:id="@+id/healthUserNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/healthUserInfoBg"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="-50dp"
+        android:layout_toEndOf="@id/healthUserAvatarIv"
+        android:text="用户姓名"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/healthUserNameTv"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_toEndOf="@id/healthUserAvatarIv"
+        android:text="当前健康状况（动态信息展示）"
+        android:textColor="@color/white" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/healthDataContainer"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:layout_below="@id/healthUserInfoBg"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="-50dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="20dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/healthDataMenuRv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/healthDataContainer"
+        android:paddingTop="20dp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="4"
+        tools:itemCount="8"
+        tools:listitem="@layout/item_health_data_menu" />
+
+</RelativeLayout>
