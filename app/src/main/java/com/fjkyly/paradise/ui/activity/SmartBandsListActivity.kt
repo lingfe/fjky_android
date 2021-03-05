@@ -31,6 +31,9 @@ class SmartBandsListActivity : BaseActivity() {
 
     override fun initView() {
         mBinding.run {
+            smartBandsBackIv.setOnClickListener {
+                finish()
+            }
             smartBandsNameTv.text = mFacility.name
             smartBandsListRv.run {
                 layoutManager = LinearLayoutManager(this@SmartBandsListActivity)
