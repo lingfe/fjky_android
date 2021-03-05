@@ -48,7 +48,7 @@ class LoginActivity : BaseActivity() {
                 loginAccount(accountNum = accountNum, accountPwd = accountPwd)
             }
             // TODO: 2021-03-04 模拟点击登录按钮，后期上线需要删除掉该代码
-            loginBtn.performClick()
+            // loginBtn.performClick()
             registerTv.setOnClickListener {
                 // 注册按钮的点击事件
                 startActivity<RegisterActivity>()

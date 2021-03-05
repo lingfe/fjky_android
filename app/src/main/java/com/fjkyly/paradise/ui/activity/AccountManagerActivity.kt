@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +22,7 @@ import com.fjkyly.paradise.expand.copyUriToExternalFilesDir
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
+import com.fjkyly.paradise.ui.views.ConfirmDialog
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.XXPermissions
 import com.vondear.rxtool.RxActivityTool
@@ -112,23 +114,39 @@ class AccountManagerActivity : BaseActivity() {
                 simpleToast("修改登录手机号正在开发中...")
             }
             accountMangerPwdContainer.setOnClickListener {
-                // TODO: 2021/2/25 跳转到修改密码界面
-                simpleToast("修改密码正在开发中...")
+                // TODO: 2021/2/25 跳转到账号密码修改界面
+                simpleToast("账号密码管理功能正在开发中...")
             }
             accountMangerPayContainer.setOnClickListener {
-                // TODO: 2021/2/25 修改支付密码
-                simpleToast("修改支付密码正在开发中...")
+                // TODO: 2021/2/25 支付密码管理界面
+                simpleToast("支付密码管理功能正在开发中...")
             }
             accountMangerLoginOutTv.setOnClickListener {
                 // TODO: 2021/2/25 退出登录
-                Repository.signOut(lifecycle = lifecycle) {
-                    RxActivityTool.skipActivityAndFinishAll(
-                        this@AccountManagerActivity,
-                        LoginActivity::class.java
-                    )
-                    // 退出登录之后，需要将用户信息置空
-                    App.accountLoginInfo = null
+                val signOutDialog = ConfirmDialog(this@AccountManagerActivity)
+                signOutDialog.run {
+                    setContentView(R.layout.dialog_confirm)
+                    post {
+                        setDialogMessage("确定要退出登录吗")
+                        setConfirmTextColor(Color.parseColor("#666666"))
+                        setGivUpTextColor(Color.parseColor("#FF5050"))
+                    }
+                    show()
                 }
+                signOutDialog.setOnDialogActionClickListener(object :
+                    ConfirmDialog.OnDialogActionSimpleListener() {
+                    override fun onGiveUpClick() {
+                        Repository.signOut(lifecycle = lifecycle) {
+                            // 账号退出成功的回调
+                            RxActivityTool.skipActivityAndFinishAll(
+                                this@AccountManagerActivity,
+                                LoginActivity::class.java
+                            )
+                            // 退出登录之后，需要将用户信息置空
+                            App.accountLoginInfo = null
+                        }
+                    }
+                })
             }
         }
     }

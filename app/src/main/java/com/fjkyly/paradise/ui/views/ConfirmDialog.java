@@ -36,6 +36,10 @@ public class ConfirmDialog extends Dialog {
         initListener();
     }
 
+    public void post(Runnable action){
+        getWindow().getDecorView().post(action);
+    }
+
     private void initListener() {
         mConfirm.setOnClickListener(v -> {
             if (mOnDialogActionClickListener != null) {
@@ -55,6 +59,16 @@ public class ConfirmDialog extends Dialog {
         mMessage = findViewById(R.id.dialogMessageTv);
         mConfirm = findViewById(R.id.dialogConfirmTv);
         mGivUp = findViewById(R.id.dialogGiveUpTv);
+    }
+
+    public ConfirmDialog setConfirmTextColor(int color) {
+        mConfirm.setTextColor(color);
+        return this;
+    }
+
+    public ConfirmDialog setGivUpTextColor(int color) {
+        mGivUp.setTextColor(color);
+        return this;
     }
 
     public void setDialogMessage(String text) {

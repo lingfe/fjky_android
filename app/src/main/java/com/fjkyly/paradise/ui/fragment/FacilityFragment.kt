@@ -49,10 +49,10 @@ class FacilityFragment : BaseFragment() {
 
     override fun initData() {
         mFacilityList.run {
-            repeat(20) {
+            repeat(1) {
                 add(
                     Facility(
-                        name = "智能摄像头",
+                        name = "智能手环",
                         facilityId = "BNSJABJK2899172SNJ",
                         facilityType = it % 6,
                         facilityStatus = Random.nextInt(2)
@@ -70,7 +70,8 @@ class FacilityFragment : BaseFragment() {
             }
         }
         itemFacilityListAdapter.setOnItemClickListener { facility, _ ->
-            if (facility.facilityType == 2) {
+            // TODO: 2021-03-05 此处应该根据设备类型进行判断需要跳转到哪一个界面
+            if (facility.facilityType == 0) {
                 SmartBandsActivity.startActivity(requireContext(), facility)
             } else {
                 simpleToast("点击了${facility.name}，状态${facility.getFacilityStatus()}，功能正在开发中...")

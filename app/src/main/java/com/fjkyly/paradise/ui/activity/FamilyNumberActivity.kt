@@ -6,7 +6,6 @@ import com.fjkyly.paradise.R
 import com.fjkyly.paradise.adapter.ItemKinsfolkNumAdapter
 import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.databinding.ActivityFamilyNumberBinding
-import com.fjkyly.paradise.expand.mainHandler
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.model.Kinsfolk
@@ -74,7 +73,7 @@ class FamilyNumberActivity : BaseActivity() {
                 ConfirmDialog(this@FamilyNumberActivity).run {
                     setContentView(R.layout.dialog_confirm)
                     setCancelable(false)
-                    mainHandler.post {
+                    post {
                         setDialogMessage("确定要删除此号吗？")
                     }
                     setOnDialogActionClickListener(object :
