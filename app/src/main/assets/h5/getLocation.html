@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<script>
+			function getLocation() {
+				var locationJson = appNative.getLocationJson()
+				console.log(locationJson)
+				var json = JSON.parse(locationJson)
+				var locationText = document.getElementById('locationText')
+				locationText.innerHTML = '经度：' + json.longitude + '\n纬度：' + json.latitude
+			}
+		</script>
+	</head>
+	<body>
+		<div id="app">
+			<button type="button" onclick="getLocation()">
+				点我进行经纬度获取
+			</button>
+			<div id="locationText">
+				我是默认值
+			</div>
+		</div>
+	</body>
+</html>

@@ -7,6 +7,7 @@ import com.fjkyly.paradise.R
  *
  * @property icon Int 设备图标
  * @property name String 设备名称
+ * @property facilityBrandName String 设备品牌名称
  * @property facilityId String 设备ID
  * @property facilityType Int 设备类型
  * @property facilityStatus Int 设备状态 0、离线，1、在线
@@ -15,6 +16,7 @@ import com.fjkyly.paradise.R
 data class Facility(
     val icon: Int = 0,
     val name: String,
+    val facilityBrandName: String = "未知品牌$name",
     val facilityId: String,
     val facilityType: Int,
     var facilityStatus: Int = 0

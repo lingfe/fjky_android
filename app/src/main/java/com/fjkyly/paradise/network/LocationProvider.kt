@@ -2,20 +2,23 @@ package com.fjkyly.paradise.network
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.content.Context
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.util.Log
 import androidx.core.content.getSystemService
+import com.blankj.utilcode.util.GsonUtils
 import com.hjq.permissions.XXPermissions
 
 object LocationProvider {
 
     private var count = 0
+    private var mLocation: Location? = null
 
     @SuppressLint("MissingPermission")
-    fun getLocationInfo(context: Context) {
+    fun getLocationJson(context: Context): String {
         XXPermissions.with(context)
             .permission(
                 arrayOf(
@@ -29,7 +32,9 @@ object LocationProvider {
                     locationManager ?: return@request
                     locationManager.requestLocationUpdates(
                         LocationManager.GPS_PROVIDER,
-                        1000L, 1f, LocationListener { location ->
+                        AlarmManager.INTERVAL_FIFTEEN_MINUTES / 15,
+                        1f,
+                        LocationListener { location ->
                             locationUpdates(location)
                         })
                     val location =
@@ -37,9 +42,19 @@ object LocationProvider {
                     locationUpdates(location)
                 }
             }
+        return GsonUtils.toJson(
+            mapOf(
+                "longitude" to mLocation?.longitude,
+                "latitude" to mLocation?.latitude
+            )
+        )
     }
 
+    /**
+     * 更新经纬度信息
+     */
     private fun locationUpdates(location: Location?) {
+        mLocation = location
         location ?: return
         // 经度
         val longitude = location.longitude

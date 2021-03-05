@@ -1,13 +1,17 @@
 package com.fjkyly.paradise.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.webkit.JavascriptInterface
+import com.blankj.utilcode.util.GsonUtils
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.App
 import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.databinding.FragmentBrowserBinding
 import com.fjkyly.paradise.expand.simpleToast
+import com.fjkyly.paradise.network.LocationProvider
+import com.tencent.smtt.export.external.interfaces.ConsoleMessage
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebViewClient
 
@@ -34,7 +38,12 @@ class BrowserFragment : BaseFragment() {
             x5WebView.run {
                 // loadUrl("${ASSETS_FOLDER}h5/index.html")
                 webViewClient = WebViewClient()
-                webChromeClient = WebChromeClient()
+                webChromeClient = object : WebChromeClient() {
+                    override fun onConsoleMessage(p0: ConsoleMessage?): Boolean {
+                        Log.d(TAG, "onConsoleMessage: ===>ConsoleMessage：${GsonUtils.toJson(p0)}")
+                        return super.onConsoleMessage(p0)
+                    }
+                }
                 // 注入一个APP本地对象
                 addJavascriptInterface(AppNative(), "appNative")
             }
@@ -47,6 +56,7 @@ class BrowserFragment : BaseFragment() {
             x5WebView.run {
                 // loadUrl("http://192.168.124.17:81/")
                 loadUrl("http://47.106.198.137:82/#/")
+                // loadUrl(ASSETS_FOLDER + "h5/getLocation.html")
             }
         }
     }
@@ -64,10 +74,18 @@ class BrowserFragment : BaseFragment() {
         /**
          * 获取用户登录的 Token 信息
          *
-         * @return String?
+         * @return String
          */
         @JavascriptInterface
-        fun getUserToken(): String  = App.getUserToken()
+        fun getUserToken(): String = App.getUserToken()
+
+        /**
+         * 获取用户的位置信息，包含经度和纬度的Json字符串，
+         * 需要前端获取后进行解析
+         */
+        @JavascriptInterface
+        fun getLocationJson(): String =
+            LocationProvider.getLocationJson(this@BrowserFragment.requireContext())
 
         @JavascriptInterface
         fun toast() {
@@ -76,6 +94,7 @@ class BrowserFragment : BaseFragment() {
     }
 
     companion object {
+        private const val TAG = "BrowserFragment"
         const val ASSETS_FOLDER = "file:///android_asset/"
     }
 }

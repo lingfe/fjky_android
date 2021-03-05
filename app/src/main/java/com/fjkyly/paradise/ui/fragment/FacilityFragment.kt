@@ -11,7 +11,7 @@ import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.ui.activity.AddFacilityActivity
-import com.fjkyly.paradise.ui.activity.SmartBandsActivity
+import com.fjkyly.paradise.ui.activity.SmartBandsListActivity
 import kotlin.random.Random
 
 /**
@@ -49,6 +49,7 @@ class FacilityFragment : BaseFragment() {
 
     override fun initData() {
         mFacilityList.run {
+            clear()
             repeat(1) {
                 add(
                     Facility(
@@ -72,7 +73,7 @@ class FacilityFragment : BaseFragment() {
         itemFacilityListAdapter.setOnItemClickListener { facility, _ ->
             // TODO: 2021-03-05 此处应该根据设备类型进行判断需要跳转到哪一个界面
             if (facility.facilityType == 0) {
-                SmartBandsActivity.startActivity(requireContext(), facility)
+                SmartBandsListActivity.startActivity(requireContext(), facility)
             } else {
                 simpleToast("点击了${facility.name}，状态${facility.getFacilityStatus()}，功能正在开发中...")
             }
@@ -82,5 +83,6 @@ class FacilityFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        mFacilityList.clear()
     }
 }

@@ -16,6 +16,39 @@ import java.io.File
 object Repository {
 
     /**
+     * 查询用户设备列表
+     */
+    fun queryBindDeviceList(lifecycle: Lifecycle, block: (bindDeviceList: BindDeviceList) -> Unit) {
+        val deviceListApi = ServiceCreator.create<QueryBindDeviceListApi>()
+        deviceListApi.query()
+            .enqueue(object : retrofit2.Callback<BindDeviceList> {
+                override fun onResponse(
+                    call: Call<BindDeviceList>,
+                    response: Response<BindDeviceList>
+                ) {
+                    val body = response.body()?.let {
+                        Log.d(TAG, "onResponse：queryBindDeviceList ===>${GsonUtils.toJson(it)}")
+                        if (it.state == HTTP_OK) {
+                            if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                                block(it)
+                            }
+                        } else {
+                            simpleToast(it.msg)
+                        }
+                    }
+                    if (body == null) {
+                        simpleToast("服务器数据异常，请稍后重试！")
+                    }
+                }
+
+                override fun onFailure(call: Call<BindDeviceList>, t: Throwable) {
+                    t.printStackTrace()
+                    simpleToast("设备列表获取失败，请稍后重试！")
+                }
+            })
+    }
+
+    /**
      * 退出账号
      */
     fun signOut(lifecycle: Lifecycle, block: () -> Unit) {
@@ -37,6 +70,7 @@ object Repository {
                         simpleToast("服务器数据异常，请稍后重试！")
                     }
                 }
+
                 override fun onFailure(call: Call<SignOut>, t: Throwable) {
                     t.printStackTrace()
                     simpleToast("退出登录失败，请稍后重试！")

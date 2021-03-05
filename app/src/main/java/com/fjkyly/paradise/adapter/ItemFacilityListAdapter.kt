@@ -1,6 +1,7 @@
 package com.fjkyly.paradise.adapter
 
 import android.view.View
+import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,7 +11,8 @@ import com.fjkyly.paradise.R
 import com.fjkyly.paradise.expand.inflate
 import com.fjkyly.paradise.model.Facility
 
-class ItemFacilityListAdapter : RecyclerView.Adapter<ItemFacilityListAdapter.InnerHolder>() {
+class ItemFacilityListAdapter(val facilityBrandName: Boolean = false) :
+    RecyclerView.Adapter<ItemFacilityListAdapter.InnerHolder>() {
 
     private val mFacilityList = mutableListOf<Facility>()
     private lateinit var mListener: (facility: Facility, position: Int) -> Unit
@@ -20,14 +22,24 @@ class ItemFacilityListAdapter : RecyclerView.Adapter<ItemFacilityListAdapter.Inn
         return InnerHolder(itemView)
     }
 
+    private var lastTime = 0L
+
     override fun onBindViewHolder(holder: InnerHolder, position: Int) {
         val facility = mFacilityList[position]
         holder.run {
             itemView.setOnClickListener {
-                if (::mListener.isInitialized) mListener(facility, position)
+                if (::mListener.isInitialized) {
+                    val currentTime = System.currentTimeMillis()
+                    val singleClick =
+                        currentTime - lastTime > ViewConfiguration.getDoubleTapTimeout()
+                    // 如果只有用户的手指是单击时才回调，防止用户连续点击
+                    if (singleClick) mListener(facility, position)
+                    lastTime = currentTime
+                }
             }
             Glide.with(itemView).load(facility.getFacilityIcon()).into(facilityIconIv)
-            facilityNameTv.text = facility.name
+            facilityNameTv.text =
+                if (facilityBrandName.not()) facility.name else facility.facilityBrandName
             facilityStatusTv.text = facility.getFacilityStatus()
         }
     }

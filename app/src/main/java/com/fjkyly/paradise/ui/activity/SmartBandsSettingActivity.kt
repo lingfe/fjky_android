@@ -1,9 +1,13 @@
 package com.fjkyly.paradise.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import com.blankj.utilcode.util.ActivityUtils
 import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.databinding.ActivitySmartBandsSettingBinding
 import com.fjkyly.paradise.expand.simpleToast
+import com.fjkyly.paradise.model.Facility
 
 /**
  * 智能手环设置界面
@@ -68,6 +72,15 @@ class SmartBandsSettingActivity : BaseActivity() {
             unBindFacilityBtn.setOnClickListener {
                 simpleToast("解绑设备正在开发中...")
             }
+        }
+    }
+
+    companion object {
+        private lateinit var mFacility: Facility
+
+        fun startActivity(context: Context, facility: Facility) {
+            mFacility = facility
+            ActivityUtils.startActivity(Intent(context, SmartBandsSettingActivity::class.java))
         }
     }
 }

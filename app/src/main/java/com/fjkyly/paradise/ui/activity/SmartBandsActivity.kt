@@ -7,7 +7,6 @@ import com.blankj.utilcode.util.ActivityUtils.startActivity
 import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.databinding.ActivitySmartBandsBinding
 import com.fjkyly.paradise.expand.simpleToast
-import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.model.Facility
 
 /**
@@ -28,7 +27,7 @@ class SmartBandsActivity : BaseActivity() {
 
     override fun initView() {
         mBinding.run {
-            smartBandsNameTv.text = mFacility.name
+            smartBandsNameTv.text = mFacility.facilityBrandName
         }
     }
 
@@ -38,7 +37,7 @@ class SmartBandsActivity : BaseActivity() {
                 finish()
             }
             smartBandsSettingTv.setOnClickListener {
-                startActivity<SmartBandsSettingActivity>()
+                SmartBandsSettingActivity.startActivity(this@SmartBandsActivity, facility = mFacility)
                 simpleToast("设置智能手环功能正在开发中...")
             }
             smartBandsLocationContainer.setOnClickListener {

@@ -20,6 +20,7 @@ class SplashActivity : BaseActivity() {
     override fun initEvent() {
         mainHandler.postDelayed({
             startActivity<LoginActivity>()
+            finish()
         }, DELAY_JUMP_TIME)
     }
 
