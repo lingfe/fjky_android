@@ -52,20 +52,10 @@ class FacilityFragment : BaseFragment() {
             repeat(20) {
                 add(
                     Facility(
-                        R.drawable.icon_naozhong,
-                        "智能摄像头",
-                        "BNSJABJK2899172SNJ",
-                        1,
-                        Random.nextInt(2)
-                    )
-                )
-                add(
-                    Facility(
-                        R.drawable.icon_yiyuan,
-                        "智能手环",
-                        "UHGFUSHGUSF2712882",
-                        2,
-                        Random.nextInt(2)
+                        name = "智能摄像头",
+                        facilityId = "BNSJABJK2899172SNJ",
+                        facilityType = it % 6,
+                        facilityStatus = Random.nextInt(2)
                     )
                 )
             }

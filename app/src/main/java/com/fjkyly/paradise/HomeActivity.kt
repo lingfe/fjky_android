@@ -4,15 +4,19 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.base.BaseFragmentStateAdapter
 import com.fjkyly.paradise.databinding.ActivityHomeBinding
-import com.fjkyly.paradise.ui.views.NavigationMediator
+import com.fjkyly.paradise.network.LocationProvider
 import com.fjkyly.paradise.ui.fragment.BrowserFragment
 import com.fjkyly.paradise.ui.fragment.EmptyFragment
 import com.fjkyly.paradise.ui.fragment.FacilityFragment
 import com.fjkyly.paradise.ui.fragment.MeFragment
+import com.fjkyly.paradise.ui.views.NavigationMediator
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * 主界面
@@ -48,6 +52,13 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun initData() {
+        lifecycleScope.launch {
+            while (true) {
+                // 获取经纬度信息
+                LocationProvider.getLocationInfo(this@HomeActivity)
+                delay(1000L)
+            }
+        }
         fragmentList.run {
             add(BrowserFragment())
             add(FacilityFragment())

@@ -1,5 +1,7 @@
 package com.fjkyly.paradise.model
 
+import com.fjkyly.paradise.R
+
 /**
  * 设备
  *
@@ -23,5 +25,15 @@ data class Facility(
             1 -> "在线"
             else -> "状态异常"
         }
+    }
+
+    fun getFacilityIcon() = when (facilityType) {
+        0 -> R.drawable.icon_naozhong
+        1 -> R.drawable.icon_yiyuan
+        2 -> R.drawable.icon_yiyuan1
+        3 -> R.drawable.icon_yiyuan2
+        4 -> R.drawable.icon_youhuicuxiao
+        5 -> R.drawable.icon_yujing
+        else -> R.drawable.icon_anquan
     }
 }

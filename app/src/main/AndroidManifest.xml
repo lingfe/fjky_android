@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.fjkyly.paradise">
+
     <!-- 拍照权限 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 震动器权限 -->
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 联网权限 -->
@@ -25,7 +26,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Paradise"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.TestActivity"></activity>
         <activity android:name=".ui.activity.UserNameSettingActivity" />
         <activity android:name=".ui.activity.CustomerTypeActivity" />
         <activity android:name=".ui.activity.PersonalNameActivity" />

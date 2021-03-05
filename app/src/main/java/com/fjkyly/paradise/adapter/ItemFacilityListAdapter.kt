@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.expand.inflate
 import com.fjkyly.paradise.model.Facility
-import com.fjkyly.paradise.model.MenuAction
 
 class ItemFacilityListAdapter : RecyclerView.Adapter<ItemFacilityListAdapter.InnerHolder>() {
 
@@ -27,7 +26,7 @@ class ItemFacilityListAdapter : RecyclerView.Adapter<ItemFacilityListAdapter.Inn
             itemView.setOnClickListener {
                 if (::mListener.isInitialized) mListener(facility, position)
             }
-            Glide.with(itemView).load(facility.icon).into(facilityIconIv)
+            Glide.with(itemView).load(facility.getFacilityIcon()).into(facilityIconIv)
             facilityNameTv.text = facility.name
             facilityStatusTv.text = facility.getFacilityStatus()
         }
