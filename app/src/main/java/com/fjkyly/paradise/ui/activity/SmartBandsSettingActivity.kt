@@ -25,6 +25,13 @@ class SmartBandsSettingActivity : BaseActivity() {
         callAllInit()
     }
 
+    override fun initView() {
+        mBinding.run {
+            facilityNameTv.text = mFacility.facilityBrandName
+            facilityIdTv.text = mFacility.facilityId
+        }
+    }
+
     override fun initEvent() {
         mBinding.run {
             smartBandsSettingBackIv.setOnClickListener {
