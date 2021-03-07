@@ -25,7 +25,7 @@ class FamilyNumberActivity : BaseActivity() {
     private val itemKinsfolkNumAdapter by lazy {
         ItemKinsfolkNumAdapter()
     }
-    private val mKinsfolkList = mutableListOf<Kinsfolk>()
+    private val mKinsfolkList = arrayListOf<Kinsfolk>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

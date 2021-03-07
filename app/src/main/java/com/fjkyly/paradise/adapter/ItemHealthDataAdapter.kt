@@ -12,7 +12,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class ItemHealthDataAdapter : RecyclerView.Adapter<ItemHealthDataAdapter.InnerHolder>() {
 
-    private val mMenuList = mutableListOf<MenuAction>()
+    private val mMenuList = arrayListOf<MenuAction>()
     private lateinit var mListener: (menuAction: MenuAction, position: Int) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerHolder {

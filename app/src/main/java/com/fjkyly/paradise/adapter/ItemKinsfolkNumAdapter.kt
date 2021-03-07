@@ -10,7 +10,7 @@ import com.fjkyly.paradise.model.Kinsfolk
 
 class ItemKinsfolkNumAdapter : RecyclerView.Adapter<ItemKinsfolkNumAdapter.InnerHolder>() {
 
-    private val mKinsfolkList = mutableListOf<Kinsfolk>()
+    private val mKinsfolkList = arrayListOf<Kinsfolk>()
     private lateinit var mClickListener: (kinsfolk: Kinsfolk, position: Int) -> Unit
     private lateinit var mLongClickListener: (kinsfolk: Kinsfolk, position: Int) -> Unit
 

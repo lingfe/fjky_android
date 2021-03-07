@@ -1,6 +1,8 @@
 package com.fjkyly.paradise.ui.fragment
 
+import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -22,8 +24,9 @@ import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.activity.AddFacilityActivity
-import com.fjkyly.paradise.ui.activity.SmartBandsListActivity
-import kotlin.random.Random
+import com.fjkyly.paradise.ui.activity.SmartBandsSettingActivity
+import com.vondear.rxtool.RxAppTool
+
 
 /**
  * 设备列表界面
@@ -38,11 +41,12 @@ class FacilityFragment : BaseFragment() {
     private var _binding: FragmentFacilityBinding? = null
     private val mBinding get() = _binding!!
     private val itemFacilityListAdapter by lazy {
-        ItemFacilityListAdapter()
+        ItemFacilityListAdapter(facilityBrandName = true)
     }
     private val mFacilityList = mutableListOf<Facility>()
     private var _aMap: AMap? = null
     private val mAMap get() = _aMap!!
+    private val mMapAppList = arrayListOf("com.autonavi.minimap", "com.baidu.BaiduMap")
 
     override fun getLayoutResId(): Int = R.layout.fragment_facility
 
@@ -77,6 +81,28 @@ class FacilityFragment : BaseFragment() {
             initMapInfoWindow(latLng, address)
         }
         mBinding.facilityMapView.onResume()
+        loadData()
+    }
+
+    private fun loadData() {
+        Repository.queryBindDeviceList(lifecycle = lifecycle) {
+            mFacilityList.run {
+                clear()
+                val facilityList = it.data
+                for (data in facilityList) {
+                    mFacilityList.add(
+                        Facility(
+                            name = data.dtypeName,
+                            facilityBrandName = data.dname,
+                            facilityId = data.id,
+                            facilityStatus = data.state,
+                            facilityType = 0
+                        )
+                    )
+                }
+                itemFacilityListAdapter.setData(this)
+            }
+        }
     }
 
     /**
@@ -108,7 +134,32 @@ class FacilityFragment : BaseFragment() {
         mAMap.setInfoWindowAdapter(CustomInfoWindowAdapter())
         marker.showInfoWindow()
         mAMap.setOnInfoWindowClickListener {
-            // TODO: 2021-03-07 打开手机上用户已经安装的导航APP进行导航
+            // 获取所有已安装App信息
+            val appInfoList = RxAppTool.getAllAppsInfo(requireContext())
+            Log.d(
+                TAG,
+                "initMapInfoWindow: ===>${if (appInfoList.isEmpty()) "无法获取到已安装的APP列表" else "已安装APP列表获取成功"}"
+            )
+            val installAppPackageList = arrayListOf<String>()
+            for (appInfo in appInfoList) {
+                installAppPackageList.add(appInfo.packageName)
+            }
+            val intersectList = installAppPackageList.intersect(mMapAppList)
+            for (packageName in intersectList) {
+                Log.d(TAG, "initMapInfoWindow: ===>packageName：$packageName")
+            }
+            if (intersectList.isEmpty()) {
+                simpleToast("请先安装第三方导航APP")
+                return@setOnInfoWindowClickListener
+            }
+            Log.d(
+                TAG,
+                "initMapInfoWindow: ===>${if (intersectList.isEmpty()) "没有安装导航APP" else "安装了导航APP"}"
+            )
+            //  打开手机上用户已经安装的导航APP进行导航
+            val uri: Uri = Uri.parse("geo:${latLng.latitude},${latLng.longitude}")
+            val openNavigationAPPIntent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(openNavigationAPPIntent)
             simpleToast("打开导航APP功能开发中...")
         }
     }
@@ -121,6 +172,7 @@ class FacilityFragment : BaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
         mBinding.facilityMapView.onDestroy()
+        mFacilityList.clear()
     }
 
     override fun initView() {
@@ -138,20 +190,6 @@ class FacilityFragment : BaseFragment() {
             116.397475
         )
         initMapInfoWindow(latLng = latLng, address = "天安门")
-        mFacilityList.run {
-            clear()
-            repeat(1) {
-                add(
-                    Facility(
-                        name = "智能手环",
-                        facilityId = "BNSJABJK2899172SNJ",
-                        facilityType = it % 6,
-                        facilityStatus = Random.nextInt(2)
-                    )
-                )
-            }
-            itemFacilityListAdapter.setData(this)
-        }
     }
 
     override fun initEvent() {
@@ -163,7 +201,7 @@ class FacilityFragment : BaseFragment() {
         itemFacilityListAdapter.setOnItemClickListener { facility, _ ->
             // TODO: 2021-03-05 此处应该根据设备类型进行判断需要跳转到哪一个界面
             if (facility.facilityType == 0) {
-                SmartBandsListActivity.startActivity(requireContext(), facility)
+                SmartBandsSettingActivity.startActivity(requireContext(), facility = facility)
             } else {
                 simpleToast("点击了${facility.name}，状态${facility.getFacilityStatus()}，功能正在开发中...")
             }

@@ -29,7 +29,7 @@ class AddFacilityActivity : BaseActivity() {
     private val itemBindFacilityAdapter by lazy {
         ItemBindFacilityAdapter()
     }
-    private val mFacilityList = mutableListOf<Facility>()
+    private val mFacilityList = arrayListOf<Facility>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

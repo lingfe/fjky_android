@@ -6,12 +6,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.expand.inflate
-import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.model.Facility
 
 class ItemBindFacilityAdapter : RecyclerView.Adapter<ItemBindFacilityAdapter.InnerHolder>() {
 
-    private val mFacilityList = mutableListOf<Facility>()
+    private val mFacilityList = arrayListOf<Facility>()
     private lateinit var mListener: (facility: Facility, position: Int) -> Unit
 
     override fun onCreateViewHolder(

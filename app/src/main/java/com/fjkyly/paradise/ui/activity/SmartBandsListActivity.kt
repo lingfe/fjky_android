@@ -20,7 +20,7 @@ class SmartBandsListActivity : BaseActivity() {
     private val itemFacilityListAdapter by lazy {
         ItemFacilityListAdapter(facilityBrandName = true)
     }
-    private val mFacilityList = mutableListOf<Facility>()
+    private val mFacilityList = arrayListOf<Facility>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -23,7 +23,7 @@ class HealthDataFragment : BaseFragment() {
     private val itemHealthDataAdapter by lazy {
         ItemHealthDataAdapter()
     }
-    private val menuActionList = mutableListOf<MenuAction>()
+    private val menuActionList = arrayListOf<MenuAction>()
 
     override fun getLayoutResId(): Int = R.layout.fragment_health_data
 

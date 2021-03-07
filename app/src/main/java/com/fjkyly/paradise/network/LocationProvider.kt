@@ -52,9 +52,10 @@ object LocationProvider {
         )
     }
 
-    fun getLocation(context: Context) {
-        getLocationJson(context)
-    }
+    /**
+     * 获取位置对象
+     */
+    fun getLocation(context: Context): Location?  = mLocation
 
     /**
      * 更新经纬度信息

@@ -14,7 +14,7 @@ import com.fjkyly.paradise.model.Facility
 class ItemFacilityListAdapter(val facilityBrandName: Boolean = false) :
     RecyclerView.Adapter<ItemFacilityListAdapter.InnerHolder>() {
 
-    private val mFacilityList = mutableListOf<Facility>()
+    private val mFacilityList = arrayListOf<Facility>()
     private lateinit var mListener: (facility: Facility, position: Int) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerHolder {
