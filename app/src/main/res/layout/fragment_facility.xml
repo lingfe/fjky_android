@@ -51,7 +51,14 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:background="#1DE9B6" />
+        android:background="#1DE9B6" >
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/facilityMapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/facilityRv"

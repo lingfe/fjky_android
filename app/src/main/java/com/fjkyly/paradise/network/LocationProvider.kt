@@ -18,7 +18,9 @@ object LocationProvider {
     private var mLocation: Location? = null
 
     @SuppressLint("MissingPermission")
-    fun getLocationJson(context: Context): String {
+    fun getLocationJson(
+        context: Context
+    ): String {
         XXPermissions.with(context)
             .permission(
                 arrayOf(
@@ -48,6 +50,10 @@ object LocationProvider {
                 "latitude" to mLocation?.latitude
             )
         )
+    }
+
+    fun getLocation(context: Context) {
+        getLocationJson(context)
     }
 
     /**

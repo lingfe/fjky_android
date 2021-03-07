@@ -10,3 +10,4 @@ fun inflate(
     @LayoutRes resource: Int, @NonNull root: ViewGroup, attachToRoot: Boolean = false
 ): View =
     LayoutInflater.from(root.context).inflate(resource, root, attachToRoot)
+

@@ -16,6 +16,42 @@ import java.io.File
 object Repository {
 
     /**
+     * 查询设备最新的位置
+     */
+    fun queryDeviceNewestLocation(
+        lifecycle: Lifecycle,
+        block: (deviceNewestLocation: DeviceNewestLocation) -> Unit
+    ) {
+        val queryDeviceNewestLocationApi = ServiceCreator.create<QueryDeviceNewestLocationApi>()
+        queryDeviceNewestLocationApi.query()
+            .enqueue(object : retrofit2.Callback<DeviceNewestLocation> {
+                override fun onResponse(
+                    call: Call<DeviceNewestLocation>,
+                    response: Response<DeviceNewestLocation>
+                ) {
+                    val body = response.body()?.let {
+                        Log.d(TAG, "onResponse：queryDeviceNewestLocation ===>${GsonUtils.toJson(it)}")
+                        if (it.state == HTTP_OK) {
+                            if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                                block(it)
+                            }
+                        } else {
+                            simpleToast(it.msg)
+                        }
+                    }
+                    if (body == null) {
+                        simpleToast("服务器数据异常，请稍后重试！")
+                    }
+                }
+
+                override fun onFailure(call: Call<DeviceNewestLocation>, t: Throwable) {
+                    t.printStackTrace()
+                    simpleToast("设备位置获取失败，请稍后重试！")
+                }
+            })
+    }
+
+    /**
      * 查询用户设备列表
      */
     fun queryBindDeviceList(lifecycle: Lifecycle, block: (bindDeviceList: BindDeviceList) -> Unit) {

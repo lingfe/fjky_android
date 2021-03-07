@@ -80,6 +80,12 @@ class BrowserFragment : BaseFragment() {
         fun getUserToken(): String = App.getUserToken()
 
         /**
+         * 获取用户 id
+         */
+        @JavascriptInterface
+        fun getUserId(): String = App.getUserId()
+
+        /**
          * 获取用户的位置信息，包含经度和纬度的Json字符串，
          * 需要前端获取后进行解析
          */

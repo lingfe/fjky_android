@@ -86,6 +86,9 @@
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"
             android:process=":dexopt" />
+        <meta-data android:name="com.amap.api.v2.apikey"
+            android:value="150684c1417c919018ef95589defe27c">
+        </meta-data>
     </application>
 
 </manifest>
