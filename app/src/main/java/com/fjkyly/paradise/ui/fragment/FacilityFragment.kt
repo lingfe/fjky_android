@@ -1,8 +1,6 @@
 package com.fjkyly.paradise.ui.fragment
 
-import android.content.Intent
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -19,14 +17,12 @@ import com.fjkyly.paradise.adapter.CustomInfoWindowAdapter
 import com.fjkyly.paradise.adapter.ItemFacilityListAdapter
 import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.databinding.FragmentFacilityBinding
-import com.fjkyly.paradise.expand.simpleToast
-import com.fjkyly.paradise.expand.startActivity
+import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.model.Facility
+import com.fjkyly.paradise.network.LocationProvider
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.activity.AddFacilityActivity
 import com.fjkyly.paradise.ui.activity.SmartBandsSettingActivity
-import com.vondear.rxtool.RxAppTool
-
 
 /**
  * 设备列表界面
@@ -46,7 +42,7 @@ class FacilityFragment : BaseFragment() {
     private val mFacilityList = mutableListOf<Facility>()
     private var _aMap: AMap? = null
     private val mAMap get() = _aMap!!
-    private val mMapAppList = arrayListOf("com.autonavi.minimap", "com.baidu.BaiduMap")
+    private val mMapAppList = arrayListOf(GAO_DE_MAP, BAI_DU_MAP)
 
     override fun getLayoutResId(): Int = R.layout.fragment_facility
 
@@ -73,9 +69,11 @@ class FacilityFragment : BaseFragment() {
         Repository.queryDeviceNewestLocation(lifecycle = lifecycle) { deviceNewestLocation ->
             val deviceNewestLocationData = deviceNewestLocation.data
             val latitude =
-                deviceNewestLocationData.latitude.toDoubleOrNull() ?: 39.908689
+                deviceNewestLocationData.latitude.toDoubleOrNull()
+                    ?: LocationProvider.DEFAULT_LATITUDE
             val longitude =
-                deviceNewestLocationData.longitude.toDoubleOrNull() ?: 116.397475
+                deviceNewestLocationData.longitude.toDoubleOrNull()
+                    ?: LocationProvider.DEFAULT_LONGITUDE
             val address = deviceNewestLocationData.address
             val latLng = LatLng(latitude, longitude)
             initMapInfoWindow(latLng, address)
@@ -105,76 +103,6 @@ class FacilityFragment : BaseFragment() {
         }
     }
 
-    /**
-     * 初始化地图信息窗口
-     */
-    private fun initMapInfoWindow(latLng: LatLng, address: String) {
-        // 参数依次是：视角调整区域的中心点坐标、希望调整到的缩放级别、俯仰角0°~45°（垂直与地图时为0）、偏航角 0~360° (正北方为0)
-        val mCameraUpdate = CameraUpdateFactory.newCameraPosition(
-            CameraPosition(latLng, 18f, 30f, 0f)
-        )
-        mAMap.moveCamera(mCameraUpdate)
-        mAMap.moveCamera(CameraUpdateFactory.zoomTo(15f))
-        Log.d(TAG, "initMapInfoWindow: ===>latLng：${GsonUtils.toJson(latLng)}")
-        val markerOptions = MarkerOptions()
-            .position(latLng)
-            .title("设备位置")
-            .snippet(address)
-            .icon(
-                BitmapDescriptorFactory.fromBitmap(
-                    BitmapFactory.decodeResource(
-                        resources,
-                        R.drawable.icon_dingwei
-                    )
-                )
-            )
-            .draggable(true)
-            .setFlat(false)
-        val marker = mAMap.addMarker(markerOptions)
-        mAMap.setInfoWindowAdapter(CustomInfoWindowAdapter())
-        marker.showInfoWindow()
-        mAMap.setOnInfoWindowClickListener {
-            // 获取所有已安装App信息
-            val appInfoList = RxAppTool.getAllAppsInfo(requireContext())
-            Log.d(
-                TAG,
-                "initMapInfoWindow: ===>${if (appInfoList.isEmpty()) "无法获取到已安装的APP列表" else "已安装APP列表获取成功"}"
-            )
-            val installAppPackageList = arrayListOf<String>()
-            for (appInfo in appInfoList) {
-                installAppPackageList.add(appInfo.packageName)
-            }
-            val intersectList = installAppPackageList.intersect(mMapAppList)
-            for (packageName in intersectList) {
-                Log.d(TAG, "initMapInfoWindow: ===>packageName：$packageName")
-            }
-            if (intersectList.isEmpty()) {
-                simpleToast("请先安装第三方导航APP")
-                return@setOnInfoWindowClickListener
-            }
-            Log.d(
-                TAG,
-                "initMapInfoWindow: ===>${if (intersectList.isEmpty()) "没有安装导航APP" else "安装了导航APP"}"
-            )
-            //  打开手机上用户已经安装的导航APP进行导航
-            val uri: Uri = Uri.parse("geo:${latLng.latitude},${latLng.longitude}")
-            val openNavigationAPPIntent = Intent(Intent.ACTION_VIEW, uri)
-            startActivity(openNavigationAPPIntent)
-            simpleToast("打开导航APP功能开发中...")
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mBinding.facilityMapView.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mBinding.facilityMapView.onDestroy()
-        mFacilityList.clear()
-    }
-
     override fun initView() {
         mBinding.run {
             facilityRv.run {
@@ -192,6 +120,48 @@ class FacilityFragment : BaseFragment() {
         initMapInfoWindow(latLng = latLng, address = "天安门")
     }
 
+    /**
+     * 初始化地图信息窗口
+     */
+    private fun initMapInfoWindow(latLng: LatLng, address: String) {
+        // 参数依次是：视角调整区域的中心点坐标、希望调整到的缩放级别、俯仰角0°~45°（垂直与地图时为0）、偏航角 0~360° (正北方为0)
+        val mCameraUpdate = CameraUpdateFactory.newCameraPosition(
+            CameraPosition(latLng, 18f, 30f, 0f)
+        )
+        mAMap.moveCamera(mCameraUpdate)
+        mAMap.moveCamera(CameraUpdateFactory.zoomTo(15f))
+        Log.d(TAG, "initMapInfoWindow: ===>latLng：${GsonUtils.toJson(latLng)}")
+        val markerOptions = MarkerOptions()
+            // 在地图上标记位置的经纬度值。必填参数
+            .position(latLng)
+            // 点标记的标题
+            .title("设备位置")
+            // 点标记的内容
+            .snippet(address)
+            // 点标记的图标
+            .icon(
+                BitmapDescriptorFactory.fromBitmap(
+                    BitmapFactory.decodeResource(
+                        resources,
+                        R.drawable.icon_dingwei
+                    )
+                )
+            )
+            // 点标记是否可拖拽
+            .draggable(true)
+        val marker = mAMap.addMarker(markerOptions)
+        mAMap.setInfoWindowAdapter(CustomInfoWindowAdapter())
+        marker.showInfoWindow()
+        mAMap.setOnInfoWindowClickListener {
+            val installedMapApp = checkInstalledMapApp(mMapAppList)
+            // 如果用户有安装第三方地图 APP ，则打开，否则提示用户安装
+            if (installedMapApp) launchMapApp(
+                requireContext(),
+                latLng
+            ) else simpleToast("请先安装第三方导航APP")
+        }
+    }
+
     override fun initEvent() {
         mBinding.run {
             addFacilityTv.setOnClickListener {
@@ -206,6 +176,17 @@ class FacilityFragment : BaseFragment() {
                 simpleToast("点击了${facility.name}，状态${facility.getFacilityStatus()}，功能正在开发中...")
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mBinding.facilityMapView.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mBinding.facilityMapView.onDestroy()
+        mFacilityList.clear()
     }
 
     override fun onDestroyView() {

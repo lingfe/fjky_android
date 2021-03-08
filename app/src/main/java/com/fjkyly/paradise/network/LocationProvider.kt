@@ -55,14 +55,17 @@ object LocationProvider {
     /**
      * 获取位置对象
      */
-    fun getLocation(context: Context): Location?  = mLocation
+    fun getLocation(context: Context): Location? = mLocation
 
     /**
      * 更新经纬度信息
      */
     private fun locationUpdates(location: Location?) {
         mLocation = location
-        location ?: return
+        if (location == null) {
+            Log.e(TAG, "locationUpdates: ===>经纬度获取失败，用户可能未授予定位权限！")
+            return
+        }
         // 经度
         val longitude = location.longitude
         // 纬度
@@ -74,4 +77,10 @@ object LocationProvider {
     }
 
     private const val TAG = "Location"
+
+    // 默认的经度
+    const val DEFAULT_LATITUDE = 39.908689
+
+    // 默认的纬度
+    const val DEFAULT_LONGITUDE = 116.397475
 }
