@@ -1,9 +1,11 @@
 package com.fjkyly.paradise.ui.fragment
 
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
@@ -19,8 +21,8 @@ import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.databinding.FragmentFacilityBinding
 import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.model.Facility
-import com.fjkyly.paradise.network.LocationProvider
 import com.fjkyly.paradise.network.request.Repository
+import com.fjkyly.paradise.provider.LocationProvider
 import com.fjkyly.paradise.ui.activity.AddFacilityActivity
 import com.fjkyly.paradise.ui.activity.SmartBandsSettingActivity
 
@@ -64,6 +66,7 @@ class FacilityFragment : BaseFragment() {
         mBinding.facilityMapView.onSaveInstanceState(outState)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
         Repository.queryDeviceNewestLocation(lifecycle = lifecycle) { deviceNewestLocation ->
@@ -82,6 +85,7 @@ class FacilityFragment : BaseFragment() {
         loadData()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun loadData() {
         Repository.queryBindDeviceList(lifecycle = lifecycle) {
             mFacilityList.run {
@@ -101,6 +105,7 @@ class FacilityFragment : BaseFragment() {
                 itemFacilityListAdapter.setData(this)
             }
         }
+
     }
 
     override fun initView() {

@@ -10,7 +10,7 @@ import com.fjkyly.paradise.base.App
 import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.databinding.FragmentBrowserBinding
 import com.fjkyly.paradise.expand.simpleToast
-import com.fjkyly.paradise.network.LocationProvider
+import com.fjkyly.paradise.provider.LocationProvider
 import com.tencent.smtt.export.external.interfaces.ConsoleMessage
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebViewClient
@@ -54,8 +54,8 @@ class BrowserFragment : BaseFragment() {
         super.onResume()
         mBinding.run {
             x5WebView.run {
-                // loadUrl("http://192.168.124.17:81/")
-                loadUrl("http://47.106.198.137:82/#/")
+                loadUrl("http://192.168.124.17:81/")
+                // loadUrl("http://47.106.198.137:82/#/")
                 // loadUrl(ASSETS_FOLDER + "h5/getLocation.html")
             }
         }

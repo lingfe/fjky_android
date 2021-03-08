@@ -1,4 +1,4 @@
-package com.fjkyly.paradise.network
+package com.fjkyly.paradise.provider
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -37,11 +37,15 @@ object LocationProvider {
                         AlarmManager.INTERVAL_FIFTEEN_MINUTES / 15,
                         1f,
                         LocationListener { location ->
-                            locationUpdates(location)
+                            locationUpdates(
+                                location
+                            )
                         })
                     val location =
                         locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                    locationUpdates(location)
+                    locationUpdates(
+                        location
+                    )
                 }
             }
         return GsonUtils.toJson(
@@ -55,7 +59,8 @@ object LocationProvider {
     /**
      * 获取位置对象
      */
-    fun getLocation(context: Context): Location? = mLocation
+    fun getLocation(context: Context): Location? =
+        mLocation
 
     /**
      * 更新经纬度信息

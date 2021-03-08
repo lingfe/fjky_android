@@ -102,4 +102,10 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.9'
     // 知乎图片、视频选择库
     implementation 'com.zhihu.android:matisse:0.5.3-beta3'
+    // WorkManager 的依赖：https://developer.android.google.cn/jetpack/androidx/releases/work
+    def work_version = "2.5.0"
+    // (Java only)
+    implementation "androidx.work:work-runtime:$work_version"
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:$work_version"
 }
