@@ -15,6 +15,39 @@ import java.io.File
 
 object Repository {
 
+    fun unbindDevice(
+        deviceId: String, lifecycle: Lifecycle,
+        block: (unbindDevice: UnbindDevice) -> Unit
+    ) {
+        val unbindDeviceApi = ServiceCreator.create<UnbindDeviceApi>()
+        unbindDeviceApi.unbind(deviceId = deviceId)
+            .enqueue(object : retrofit2.Callback<UnbindDevice> {
+                override fun onResponse(
+                    call: Call<UnbindDevice>,
+                    response: Response<UnbindDevice>
+                ) {
+                    val body = response.body()?.let {
+                        Log.d(TAG, "onResponse：unbindDevice ===>${GsonUtils.toJson(it)}")
+                        if (it.state == HTTP_OK) {
+                            if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                                block(it)
+                            }
+                        } else {
+                            simpleToast(it.msg)
+                        }
+                    }
+                    if (body == null) {
+                        simpleToast("服务器数据异常，请稍后重试！")
+                    }
+                }
+
+                override fun onFailure(call: Call<UnbindDevice>, t: Throwable) {
+                    t.printStackTrace()
+                    simpleToast("设备解绑失败，请稍后重试！")
+                }
+            })
+    }
+
     /**
      * 查询设备最新的位置
      */
@@ -30,7 +63,7 @@ object Repository {
                     response: Response<DeviceNewestLocation>
                 ) {
                     val body = response.body()?.let {
-                        Log.d(TAG, "onResponse：queryDeviceNewestLocation ===>${GsonUtils.toJson(it)}")
+                        // Log.d(TAG, "onResponse：queryDeviceNewestLocation ===>${GsonUtils.toJson(it)}")
                         if (it.state == HTTP_OK) {
                             if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
                                 block(it)

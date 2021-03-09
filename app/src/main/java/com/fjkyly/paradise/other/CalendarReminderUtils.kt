@@ -1,5 +1,6 @@
 package com.fjkyly.paradise.other
 
+import android.Manifest.permission
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.content.ContentUris
@@ -7,6 +8,8 @@ import android.content.ContentValues
 import android.graphics.Color
 import android.net.Uri
 import android.provider.CalendarContract
+import android.util.Log
+import androidx.annotation.RequiresPermission
 import com.fjkyly.paradise.base.App
 import java.util.*
 
@@ -116,17 +119,21 @@ object CalendarReminderUtils {
 
     /**
      * 插入日历事件
+     * 需要先获取系统日历读写权限
      * reminderTime：提醒事件的时间戳
      * previousDate：提前 previousDate 天有提醒
      * 返回值：为 true 表示添加成功，为 false 表示添加失败
      */
     @SuppressLint("NewApi")
+    @RequiresPermission(anyOf = [permission.WRITE_CALENDAR, permission.READ_CALENDAR])
     fun insertCalendarEvent(
         title: String,
         description: String,
         reminderTime: Long,
         previousDate: Int
     ): Boolean {
+        // 此处已经经过权限检查了
+        deleteCalendarEventByEventTitle(title = title)
         val context = App.appContext
         // 获取日历账户的 ID
         val calendarId = checkAndAddCalendarAccount()
@@ -157,20 +164,29 @@ object CalendarReminderUtils {
         val remindValues = ContentValues()
         remindValues.run {
             put(CalendarContract.Reminders.EVENT_ID, ContentUris.parseId(newEvent))
+            // 提前 previousDate 天有提醒
             put(
                 CalendarContract.Reminders.MINUTES,
                 previousDate * 24 * 60
-            ) // 提前 previousDate 天有提醒
+            )
+            // 设置提醒方式
             put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT)
             val uri = context.contentResolver.insert(Uri.parse(CALENDER_REMINDER_URL), remindValues)
-            return uri != null
+            val isSuccess = uri != null
+            Log.d(
+                TAG,
+                "insertCalendarEvent: ===>Alarm reminder added ${if (isSuccess) "成功" else "失败"}"
+            )
+            return isSuccess
         }
     }
 
     /**
      * 根据日历事件的名称删除日历事件
+     * 需要先获取系统日历读写权限
      */
-    fun deleteCalendarEventByEventName(title: String) {
+    @RequiresPermission(anyOf = [permission.WRITE_CALENDAR, permission.READ_CALENDAR])
+    fun deleteCalendarEventByEventTitle(title: String) {
         val context = App.appContext
         val eventCursor =
             context.contentResolver.query(Uri.parse(CALENDER_EVENT_URL), null, null, null, null)
@@ -200,4 +216,29 @@ object CalendarReminderUtils {
         }
         eventCursor.close()
     }
+
+    @Deprecated("暂未实现，请不要调用该方法！")
+    @RequiresPermission(anyOf = [permission.WRITE_CALENDAR, permission.READ_CALENDAR])
+    private fun queryCalendarEvents() {
+        val context = App.appContext
+        val eventCursor =
+            context.contentResolver.query(Uri.parse(CALENDER_EVENT_URL), null, null, null, null)
+        // 查询返回空值
+        eventCursor ?: return
+        if (eventCursor.count > 0) {
+            eventCursor.moveToFirst()
+            val rows = mapOf<String, Any>()
+            val columns = mapOf<String, Any>()
+            // 如果不是最后一行，则继续循环
+            while (eventCursor.isAfterLast.not()) {
+                // TODO: 2021-03-09 对查询出来的字段进行封装
+
+                // 将游标移动到下一行
+                eventCursor.moveToNext()
+            }
+        }
+        eventCursor.close()
+    }
+
+    private const val TAG = "CalendarReminderUtils"
 }

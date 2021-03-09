@@ -8,6 +8,7 @@ import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.databinding.ActivitySmartBandsSettingBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.model.Facility
+import com.fjkyly.paradise.network.request.Repository
 
 /**
  * 智能手环设置界面
@@ -64,7 +65,7 @@ class SmartBandsSettingActivity : BaseActivity() {
             heartRateUploadIntervalContainer.setOnClickListener {
                 simpleToast("心率上传正在开发中...")
             }
-            gpsSwitchSwt.setOnCheckedChangeListener { buttonView, isChecked ->
+            gpsSwitchSwt.setOnCheckedChangeListener { _, _ ->
                 simpleToast("GPS开关正在开发中...")
             }
             gpsUploadContainer.setOnClickListener {
@@ -73,11 +74,14 @@ class SmartBandsSettingActivity : BaseActivity() {
             lowPowerRemindContainer.setOnClickListener {
                 simpleToast("低电提醒正在开发中...")
             }
-            smsSwitchSwt.setOnCheckedChangeListener { buttonView, isChecked ->
+            smsSwitchSwt.setOnCheckedChangeListener { _, _ ->
                 simpleToast("短信开关正在开发中...")
             }
             unBindFacilityBtn.setOnClickListener {
-                simpleToast("解绑设备正在开发中...")
+                Repository.unbindDevice(deviceId = mFacility.facilityId, lifecycle = lifecycle) {
+                    finish()
+                    simpleToast("设备解绑成功！")
+                }
             }
         }
     }

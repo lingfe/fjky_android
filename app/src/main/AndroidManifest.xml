@@ -103,9 +103,13 @@
             android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
             android:label="dexopt"
             android:process=":dexopt" />
+        <!--提醒服务-->
+        <service android:name=".service.RemindService" />
+        <receiver android:name=".service.AlarmReceiver" />
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="150684c1417c919018ef95589defe27c"></meta-data>
+            android:value="150684c1417c919018ef95589defe27c" />
     </application>
 
 </manifest>

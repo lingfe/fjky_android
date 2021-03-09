@@ -108,4 +108,6 @@ dependencies {
     implementation "androidx.work:work-runtime:$work_version"
     // Kotlin + coroutines
     implementation "androidx.work:work-runtime-ktx:$work_version"
+    // 日历事件导出封装库
+    implementation 'com.paul.eventreminder:eventreminder:0.0.6'
 }

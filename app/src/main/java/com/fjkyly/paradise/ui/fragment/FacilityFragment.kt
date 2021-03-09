@@ -3,9 +3,9 @@ package com.fjkyly.paradise.ui.fragment
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
@@ -13,7 +13,6 @@ import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.MarkerOptions
-import com.blankj.utilcode.util.GsonUtils
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.adapter.CustomInfoWindowAdapter
 import com.fjkyly.paradise.adapter.ItemFacilityListAdapter
@@ -22,9 +21,14 @@ import com.fjkyly.paradise.databinding.FragmentFacilityBinding
 import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
+import com.fjkyly.paradise.other.CalendarUtils
 import com.fjkyly.paradise.provider.LocationProvider
 import com.fjkyly.paradise.ui.activity.AddFacilityActivity
 import com.fjkyly.paradise.ui.activity.SmartBandsSettingActivity
+import com.paul.eventreminder.model.CalendarEvent
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * 设备列表界面
@@ -83,6 +87,45 @@ class FacilityFragment : BaseFragment() {
         }
         mBinding.facilityMapView.onResume()
         loadData()
+        // TODO: 2021-03-09 仅为测试定时任务功能，后期将删除
+        // requireContext().startService(Intent(requireContext(), RemindService::class.java))
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                // TODO: 2021-03-09 测试日历添加、删除、查询功能，后期将从此处移除
+                // val calendarEventList = arrayListOf<CalendarEvent>()
+                // for (week in 1..7) {
+                //     val calendarEvent = CalendarEvent().apply {
+                //         summary = "测试吃药提醒"
+                //         content = "大郎，该吃药药啦~"
+                //         loc = "瑜龙世家"
+                //         startTime = "15:04"
+                //         endTime = "15:05"
+                //         dayOfWeek = week
+                //         weekList = mutableListOf(0, 1, 2, 3, 5)
+                //     }
+                //     calendarEventList.add(calendarEvent)
+                // }
+                CalendarUtils().deleteCalendarEvent("测试吃药提醒")
+                CalendarUtils()
+                    .setAlarm(true)
+                    .setAlarmTime(0)
+                    .setRepeat(true).also {
+                        val calendarEvent = CalendarEvent().apply {
+                            summary = "测试吃药提醒"
+                            content = "大郎，该吃药药啦~"
+                            loc = "瑜龙世家"
+                            startTime = "15:04"
+                            endTime = "15:05"
+                            dayOfWeek = 2
+                            weekList = mutableListOf(0)
+                        }
+                        it.addCalendarEvent(calendarEvent, 0, null)
+                    }
+                // TODO: 2021-03-09 查询日历事件有点问题，游标被关闭了，待解决
+                CalendarUtils().queryAllEvent()
+            }
+            simpleToast("日历事件添加完毕！")
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -92,20 +135,20 @@ class FacilityFragment : BaseFragment() {
                 clear()
                 val facilityList = it.data
                 for (data in facilityList) {
-                    mFacilityList.add(
+                    add(
                         Facility(
                             name = data.dtypeName,
                             facilityBrandName = data.dname,
                             facilityId = data.id,
                             facilityStatus = data.state,
-                            facilityType = 0
+                            facilityType = data.dtypeCode,
+                            facilityTypeName = data.dtypeName
                         )
                     )
                 }
                 itemFacilityListAdapter.setData(this)
             }
         }
-
     }
 
     override fun initView() {
@@ -135,7 +178,7 @@ class FacilityFragment : BaseFragment() {
         )
         mAMap.moveCamera(mCameraUpdate)
         mAMap.moveCamera(CameraUpdateFactory.zoomTo(15f))
-        Log.d(TAG, "initMapInfoWindow: ===>latLng：${GsonUtils.toJson(latLng)}")
+        // Log.d(TAG, "initMapInfoWindow: ===>latLng：${GsonUtils.toJson(latLng)}")
         val markerOptions = MarkerOptions()
             // 在地图上标记位置的经纬度值。必填参数
             .position(latLng)
@@ -173,13 +216,9 @@ class FacilityFragment : BaseFragment() {
                 requireContext().startActivity<AddFacilityActivity>()
             }
         }
-        itemFacilityListAdapter.setOnItemClickListener { facility, _ ->
-            // TODO: 2021-03-05 此处应该根据设备类型进行判断需要跳转到哪一个界面
-            if (facility.facilityType == 0) {
-                SmartBandsSettingActivity.startActivity(requireContext(), facility = facility)
-            } else {
-                simpleToast("点击了${facility.name}，状态${facility.getFacilityStatus()}，功能正在开发中...")
-            }
+        itemFacilityListAdapter.setOnSettingClickListener { facility, _ ->
+            // 进入设备设置界面
+            SmartBandsSettingActivity.startActivity(requireContext(), facility = facility)
         }
     }
 

@@ -19,11 +19,12 @@ data class Facility(
     val facilityBrandName: String = "未知品牌$name",
     val facilityId: String,
     val facilityType: Int,
-    var facilityStatus: Int = 0
+    var facilityStatus: Int = 0,
+    val facilityTypeName: String = "未知设备类型"
 ) {
     fun getFacilityStatus(): String {
         return when (facilityStatus) {
-            0 -> "离线"
+            0 -> "设备连接失败"
             1 -> "在线"
             else -> "状态异常"
         }

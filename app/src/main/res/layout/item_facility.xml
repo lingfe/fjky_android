@@ -52,14 +52,19 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:text="设置"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
+            android:id="@+id/facilitySettingBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="查看" />
+            android:text="设置" />
+
+        <TextView
+            android:id="@+id/facilityTypeNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="设备类型描述"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="--智能手环" />
 
     </LinearLayout>
 
