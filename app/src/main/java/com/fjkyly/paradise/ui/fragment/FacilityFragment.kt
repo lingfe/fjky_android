@@ -1,5 +1,6 @@
 package com.fjkyly.paradise.ui.fragment
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -23,9 +24,9 @@ import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.other.CalendarUtils
 import com.fjkyly.paradise.provider.LocationProvider
+import com.fjkyly.paradise.service.RemindService
 import com.fjkyly.paradise.ui.activity.AddFacilityActivity
 import com.fjkyly.paradise.ui.activity.SmartBandsSettingActivity
-import com.paul.eventreminder.model.CalendarEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -88,41 +89,22 @@ class FacilityFragment : BaseFragment() {
         mBinding.facilityMapView.onResume()
         loadData()
         // TODO: 2021-03-09 仅为测试定时任务功能，后期将删除
-        // requireContext().startService(Intent(requireContext(), RemindService::class.java))
+        requireContext().startService(Intent(requireContext(), RemindService::class.java))
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 // TODO: 2021-03-09 测试日历添加、删除、查询功能，后期将从此处移除
-                // val calendarEventList = arrayListOf<CalendarEvent>()
-                // for (week in 1..7) {
-                //     val calendarEvent = CalendarEvent().apply {
-                //         summary = "测试吃药提醒"
-                //         content = "大郎，该吃药药啦~"
-                //         loc = "瑜龙世家"
-                //         startTime = "15:04"
-                //         endTime = "15:05"
-                //         dayOfWeek = week
-                //         weekList = mutableListOf(0, 1, 2, 3, 5)
-                //     }
-                //     calendarEventList.add(calendarEvent)
-                // }
-                CalendarUtils().deleteCalendarEvent("测试吃药提醒")
-                CalendarUtils()
-                    .setAlarm(true)
-                    .setAlarmTime(0)
-                    .setRepeat(true).also {
-                        val calendarEvent = CalendarEvent().apply {
-                            summary = "测试吃药提醒"
-                            content = "大郎，该吃药药啦~"
-                            loc = "瑜龙世家"
-                            startTime = "15:04"
-                            endTime = "15:05"
-                            dayOfWeek = 2
-                            weekList = mutableListOf(0)
-                        }
-                        it.addCalendarEvent(calendarEvent, 0, null)
-                    }
-                // TODO: 2021-03-09 查询日历事件有点问题，游标被关闭了，待解决
-                CalendarUtils().queryAllEvent()
+                CalendarUtils().apply {
+                    deleteEventByTitle("吃药提醒") {}
+                    setRepeat(true)
+                    setAlarm(true)
+                    insertCalendarEvent(
+                        eventTitle = "吃药提醒",
+                        eventDescription = "吃药药啦！",
+                        eventLocation = "瑜龙世家",
+                        startTimeMillis = System.currentTimeMillis() + 10000,
+                        endTimeMillis = System.currentTimeMillis()
+                    )
+                }
             }
             simpleToast("日历事件添加完毕！")
         }
