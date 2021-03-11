@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
@@ -22,14 +21,10 @@ import com.fjkyly.paradise.databinding.FragmentFacilityBinding
 import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
-import com.fjkyly.paradise.other.CalendarUtils
 import com.fjkyly.paradise.provider.LocationProvider
 import com.fjkyly.paradise.service.RemindService
 import com.fjkyly.paradise.ui.activity.AddFacilityActivity
 import com.fjkyly.paradise.ui.activity.SmartBandsSettingActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * 设备列表界面
@@ -90,24 +85,6 @@ class FacilityFragment : BaseFragment() {
         loadData()
         // TODO: 2021-03-09 仅为测试定时任务功能，后期将删除
         requireContext().startService(Intent(requireContext(), RemindService::class.java))
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                // TODO: 2021-03-09 测试日历添加、删除、查询功能，后期将从此处移除
-                CalendarUtils().apply {
-                    deleteEventByTitle("吃药提醒") {}
-                    setRepeat(true)
-                    setAlarm(true)
-                    insertCalendarEvent(
-                        eventTitle = "吃药提醒",
-                        eventDescription = "吃药药啦！",
-                        eventLocation = "瑜龙世家",
-                        startTimeMillis = System.currentTimeMillis() + 10000,
-                        endTimeMillis = System.currentTimeMillis()
-                    )
-                }
-            }
-            simpleToast("日历事件添加完毕！")
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

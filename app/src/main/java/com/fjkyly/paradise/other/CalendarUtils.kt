@@ -130,25 +130,25 @@ class CalendarUtils {
         val result = mutableListOf<Map<String, String>>()
         mContext.contentResolver
             .query(CalendarContract.Calendars.CONTENT_URI, null, null, null, null)
-            .use { userCursor ->
-                if (userCursor != null && userCursor.count > 0) {
-                    userCursor.moveToFirst()
-                    while (!userCursor.isAfterLast) {
+            .use { cursor ->
+                if (cursor != null && cursor.count > 0) {
+                    cursor.moveToFirst()
+                    while (!cursor.isAfterLast) {
                         val account =
-                            userCursor.getString(userCursor.getColumnIndex(CalendarContract.Calendars.ACCOUNT_NAME))
+                            cursor.getString(cursor.getColumnIndex(CalendarContract.Calendars.ACCOUNT_NAME))
                         val name =
-                            userCursor.getString(userCursor.getColumnIndex(CalendarContract.Calendars.DEFAULT_SORT_ORDER))
+                            cursor.getString(cursor.getColumnIndex(CalendarContract.Calendars.DEFAULT_SORT_ORDER))
                         val calId =
-                            userCursor.getInt(userCursor.getColumnIndex(CalendarContract.Calendars._ID))
+                            cursor.getInt(cursor.getColumnIndex(CalendarContract.Calendars._ID))
                         val map: MutableMap<String, String> =
                             HashMap()
                         map["name"] = name
                         map["account"] = account
                         map["calId"] = calId.toString()
                         result.add(map)
-                        userCursor.moveToNext()
+                        cursor.moveToNext()
                     }
-                    userCursor.close()
+                    cursor.close()
                 }
             }
         if (result.isEmpty()) {
@@ -267,7 +267,7 @@ class CalendarUtils {
             event.put(CalendarContract.Events.RRULE, EVERY_DAY_RRLUE)
             event.put(CalendarContract.Events.DURATION, "P60S")
         }
-        event.put(CalendarContract.Events.HAS_ALARM, 0) // 设置有闹钟提醒,1：有提醒
+        event.put(CalendarContract.Events.HAS_ALARM, 1) // 设置有闹钟提醒,1：有提醒
         event.put(CalendarContract.Events.EVENT_TIMEZONE, "Asia/Shanghai") // 这个是时区，必须有
         val newEvent = mContext.contentResolver
             .insert(Uri.parse(CALENDER_EVENT_URL), event) // 添加事件
@@ -300,29 +300,32 @@ class CalendarUtils {
         }
     }
 
-    fun queryAllEvent() {
+    fun queryAllEvent(block: (result: String) -> Unit) {
+        val strBuilder = StringBuilder()
         mContext.contentResolver
             .query(Uri.parse(CALENDER_EVENT_URL), null, null, null, null)
-            .use { eventCursor ->
-                eventCursor ?: return
-                if (eventCursor.count > 0) {
+            .use { cursor ->
+                cursor ?: return
+                if (cursor.count > 0) {
                     //遍历所有事件
-                    eventCursor.moveToFirst()
-                    val columnNames = eventCursor.columnNames
-                    while (eventCursor.isAfterLast.not()) {
+                    cursor.moveToFirst()
+                    val columnNames = cursor.columnNames
+                    while (cursor.isAfterLast.not()) {
                         for (columnName in columnNames) {
                             val value =
-                                eventCursor.getString(eventCursor.getColumnIndex(columnName))
-                            Log.d(TAG, "queryAllEvent: ===>key：$columnName，value：$value")
+                                cursor.getString(cursor.getColumnIndex(columnName))
+                            strBuilder.append("key：$columnName，value：$value\n")
+                            // Log.d(TAG, "queryAllEvent: ===>key：$columnName，value：$value")
                         }
                         // val eventTitle =
-                        //     eventCursor.getString(eventCursor.getColumnIndex("title"))
+                        //     cursor.getString(cursor.getColumnIndex("title"))
                         // Log.d(TAG, "queryAllEvent: ===>title：$eventTitle")
-                        eventCursor.moveToNext()
+                        cursor.moveToNext()
                     }
                 }
-                eventCursor.close()
+                cursor.close()
             }
+        block(strBuilder.toString())
     }
 
     /**

@@ -9,7 +9,7 @@ import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.base.BaseFragmentStateAdapter
 import com.fjkyly.paradise.databinding.ActivityHomeBinding
 import com.fjkyly.paradise.ui.fragment.BrowserFragment
-import com.fjkyly.paradise.ui.fragment.EmptyFragment
+import com.fjkyly.paradise.ui.fragment.CalendarEventTestFragment
 import com.fjkyly.paradise.ui.fragment.FacilityFragment
 import com.fjkyly.paradise.ui.fragment.MeFragment
 import com.fjkyly.paradise.ui.views.NavigationMediator
@@ -51,8 +51,8 @@ class HomeActivity : BaseActivity() {
         fragmentList.run {
             add(BrowserFragment())
             add(FacilityFragment())
-            add(EmptyFragment().setEmptyTips("商城"))
-            add(EmptyFragment().setEmptyTips("资讯"))
+            add(CalendarEventTestFragment().setEmptyTips("商城"))
+            add(CalendarEventTestFragment().setEmptyTips("资讯"))
             add(MeFragment())
         }
         fragmentStateAdapter.setFragmentList(fragmentList)
