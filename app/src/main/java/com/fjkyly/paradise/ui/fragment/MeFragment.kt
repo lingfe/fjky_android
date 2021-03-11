@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
 import com.fjkyly.paradise.R
-import com.fjkyly.paradise.base.App
 import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.databinding.FragmentMeBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
+import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.activity.AccountManagerActivity
 
 /**
@@ -38,10 +38,14 @@ class MeFragment : BaseFragment() {
                 simpleToast("消息功能开发中...")
             }
             meInclude.run {
-                Glide.with(this@MeFragment)
-                    .load(App.getUserAvatar())
-                    .into(meAvatarIv)
-                meAccountIdTv.text = App.getUserName()
+                Repository.queryUserBasicInfo(lifecycle = lifecycle) {
+                    val data = it.data
+                    val userInfo = data.userInfo
+                    Glide.with(this@MeFragment)
+                        .load(userInfo.userImg)
+                        .into(meAvatarIv)
+                    meAccountIdTv.text = userInfo.username
+                }
                 mePhoneModifyContainer.setOnClickListener {
                     // TODO: 2021-03-05 进入账号管理界面
                     requireContext().startActivity<AccountManagerActivity>()
