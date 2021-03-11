@@ -15,6 +15,39 @@ import java.io.File
 
 object Repository {
 
+    /**
+     * 获取用户基本信息（包含:用户名、头像、基本信息等）
+     */
+    fun queryUserBasicInfo(lifecycle: Lifecycle, block: (userBasicInfo: UserBasicInfo) -> Unit) {
+        val queryUserBasicInfoApi = ServiceCreator.create<QueryUserBasicInfoApi>()
+        queryUserBasicInfoApi.query()
+            .enqueue(object : retrofit2.Callback<UserBasicInfo> {
+                override fun onResponse(
+                    call: Call<UserBasicInfo>,
+                    response: Response<UserBasicInfo>
+                ) {
+                    val body = response.body()?.let {
+                        Log.d(TAG, "onResponse：queryUserBasicInfo ===>${GsonUtils.toJson(it)}")
+                        if (it.state == HTTP_OK) {
+                            if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                                block(it)
+                            }
+                        } else {
+                            simpleToast(it.msg)
+                        }
+                    }
+                    if (body == null) {
+                        simpleToast("服务器数据异常，请稍后重试！")
+                    }
+                }
+
+                override fun onFailure(call: Call<UserBasicInfo>, t: Throwable) {
+                    t.printStackTrace()
+                    simpleToast("用户信息获取失败，请稍后重试！")
+                }
+            })
+    }
+
     fun unbindDevice(
         deviceId: String, lifecycle: Lifecycle,
         block: (unbindDevice: UnbindDevice) -> Unit

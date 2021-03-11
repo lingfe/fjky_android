@@ -28,7 +28,7 @@ class HomeActivity : BaseActivity() {
     private val fragmentStateAdapter by lazy {
         BaseFragmentStateAdapter(this)
     }
-    private val fragmentList = mutableListOf<BaseFragment>()
+    private val fragmentList = arrayListOf<BaseFragment>()
     private lateinit var navigationMediator: NavigationMediator
 
     override fun onCreate(savedInstanceState: Bundle?) {

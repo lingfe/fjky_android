@@ -9,7 +9,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.Glide
@@ -56,18 +55,19 @@ class AccountManagerActivity : BaseActivity() {
 
     private fun loadData() {
         mBinding.run {
-            val oldUserAvatar = App.getUserAvatar()
-            // Log.d(TAG, "loadData: ===>oldUserAvatar：$oldUserAvatar")
-            Glide.with(this@AccountManagerActivity)
-                .load(oldUserAvatar)
-                .error(R.drawable.icon_person)
-                .into(accountMangerAvatarIv)
-            App.accountLoginInfo?.run {
+            Repository.queryUserBasicInfo(lifecycle = lifecycle) {
+                val data = it.data
                 val userInfo = data.userInfo
-                val assInfo = data.assInfo
-                Log.d(TAG, "loadData: ===>${userInfo.username}")
+                val essInfo = data.essInfo
+                // 用户头像
+                Glide.with(this@AccountManagerActivity)
+                    .load(userInfo.userImg)
+                    .error(R.drawable.icon_person)
+                    .into(accountMangerAvatarIv)
+                // 用户名称
                 accountMangerNameTv.text = userInfo.username
-                accountMangerPhoneNumTv.text = assInfo.phone
+                // 用户手机号
+                accountMangerPhoneNumTv.text = essInfo.phone
             }
         }
     }

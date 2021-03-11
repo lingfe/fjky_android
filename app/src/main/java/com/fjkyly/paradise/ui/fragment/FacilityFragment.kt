@@ -1,6 +1,5 @@
 package com.fjkyly.paradise.ui.fragment
 
-import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -22,7 +21,6 @@ import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.provider.LocationProvider
-import com.fjkyly.paradise.service.RemindService
 import com.fjkyly.paradise.ui.activity.AddFacilityActivity
 import com.fjkyly.paradise.ui.activity.SmartBandsSettingActivity
 
@@ -41,7 +39,7 @@ class FacilityFragment : BaseFragment() {
     private val itemFacilityListAdapter by lazy {
         ItemFacilityListAdapter(facilityBrandName = true)
     }
-    private val mFacilityList = mutableListOf<Facility>()
+    private val mFacilityList = arrayListOf<Facility>()
     private var _aMap: AMap? = null
     private val mAMap get() = _aMap!!
     private val mMapAppList = arrayListOf(GAO_DE_MAP, BAI_DU_MAP)
@@ -83,8 +81,6 @@ class FacilityFragment : BaseFragment() {
         }
         mBinding.facilityMapView.onResume()
         loadData()
-        // TODO: 2021-03-09 仅为测试定时任务功能，后期将删除
-        requireContext().startService(Intent(requireContext(), RemindService::class.java))
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
