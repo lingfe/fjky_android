@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_main"
     android:orientation="vertical"
-    tools:context=".ui.activity.ToggleActivity">
+    tools:context=".ui.activity.DateRangeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,14 +17,15 @@
         android:paddingBottom="5dp">
 
         <ImageView
-            android:id="@+id/toggleBackIv"
+            android:id="@+id/rangeRulerBackIv"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
             android:padding="10dp"
             android:src="@drawable/icon_back" />
 
         <TextView
-            android:id="@+id/toggleTitleTv"
+            android:id="@+id/dateRangeTitleTv"
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -35,18 +35,56 @@
             android:textSize="18sp" />
 
         <View
-            android:layout_width="40dp"
+            android:layout_width="60dp"
             android:layout_height="40dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/black"
             android:visibility="invisible" />
 
     </LinearLayout>
 
-    <com.suke.widget.SwitchButton
-        android:id="@+id/toggleBtn"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="60dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="开始日期：" />
+
+        <TextView
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="结束日期：" />
+
+        <TextView
+            android:id="@+id/endDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center" />
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/saveBtn"

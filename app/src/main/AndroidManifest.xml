@@ -38,7 +38,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Paradise"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.ToggleActivity"></activity>
+        <activity android:name=".ui.activity.DateRangeActivity"></activity>
+        <activity android:name=".ui.activity.ToggleActivity" />
         <activity android:name=".ui.activity.RangeRulerActivity" />
         <activity android:name=".ui.activity.SmartBandsListActivity" />
         <activity android:name=".ui.activity.UserNameSettingActivity" />

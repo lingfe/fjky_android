@@ -71,7 +71,7 @@ class DeviceFunSettingActivity : BaseActivity() {
             unBindFacilityBtn.setOnClickListener {
                 Repository.unbindDevice(deviceId = mFacility.facilityId, lifecycle = lifecycle) {
                     finish()
-                    simpleToast("设备解绑成功！")
+                    simpleToast(it.msg)
                 }
             }
         }
@@ -79,6 +79,7 @@ class DeviceFunSettingActivity : BaseActivity() {
             when (deviceFun.funValueType) {
                 "1" -> RangeRulerActivity.startActivity(this, deviceFun = deviceFun)
                 "2" -> ToggleActivity.startActivity(this, deviceFun = deviceFun)
+                "4" -> DateRangeActivity.startActivity(this, deviceFun = deviceFun)
             }
         }
     }
