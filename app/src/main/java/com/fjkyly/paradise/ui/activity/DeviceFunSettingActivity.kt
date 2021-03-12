@@ -50,8 +50,9 @@ class DeviceFunSettingActivity : BaseActivity() {
             mDeviceFunList.apply {
                 clear()
                 addAll(it.data.devFunList)
+                // 根据功能 ID 进行排序
+                sortedBy { it.funId }
             }.also { deviceSettingFunList ->
-                deviceSettingFunList.sortedBy { it.funId }
                 itemDeviceFunSettingAdapter.setData(deviceSettingFunList)
             }
         }

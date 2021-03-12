@@ -1,6 +1,7 @@
 package com.fjkyly.paradise.adapter
 
 import android.view.View
+import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -22,11 +23,20 @@ class ItemDeviceFunSettingAdapter :
         return InnerHolder(itemView)
     }
 
+    private var lastTime = 0L
+
     override fun onBindViewHolder(holder: ItemDeviceFunSettingAdapter.InnerHolder, position: Int) {
         val deviceFun = mDeviceFunList[position]
         holder.run {
             itemView.setOnClickListener {
-                if (::mListener.isInitialized) mListener(deviceFun, position)
+                if (::mListener.isInitialized) {
+                    val currentTime = System.currentTimeMillis()
+                    val singleClick =
+                        currentTime - lastTime > ViewConfiguration.getDoubleTapTimeout()
+                    // 如果只有用户的手指是单击时才回调，防止用户连续点击
+                    if (singleClick) mListener(deviceFun, position)
+                    lastTime = currentTime
+                }
             }
             menuNameTv.text = deviceFun.funName
         }

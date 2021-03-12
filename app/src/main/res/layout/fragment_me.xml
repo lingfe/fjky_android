@@ -83,6 +83,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:contentDescription="个人详细信息"
+                        android:gravity="center"
                         android:orientation="horizontal"
                         android:padding="10dp">
 
@@ -120,6 +121,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:contentDescription="亲友"
+                        android:gravity="center"
                         android:orientation="horizontal"
                         android:padding="10dp">
 
@@ -167,6 +169,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:contentDescription="意见反馈"
+                        android:gravity="center"
                         android:orientation="horizontal"
                         android:padding="10dp">
 
@@ -204,6 +207,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:contentDescription="常见问题"
+                        android:gravity="center"
                         android:orientation="horizontal"
                         android:padding="10dp">
 
