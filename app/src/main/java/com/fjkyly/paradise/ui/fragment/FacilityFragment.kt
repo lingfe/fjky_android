@@ -22,7 +22,7 @@ import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.provider.LocationProvider
 import com.fjkyly.paradise.ui.activity.AddFacilityActivity
-import com.fjkyly.paradise.ui.activity.SmartBandsSettingActivity
+import com.fjkyly.paradise.ui.activity.DeviceFunSettingActivity
 
 /**
  * 设备列表界面
@@ -173,7 +173,7 @@ class FacilityFragment : BaseFragment() {
         }
         itemFacilityListAdapter.setOnSettingClickListener { facility, _ ->
             // 进入设备设置界面
-            SmartBandsSettingActivity.startActivity(requireContext(), facility = facility)
+            DeviceFunSettingActivity.startActivity(requireContext(), facility = facility)
         }
     }
 

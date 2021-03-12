@@ -37,7 +37,7 @@ class SmartBandsActivity : BaseActivity() {
                 finish()
             }
             smartBandsSettingTv.setOnClickListener {
-                SmartBandsSettingActivity.startActivity(this@SmartBandsActivity, facility = mFacility)
+                DeviceFunSettingActivity.startActivity(this@SmartBandsActivity, facility = mFacility)
                 simpleToast("设置智能手环功能正在开发中...")
             }
             smartBandsLocationContainer.setOnClickListener {

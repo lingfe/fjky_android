@@ -52,7 +52,7 @@
         <activity android:name=".ui.activity.VolumeSettingActivity" />
         <activity android:name=".ui.activity.AddKinsfolkActivity" />
         <activity android:name=".ui.activity.FamilyNumberActivity" />
-        <activity android:name=".ui.activity.SmartBandsSettingActivity" />
+        <activity android:name=".ui.activity.DeviceFunSettingActivity" />
         <activity
             android:name=".ui.activity.ScanQrCodeActivity"
             android:screenOrientation="portrait" />

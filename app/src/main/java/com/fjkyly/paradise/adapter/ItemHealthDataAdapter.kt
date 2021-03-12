@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.expand.inflate
-import com.fjkyly.paradise.model.MenuAction
+import com.fjkyly.paradise.model.HealthMenuAction
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ItemHealthDataAdapter : RecyclerView.Adapter<ItemHealthDataAdapter.InnerHolder>() {
 
-    private val mMenuList = arrayListOf<MenuAction>()
-    private lateinit var mListener: (menuAction: MenuAction, position: Int) -> Unit
+    private val mMenuList = arrayListOf<HealthMenuAction>()
+    private lateinit var mListener: (healthMenuAction: HealthMenuAction, position: Int) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerHolder {
         val itemView = inflate(R.layout.item_health_data_menu, parent)
@@ -33,13 +33,13 @@ class ItemHealthDataAdapter : RecyclerView.Adapter<ItemHealthDataAdapter.InnerHo
         }
     }
 
-    fun setOnItemClickListener(listener: (menuAction: MenuAction, position: Int) -> Unit) {
+    fun setOnItemClickListener(listener: (healthMenuAction: HealthMenuAction, position: Int) -> Unit) {
         mListener = listener
     }
 
     override fun getItemCount(): Int = mMenuList.size
 
-    fun setData(data: MutableList<MenuAction>) {
+    fun setData(data: MutableList<HealthMenuAction>) {
         mMenuList.run {
             clear()
             addAll(data)

@@ -16,6 +16,43 @@ import java.io.File
 object Repository {
 
     /**
+     * 查询设备功能列表
+     */
+    fun queryDeviceFunList(
+        deviceId: String,
+        lifecycle: Lifecycle,
+        block: (deviceSettingFun: DeviceSettingFun) -> Unit
+    ) {
+        val queryDeviceFunListApi = ServiceCreator.create<QueryDeviceFunListApi>()
+        queryDeviceFunListApi.query(deviceId = deviceId)
+            .enqueue(object : retrofit2.Callback<DeviceSettingFun> {
+                override fun onResponse(
+                    call: Call<DeviceSettingFun>,
+                    response: Response<DeviceSettingFun>
+                ) {
+                    val body = response.body()?.let {
+                        Log.d(TAG, "onResponse：queryDeviceFunList ===>${GsonUtils.toJson(it)}")
+                        if (it.state == HTTP_OK) {
+                            if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                                block(it)
+                            }
+                        } else {
+                            simpleToast(it.msg)
+                        }
+                    }
+                    if (body == null) {
+                        simpleToast("服务器数据异常，请稍后重试！")
+                    }
+                }
+
+                override fun onFailure(call: Call<DeviceSettingFun>, t: Throwable) {
+                    t.printStackTrace()
+                    simpleToast("设备功能列表获取失败，请稍后重试！")
+                }
+            })
+    }
+
+    /**
      * 获取用户基本信息（包含:用户名、头像、基本信息等）
      */
     fun queryUserBasicInfo(lifecycle: Lifecycle, block: (userBasicInfo: UserBasicInfo) -> Unit) {

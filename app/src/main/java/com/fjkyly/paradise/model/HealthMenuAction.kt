@@ -7,4 +7,4 @@ package com.fjkyly.paradise.model
  * @property menuName String 菜单名称
  * @constructor
  */
-data class MenuAction(val icon: Int, val menuName: String)
+data class HealthMenuAction(val icon: Int, val menuName: String)

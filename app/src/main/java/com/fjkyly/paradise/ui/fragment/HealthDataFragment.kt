@@ -6,7 +6,7 @@ import com.fjkyly.paradise.R
 import com.fjkyly.paradise.adapter.ItemHealthDataAdapter
 import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.databinding.FragmentHealthDataBinding
-import com.fjkyly.paradise.model.MenuAction
+import com.fjkyly.paradise.model.HealthMenuAction
 
 /**
  * 健康数据界面
@@ -23,7 +23,7 @@ class HealthDataFragment : BaseFragment() {
     private val itemHealthDataAdapter by lazy {
         ItemHealthDataAdapter()
     }
-    private val menuActionList = arrayListOf<MenuAction>()
+    private val menuActionList = arrayListOf<HealthMenuAction>()
 
     override fun getLayoutResId(): Int = R.layout.fragment_health_data
 
