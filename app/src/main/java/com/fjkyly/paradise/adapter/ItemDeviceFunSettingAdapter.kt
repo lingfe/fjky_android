@@ -57,6 +57,6 @@ class ItemDeviceFunSettingAdapter :
     }
 
     inner class InnerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val menuNameTv: TextView = itemView.findViewById(R.id.menuNameTv)
+        val menuNameTv: TextView = itemView.findViewById(R.id.funNameTv)
     }
 }

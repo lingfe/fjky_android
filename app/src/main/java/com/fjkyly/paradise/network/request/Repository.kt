@@ -15,6 +15,40 @@ import java.io.File
 
 object Repository {
 
+    fun modifyDeviceFunValue(
+        deviceFunId: String,
+        deviceFunValue: String,
+        lifecycle: Lifecycle, block: (modifyDeviceSettingFun: ModifyDeviceSettingFun) -> Unit
+    ) {
+        val modifyDeviceSettingFunApi = ServiceCreator.create<ModifyDeviceSettingFunApi>()
+        modifyDeviceSettingFunApi.modify(deviceFunId = deviceFunId, deviceFunValue = deviceFunValue)
+            .enqueue(object : retrofit2.Callback<ModifyDeviceSettingFun> {
+                override fun onResponse(
+                    call: Call<ModifyDeviceSettingFun>,
+                    response: Response<ModifyDeviceSettingFun>
+                ) {
+                    val body = response.body()?.let {
+                        Log.d(TAG, "onResponse：ModifyDeviceSettingFun ===>${GsonUtils.toJson(it)}")
+                        if (it.state == HTTP_OK) {
+                            if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                                block(it)
+                            }
+                        } else {
+                            simpleToast(it.msg)
+                        }
+                    }
+                    if (body == null) {
+                        simpleToast("服务器数据异常，请稍后重试！")
+                    }
+                }
+
+                override fun onFailure(call: Call<ModifyDeviceSettingFun>, t: Throwable) {
+                    t.printStackTrace()
+                    simpleToast("修改失败，请稍后重试！")
+                }
+            })
+    }
+
     /**
      * 查询设备功能列表
      */

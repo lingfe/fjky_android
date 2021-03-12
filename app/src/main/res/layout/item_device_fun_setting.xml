@@ -4,7 +4,7 @@
     android:id="@+id/familyNumberContainer"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="1dp"
     android:background="@color/white"
     android:contentDescription="功能选项"
     android:gravity="center"
@@ -12,7 +12,7 @@
     tools:ignore="RtlSymmetry">
 
     <TextView
-        android:id="@+id/menuNameTv"
+        android:id="@+id/funNameTv"
         android:layout_width="0px"
         android:layout_height="match_parent"
         android:layout_weight="1"

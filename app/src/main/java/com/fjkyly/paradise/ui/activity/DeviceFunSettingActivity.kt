@@ -14,9 +14,8 @@ import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
 
 /**
- * 智能手环设置界面
+ * 设备功能列表界面
  *
- * @property mBinding ActivityDeviceFunSettingBinding
  */
 class DeviceFunSettingActivity : BaseActivity() {
 
@@ -77,6 +76,9 @@ class DeviceFunSettingActivity : BaseActivity() {
             }
         }
         itemDeviceFunSettingAdapter.setOnItemClickListener { deviceFun, _ ->
+            when (deviceFun.funValueType) {
+                "1" -> RangeRulerActivity.startActivity(this, deviceFun = deviceFun)
+            }
             simpleToast("功能名称：${deviceFun.funName}")
         }
     }
