@@ -112,4 +112,6 @@ dependencies {
     implementation 'com.paul.eventreminder:eventreminder:0.0.6'
     // 自定义刻度尺：https://github.com/zjun615/RulerView
     implementation 'com.zjun:rule-view:0.0.1'
+    // 一个漂亮+轻量级+自定义风格的简易开关小工具：https://github.com/zcweng/SwitchButton
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 }

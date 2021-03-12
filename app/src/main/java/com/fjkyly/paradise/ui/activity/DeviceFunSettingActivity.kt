@@ -59,7 +59,7 @@ class DeviceFunSettingActivity : BaseActivity() {
 
     override fun initEvent() {
         mBinding.run {
-            smartBandsSettingBackIv.setOnClickListener {
+            deviceFunSettingBackIv.setOnClickListener {
                 finish()
             }
             modifyFacilityNameTv.setOnClickListener {
@@ -78,8 +78,8 @@ class DeviceFunSettingActivity : BaseActivity() {
         itemDeviceFunSettingAdapter.setOnItemClickListener { deviceFun, _ ->
             when (deviceFun.funValueType) {
                 "1" -> RangeRulerActivity.startActivity(this, deviceFun = deviceFun)
+                "2" -> ToggleActivity.startActivity(this, deviceFun = deviceFun)
             }
-            simpleToast("功能名称：${deviceFun.funName}")
         }
     }
 
