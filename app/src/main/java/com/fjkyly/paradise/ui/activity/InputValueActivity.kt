@@ -67,11 +67,11 @@ class InputValueActivity : BaseActivity() {
         val isOk = when (mDeviceFun.funValueType) {
             // 没有条件的纯文本，无需验证，直接返回 true
             0 -> true
-            3 -> inputValue.contains("~")
-            5 -> inputValue.contains(",")
-            6 -> inputValue.contains(",")
-            7 -> inputValue.contains("-")
-            8 -> inputValue.contains("-")
+            3 -> inputValue.contains(Regex("~"))
+            5 -> inputValue.contains(Regex(","))
+            6 -> inputValue.contains(Regex(","))
+            7 -> inputValue.contains(Regex("-"))
+            8 -> inputValue.contains(Regex("-"))
             // 如果不在定义的范围之内，直接返回 false
             else -> false
         }
