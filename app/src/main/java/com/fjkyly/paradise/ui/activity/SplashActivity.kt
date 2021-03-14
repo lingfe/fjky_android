@@ -25,7 +25,7 @@ class SplashActivity : BaseActivity() {
     }
 
     companion object {
-        //        const val DELAY_JUMP_TIME = 1000L
-        const val DELAY_JUMP_TIME = 0L
+        const val DELAY_JUMP_TIME = 1000L
+        // const val DELAY_JUMP_TIME = 0L
     }
 }

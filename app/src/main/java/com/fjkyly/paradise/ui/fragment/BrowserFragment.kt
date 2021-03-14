@@ -61,8 +61,8 @@ class BrowserFragment : BaseFragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         mBinding.run {
             x5WebView.removeJavascriptInterface("appNative")
         }

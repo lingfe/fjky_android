@@ -3,15 +3,10 @@ package com.fjkyly.paradise.ui.activity
 import android.os.Bundle
 import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.databinding.ActivityRegisterBinding
-import com.fjkyly.paradise.expand.mainHandler
 import com.fjkyly.paradise.expand.simpleToast
-import com.fjkyly.paradise.model.Register
+import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
-import com.fjkyly.paradise.network.request.ServiceCreator
-import com.fjkyly.paradise.network.request.api.AccountRegisterApi
 import com.vondear.rxtool.RxConstTool
-import retrofit2.Call
-import retrofit2.Response
 
 /**
  * 注册界面
@@ -61,8 +56,8 @@ class RegisterActivity : BaseActivity() {
                 )
             }
             userAgreementTv.setOnClickListener {
-                // TODO: 2021/2/21 跳转到用户协议界面
-                simpleToast("跳转到用户协议界面")
+                // 跳转到用户协议界面
+                startActivity<UserAgreementActivity>()
             }
         }
     }

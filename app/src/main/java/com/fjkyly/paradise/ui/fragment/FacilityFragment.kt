@@ -186,12 +186,7 @@ class FacilityFragment : BaseFragment() {
         super.onDestroy()
         mBinding.facilityMapView.onDestroy()
         mFacilityList.clear()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
-        mFacilityList.clear()
     }
 
     companion object {

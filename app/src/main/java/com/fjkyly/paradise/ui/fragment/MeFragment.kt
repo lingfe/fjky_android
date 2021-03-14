@@ -47,7 +47,7 @@ class MeFragment : BaseFragment() {
                     meAccountIdTv.text = userInfo.username
                 }
                 mePhoneModifyContainer.setOnClickListener {
-                    // TODO: 2021-03-05 进入账号管理界面
+                    // 进入账号管理界面
                     requireContext().startActivity<AccountManagerActivity>()
                 }
                 meFavoritesContainer.setOnClickListener {
@@ -79,8 +79,8 @@ class MeFragment : BaseFragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 }

@@ -3,6 +3,7 @@ package com.fjkyly.paradise.ui.activity
 import android.Manifest
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Color
@@ -10,16 +11,14 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
+import androidx.core.content.edit
 import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.Glide
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.App
 import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.databinding.ActivityAccountManagerBinding
-import com.fjkyly.paradise.expand.AppConfig
-import com.fjkyly.paradise.expand.copyUriToExternalFilesDir
-import com.fjkyly.paradise.expand.simpleToast
-import com.fjkyly.paradise.expand.startActivity
+import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.views.ConfirmDialog
 import com.hjq.permissions.OnPermissionCallback
@@ -136,6 +135,13 @@ class AccountManagerActivity : BaseActivity() {
                 signOutDialog.setOnDialogActionClickListener(object :
                     ConfirmDialog.OnDialogActionSimpleListener() {
                     override fun onGiveUpClick() {
+                        // 将自动登录状态设置为 false
+                        getSharedPreferences(
+                            USER_SETTING,
+                            Context.MODE_PRIVATE
+                        ).edit(commit = true) {
+                            putBoolean(AUTO_LOGIN_STATUS, false)
+                        }
                         Repository.signOut(lifecycle = lifecycle) {
                             // 账号退出成功的回调
                             RxActivityTool.skipActivityAndFinishAll(

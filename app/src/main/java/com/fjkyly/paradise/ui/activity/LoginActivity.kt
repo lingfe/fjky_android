@@ -1,9 +1,14 @@
 package com.fjkyly.paradise.ui.activity
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.core.content.edit
 import com.fjkyly.paradise.HomeActivity
 import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.databinding.ActivityLoginBinding
+import com.fjkyly.paradise.expand.AUTO_LOGIN_STATUS
+import com.fjkyly.paradise.expand.USER_SETTING
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
@@ -14,6 +19,7 @@ import com.fjkyly.paradise.network.request.Repository
 class LoginActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityLoginBinding
+    private lateinit var userSettingSp: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,18 +28,22 @@ class LoginActivity : BaseActivity() {
         callAllInit()
     }
 
+    override fun initData() {
+        userSettingSp = getSharedPreferences(USER_SETTING, Context.MODE_PRIVATE)
+    }
+
     override fun initEvent() {
         mBinding.run {
             // TODO: 2021-03-04 此处后期需要做代码优化，使用扩展函数进行设置
             loginAccountNumEt.setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus){
+                if (hasFocus) {
                     loginAccountNumEt.let { editText ->
                         editText.setSelection(editText.text.toString().length)
                     }
                 }
             }
             loginAccountPwdEt.setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus){
+                if (hasFocus) {
                     loginAccountPwdEt.let { editText ->
                         editText.setSelection(editText.text.toString().length)
                     }
@@ -47,8 +57,10 @@ class LoginActivity : BaseActivity() {
                 if (checkOk.not()) return@setOnClickListener
                 loginAccount(accountNum = accountNum, accountPwd = accountPwd)
             }
-            // TODO: 2021-03-04 模拟点击登录按钮，后期上线需要删除掉该代码
-            loginBtn.performClick()
+            val auto = userSettingSp.getBoolean(AUTO_LOGIN_STATUS, false)
+            if (auto) {
+                loginBtn.performClick()
+            }
             registerTv.setOnClickListener {
                 // 注册按钮的点击事件
                 startActivity<RegisterActivity>()
@@ -70,6 +82,10 @@ class LoginActivity : BaseActivity() {
             accountPwd = accountPwd,
             lifecycle = lifecycle
         ) {
+            // 下次进入 APP 时自动进行登录操作，无需用户点击登录按钮
+            userSettingSp.edit {
+                putBoolean(AUTO_LOGIN_STATUS, true)
+            }
             // 跳转到主界面，并关闭登录界面
             startActivity<HomeActivity>()
             finish()

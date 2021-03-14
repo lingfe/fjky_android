@@ -104,11 +104,10 @@ class CalendarEventTestFragment : BaseFragment(), OnPermissionCallback {
             ).request(this)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
-
     override fun onGranted(permissions: MutableList<String>?, all: Boolean) {
         granted = all
     }
