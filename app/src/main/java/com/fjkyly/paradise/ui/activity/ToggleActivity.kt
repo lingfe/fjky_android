@@ -1,6 +1,5 @@
 package com.fjkyly.paradise.ui.activity
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -26,10 +25,9 @@ class ToggleActivity : BaseActivity() {
         callAllInit()
     }
 
-    @SuppressLint("SetTextI18n")
     override fun initView() {
         mBinding.run {
-            toggleTitleTv.text = "${mDeviceFun.funName}设置"
+            toggleTitleTv.text = mDeviceFun.funName
         }
     }
 

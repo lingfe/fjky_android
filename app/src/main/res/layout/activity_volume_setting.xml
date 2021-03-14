@@ -26,11 +26,12 @@
             android:src="@drawable/icon_back" />
 
         <TextView
+            android:id="@+id/volumeTitleTv"
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="音量设置"
+            android:text="设置"
             android:textColor="@color/black"
             android:textSize="18sp" />
 

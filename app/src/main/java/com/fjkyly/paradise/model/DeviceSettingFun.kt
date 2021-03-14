@@ -63,6 +63,8 @@ import com.google.gson.annotations.SerializedName
             val deviceName: String,
             @SerializedName("fun_code")
             val funCode: String,
+            @SerializedName("fun_explain")
+            val funExplain: String,
             @SerializedName("fun_id")
             val funId: String,
             @SerializedName("fun_name")
@@ -70,7 +72,7 @@ import com.google.gson.annotations.SerializedName
             @SerializedName("fun_value")
             val funValue: String,
             @SerializedName("fun_value_type")
-            val funValueType: String,
+            val funValueType: Int,
             @SerializedName("id")
             val id: String,
             @SerializedName("state")

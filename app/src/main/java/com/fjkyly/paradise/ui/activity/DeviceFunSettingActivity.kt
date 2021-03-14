@@ -77,10 +77,40 @@ class DeviceFunSettingActivity : BaseActivity() {
         }
         itemDeviceFunSettingAdapter.setOnItemClickListener { deviceFun, _ ->
             when (deviceFun.funValueType) {
-                "1" -> RangeRulerActivity.startActivity(this, deviceFun = deviceFun)
-                "2" -> ToggleActivity.startActivity(this, deviceFun = deviceFun)
-                "4" -> DateRangeActivity.startActivity(this, deviceFun = deviceFun)
+                // 输入值的界面
+                0 -> InputValueActivity.startActivity(this, deviceFun = deviceFun)
+                3 -> InputValueActivity.startActivity(this, deviceFun = deviceFun)
+                5 -> InputValueActivity.startActivity(this, deviceFun = deviceFun)
+                6 -> InputValueActivity.startActivity(this, deviceFun = deviceFun)
+                7 -> InputValueActivity.startActivity(this, deviceFun = deviceFun)
+                8 -> InputValueActivity.startActivity(this, deviceFun = deviceFun)
+                // 区间值选择界面
+                1 -> VolumeSettingActivity.startActivity(this, deviceFun = deviceFun)
+                // 开关界面
+                2 -> ToggleActivity.startActivity(this, deviceFun = deviceFun)
+                10 -> ToggleActivity.startActivity(this, deviceFun = deviceFun)
+                // 日期范围选择界面
+                4 -> DateRangeActivity.startActivity(this, deviceFun = deviceFun)
+                // 无参接口，直接调用
+                9 -> executeInstructions(deviceFun)
+                // 功能类型不在定义的范围，提示用户不支持该功能
+                else -> simpleToast("该版本不支持此功能")
             }
+        }
+    }
+
+    /**
+     * 直接执行指令
+     */
+    private fun executeInstructions(deviceFun: DeviceSettingFun.Data.DevFun) {
+        // 调用后端接口，修改功能参数数据
+        Repository.modifyDeviceFunValue(
+            deviceFunId = deviceFun.id,
+            deviceFunValue = true.toString(),
+            lifecycle = lifecycle
+        ) {
+            // 指令发送成功
+            simpleToast(it.msg)
         }
     }
 
