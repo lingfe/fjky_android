@@ -15,6 +15,37 @@ import java.io.File
 
 object Repository {
 
+    /**
+     * 查询吃药提醒列表
+     * 在查看吃药提醒界面的时候进行获取
+     */
+    fun queryTakeMedicineRemindList(lifecycle: Lifecycle,block: (takeMedicineRemindList:TakeMedicineRemindList) -> Unit) {
+        val queryTakeMedicineRemindListApi = ServiceCreator.create<QueryTakeMedicineRemindListApi>()
+        queryTakeMedicineRemindListApi.query()
+            .enqueue(object : retrofit2.Callback<TakeMedicineRemindList> {
+                override fun onResponse(
+                    call: Call<TakeMedicineRemindList>,
+                    response: Response<TakeMedicineRemindList>
+                ) {
+                    response.body()?.let {
+                        Log.d(TAG, "onResponse：queryTakeMedicineRemindList ===>${GsonUtils.toJson(it)}")
+                        if (it.state == HTTP_OK) {
+                            if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                                block(it)
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<TakeMedicineRemindList>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+    }
+
+    /**
+     * 修改设备功能值参数
+     */
     fun modifyDeviceFunValue(
         deviceFunId: String,
         deviceFunValue: String,

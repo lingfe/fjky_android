@@ -6,6 +6,7 @@ import android.content.Context
 import com.blankj.utilcode.util.Utils
 import com.bumptech.glide.Glide
 import com.fjkyly.paradise.expand.AppConfig
+import com.fjkyly.paradise.expand.mainHandler
 import com.fjkyly.paradise.model.Login
 import com.fjkyly.paradise.network.request.RequestHandler
 import com.hjq.http.EasyConfig
@@ -42,6 +43,20 @@ class App : Application() {
         RxTool.init(this)
         Utils.init(this)
         initSDK()
+        initTimerTask()
+    }
+
+    private var mCount = 0
+
+    private fun initTimerTask() {
+        mainHandler.post(object : Runnable {
+            override fun run() {
+                if (getUserToken().isNotEmpty()) {
+
+                }
+                mainHandler.postDelayed(this, 1000)
+            }
+        })
     }
 
     private fun initSDK() {

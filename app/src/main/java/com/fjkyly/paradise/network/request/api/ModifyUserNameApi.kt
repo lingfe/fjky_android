@@ -5,11 +5,11 @@ import com.fjkyly.paradise.model.ModifyUserName
 import retrofit2.Call
 import retrofit2.http.*
 
-/**
- * 修改用户名
- */
 interface ModifyUserNameApi {
 
+    /**
+     * 修改用户名
+     */
     @FormUrlEncoded
     @POST("appUser/modifyUserName.app")
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")

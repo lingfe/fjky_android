@@ -6,11 +6,11 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
-/**
- * 修改设备功能参数
- */
 interface ModifyDeviceSettingFunApi {
 
+    /**
+     * 修改设备功能参数
+     */
     @FormUrlEncoded
     @POST("device_function/setDevCode")
     fun modify(

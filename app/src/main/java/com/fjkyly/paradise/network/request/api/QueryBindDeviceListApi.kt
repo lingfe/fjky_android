@@ -10,6 +10,9 @@ import retrofit2.http.POST
 
 interface QueryBindDeviceListApi {
 
+    /**
+     * 查询绑定的设备列表
+     */
     @FormUrlEncoded
     @POST("userDevice/getBindDeviceList.app")
     fun query(

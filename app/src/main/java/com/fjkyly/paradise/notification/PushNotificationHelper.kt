@@ -31,7 +31,7 @@ fun notifyMessage(
         NotificationCompatUtil.createNotificationBuilder(context, MESSAGE, title, text, intent)
     // 默认情况下，通知的文字内容会被截断以放在一行。如果您想要更长的通知，可以使用 setStyle() 添加样式模板来启用可展开的通知。
     builder.setStyle(NotificationCompat.BigTextStyle().bigText(text))
-    NotificationCompatUtil.notify(context, id, buildDefaultConfig(builder));
+    NotificationCompatUtil.notify(context, id, buildDefaultConfig(builder))
 }
 
 /**
@@ -58,7 +58,7 @@ fun notifyMention(
     )
     // 默认情况下，通知的文字内容会被截断以放在一行。如果您想要更长的通知，可以使用 setStyle() 添加样式模板来启用可展开的通知。
     builder.setStyle(NotificationCompat.BigTextStyle().bigText(text))
-    NotificationCompatUtil.notify(context, id, buildDefaultConfig(builder));
+    NotificationCompatUtil.notify(context, id, buildDefaultConfig(builder))
 }
 
 /**
@@ -78,7 +78,7 @@ fun notifyNotice(
 ) {
     val builder =
         NotificationCompatUtil.createNotificationBuilder(context, NOTICE, title, text, intent)
-    NotificationCompatUtil.notify(context, id, buildDefaultConfig(builder));
+    NotificationCompatUtil.notify(context, id, buildDefaultConfig(builder))
 }
 
 /**
@@ -98,7 +98,7 @@ fun notifyCall(
 ) {
     val builder =
         NotificationCompatUtil.createNotificationBuilder(context, CALL, title, text, intent)
-    NotificationCompatUtil.notify(context, id, buildDefaultConfig(builder));
+    NotificationCompatUtil.notify(context, id, buildDefaultConfig(builder))
 }
 
 /**

@@ -10,6 +10,9 @@ import retrofit2.http.POST
 
 interface BindDeviceApi {
 
+    /**
+     * 绑定设备
+     */
     @FormUrlEncoded
     @POST("userDevice/userBindDevice.app")
     fun binding(

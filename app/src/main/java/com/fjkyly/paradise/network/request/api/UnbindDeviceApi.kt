@@ -8,11 +8,11 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Header
 import retrofit2.http.POST
 
-/**
- * 解绑设备
- */
 interface UnbindDeviceApi {
 
+    /**
+     * 解绑设备
+     */
     @FormUrlEncoded
     @POST("userDevice/unbind.app")
     fun unbind(
