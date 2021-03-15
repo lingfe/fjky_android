@@ -67,7 +67,7 @@ class LoginActivity : BaseActivity() {
             }
             forgetTv.setOnClickListener {
                 // 找回密码的点击事件
-                simpleToast("跳转到密码找回界面")
+                simpleToast("找回密码功能开发中")
             }
         }
     }
