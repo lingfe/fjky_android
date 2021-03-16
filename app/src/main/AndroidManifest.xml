@@ -38,7 +38,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Paradise"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.UserAgreementActivity"></activity>
+        <activity android:name=".ui.activity.ModifyPwdActivity"></activity>
+        <activity android:name=".ui.activity.UserAgreementActivity" />
         <activity android:name=".ui.activity.InputValueActivity" />
         <activity android:name=".ui.activity.DateRangeActivity" />
         <activity android:name=".ui.activity.ToggleActivity" />

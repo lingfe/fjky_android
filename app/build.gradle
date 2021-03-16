@@ -5,6 +5,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('./debug.jks')
+            keyAlias 'debug'
+            storePassword 'fjkyly12349'
+            keyPassword 'fjkyly12349'
+        }
+        release {
+            storeFile file('./release.jks')
+            keyAlias 'release'
+            storePassword 'fjkyly12349'
+            keyPassword 'fjkyly12349'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -16,6 +30,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
     }
 
     buildFeatures {
@@ -24,6 +39,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

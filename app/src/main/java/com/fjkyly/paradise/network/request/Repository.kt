@@ -29,7 +29,7 @@ object Repository {
                     response.body()?.let {
                         Log.d(
                             TAG,
-                            "onResponse：queryTakeMedicineRemindList ===>${GsonUtils.toJson(it)}"
+                            "onResponse：queryDeviceAlertListApi ===>${GsonUtils.toJson(it)}"
                         )
                         if (it.state == HTTP_OK) {
                             block(it)

@@ -126,7 +126,7 @@ class AccountManagerActivity : BaseActivity() {
                 signOutDialog.run {
                     setContentView(R.layout.dialog_confirm)
                     post {
-                        setDialogMessage("确定要退出登录吗")
+                        setDialogMessage("确定要退出登录吗？")
                         setConfirmTextColor(Color.parseColor("#666666"))
                         setGivUpTextColor(Color.parseColor("#FF5050"))
                     }
