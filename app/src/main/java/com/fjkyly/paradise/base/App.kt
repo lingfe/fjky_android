@@ -5,10 +5,13 @@ import android.app.Application
 import android.content.Context
 import com.blankj.utilcode.util.Utils
 import com.bumptech.glide.Glide
+import com.fjkyly.paradise.expand.ALERT_REQUEST_INTERVAL
 import com.fjkyly.paradise.expand.AppConfig
 import com.fjkyly.paradise.expand.mainHandler
 import com.fjkyly.paradise.model.Login
+import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.network.request.RequestHandler
+import com.fjkyly.paradise.notification.notifyMention
 import com.hjq.http.EasyConfig
 import com.hjq.http.ssl.HttpSslFactory
 import com.tencent.smtt.export.external.TbsCoreSettings
@@ -46,15 +49,27 @@ class App : Application() {
         initTimerTask()
     }
 
-    private var mCount = 0
-
     private fun initTimerTask() {
         mainHandler.post(object : Runnable {
             override fun run() {
                 if (getUserToken().isNotEmpty()) {
-
+                    Repository.queryDeviceAlertListApi {
+                        val data = it.data
+                        if (data.isNotEmpty()) {
+                            // TODO: 2021-03-15 发送通知消息，提醒用户设备告警
+                            //  （目前后端还没有返回实际的数据，无法进行测试）
+                            for (datum in data) {
+                                notifyMention(
+                                    context = appContext,
+                                    id = datum.deviceId.toLongOrNull()?.toInt() ?: 0,
+                                    title = datum.content,
+                                    text = datum.content
+                                )
+                            }
+                        }
+                    }
                 }
-                mainHandler.postDelayed(this, 1000)
+                mainHandler.postDelayed(this, ALERT_REQUEST_INTERVAL)
             }
         })
     }
