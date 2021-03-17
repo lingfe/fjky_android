@@ -38,10 +38,16 @@ class ToggleActivity : BaseActivity() {
             }
             saveBtn.setOnClickListener {
                 val isChecked = toggleBtn.isChecked
+                // 此处的设备功能类型有两种情况，"0"和"1" 或则 "true"和"false"
+                val deviceFunValue = when (mDeviceFun.funValueType) {
+                    2 -> isChecked.toString()
+                    10 -> if (isChecked) "1" else "0"
+                    else -> isChecked.toString()
+                }
                 // 调用后端接口，修改功能参数数据
                 Repository.modifyDeviceFunValue(
                     deviceFunId = mDeviceFun.id,
-                    deviceFunValue = isChecked.toString(),
+                    deviceFunValue = deviceFunValue,
                     lifecycle = lifecycle
                 ) {
                     // 指令发送成功

@@ -20,6 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+#腾讯x5WebView
 -dontwarn dalvik.**
 -dontwarn com.tencent.smtt.**
 

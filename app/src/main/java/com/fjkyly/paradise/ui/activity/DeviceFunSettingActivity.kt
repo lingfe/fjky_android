@@ -63,10 +63,10 @@ class DeviceFunSettingActivity : BaseActivity() {
                 finish()
             }
             modifyFacilityNameTv.setOnClickListener {
-                simpleToast("修改设备名称正在开发中...")
+                simpleToast("修改设备名称功能开发中...")
             }
             editorPermissionTv.setOnClickListener {
-                simpleToast("编辑亲友查看权限正在开发中...")
+                simpleToast("编辑亲友查看权限功能开发中...")
             }
             unBindFacilityBtn.setOnClickListener {
                 Repository.unbindDevice(deviceId = mFacility.facilityId, lifecycle = lifecycle) {
