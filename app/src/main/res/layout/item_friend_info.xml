@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    app:cardCornerRadius="16dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/friendNameTv"
+            android:layout_width="0px"
+            android:layout_height="40dp"
+            android:layout_weight="3"
+            android:ellipsize="end"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            tools:text="王红" />
+
+        <TextView
+            android:id="@+id/friendRelationTv"
+            android:layout_width="0px"
+            android:layout_height="40dp"
+            android:layout_weight="2"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            tools:text="其它" />
+
+        <TextView
+            android:id="@+id/friendPhoneNumTv"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="4"
+            android:text="136****4259"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/friendEditorTv"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:src="@drawable/icon_next"
+            android:text="编辑"
+            android:textColor="#4396FF" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

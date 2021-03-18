@@ -16,6 +16,121 @@ import java.io.File
 object Repository {
 
     /**
+     * 修改亲友信息
+     */
+    fun modifyFriendInfo(
+        lifecycle: Lifecycle,
+        friendId: String,
+        friendName: String,
+        friendPhoneNum: String,
+        friendRelation: String,
+        block: (modifyFriendInfo: ModifyFriendInfo) -> Unit
+    ) {
+        val friendApi = ServiceCreator.create<FriendApi>()
+        friendApi.modifyFriendInfo(
+            friendId = friendId,
+            friendName = friendName,
+            friendPhoneNum = friendPhoneNum,
+            friendRelation = friendRelation
+        ).enqueue(object : retrofit2.Callback<ModifyFriendInfo> {
+            override fun onResponse(
+                call: Call<ModifyFriendInfo>,
+                response: Response<ModifyFriendInfo>
+            ) {
+                response.body()?.let {
+                    Log.d(
+                        TAG,
+                        "onResponse：modifyFriendInfo ===>${GsonUtils.toJson(it)}"
+                    )
+                    if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                        block(it)
+                        if (it.state == HTTP_OK) {
+                            block(it)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ModifyFriendInfo>, t: Throwable) {
+                t.printStackTrace()
+                simpleToast("修改失败，请稍后重试")
+            }
+        })
+    }
+
+    /**
+     * 获取亲友列表
+     */
+    fun queryFriendsList(
+        lifecycle: Lifecycle,
+        block: (friendsList: FriendsList) -> Unit
+    ) {
+        val friendApi = ServiceCreator.create<FriendApi>()
+        friendApi.queryFriendsList().enqueue(object : retrofit2.Callback<FriendsList> {
+            override fun onResponse(
+                call: Call<FriendsList>,
+                response: Response<FriendsList>
+            ) {
+                response.body()?.let {
+                    Log.d(
+                        TAG,
+                        "onResponse：queryFriendsList ===>${GsonUtils.toJson(it)}"
+                    )
+                    if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                        if (it.state == HTTP_OK) {
+                            block(it)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<FriendsList>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
+    }
+
+    /**
+     * 添加亲友
+     */
+    fun addFriend(
+        lifecycle: Lifecycle,
+        friendName: String,
+        friendPhoneNum: String,
+        friendRelation: String,
+        block: (addFriend: AddFriend) -> Unit
+    ) {
+        val friendApi = ServiceCreator.create<FriendApi>()
+        friendApi.addFriend(
+            friendName = friendName,
+            friendPhoneNum = friendPhoneNum,
+            friendRelation = friendRelation
+        ).enqueue(object : retrofit2.Callback<AddFriend> {
+            override fun onResponse(
+                call: Call<AddFriend>,
+                response: Response<AddFriend>
+            ) {
+                response.body()?.let {
+                    Log.d(
+                        TAG,
+                        "onResponse：addFriend ===>${GsonUtils.toJson(it)}"
+                    )
+                    if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                        if (it.state == HTTP_OK) {
+                            block(it)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<AddFriend>, t: Throwable) {
+                t.printStackTrace()
+                simpleToast("添加失败，请稍后重试")
+            }
+        })
+    }
+
+    /**
      * 意见反馈
      */
     fun feedback(lifecycle: Lifecycle, content: String, block: (feedback: Feedback) -> Unit) {

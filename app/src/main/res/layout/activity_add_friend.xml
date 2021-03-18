@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_main"
+    android:orientation="vertical"
+    tools:context=".ui.activity.AddFriendActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/addFriendBackIv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="返回上一界面"
+            android:padding="10dp"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:id="@+id/addFriendTitleTv"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:contentDescription="添加亲友"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="添加亲友"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="姓名"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/addFriendNameEt"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@null"
+            android:contentDescription="亲友的姓名"
+            android:gravity="center_vertical|right"
+            android:hint="请输入亲友姓名"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="手机号"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/addFriendPhoneNumEt"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@null"
+            android:contentDescription="亲友的手机号码"
+            android:gravity="center_vertical|right"
+            android:hint="请输入亲友手机号"
+            android:inputType="number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/friendRelationContainer"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingStart="20dp">
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="关系"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/friendRelationTv"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@null"
+            android:contentDescription="亲友与你的关系"
+            android:gravity="center_vertical|right"
+            android:hint="请选择与你的关系"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:src="@drawable/icon_next" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="87dp"
+        android:background="@drawable/bg_button_round_green"
+        android:paddingStart="120dp"
+        android:paddingEnd="120dp"
+        android:singleLine="true"
+        android:text="保存"
+        android:textColor="@color/white" />
+
+</LinearLayout>

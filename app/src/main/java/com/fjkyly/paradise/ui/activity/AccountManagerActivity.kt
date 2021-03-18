@@ -110,15 +110,15 @@ class AccountManagerActivity : MyActivity() {
             }
             accountMangerPhoneNumContainer.setOnClickListener {
                 // TODO: 2021/2/25 跳转到修改登录手机号界面
-                simpleToast("修改登录手机号正在开发中...")
+
             }
             accountMangerPwdContainer.setOnClickListener {
                 // TODO: 2021/2/25 跳转到账号密码修改界面
-                simpleToast("账号密码管理功能正在开发中...")
+
             }
             accountMangerPayContainer.setOnClickListener {
                 // TODO: 2021/2/25 支付密码管理界面
-                simpleToast("支付密码管理功能正在开发中...")
+
             }
             accountMangerLoginOutTv.setOnClickListener {
                 // TODO: 2021/2/25 退出登录
