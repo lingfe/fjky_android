@@ -26,7 +26,7 @@ class PersonalFoodProhibitionSettingActivity : BaseActivity() {
 
     override fun initEvent() {
         mBinding.run {
-            personalNameBackIv.setOnClickListener {
+            personalFoodProhibitionBackIv.setOnClickListener {
                 finish()
             }
             personalFoodProhibitionSaveBtn.setOnClickListener {

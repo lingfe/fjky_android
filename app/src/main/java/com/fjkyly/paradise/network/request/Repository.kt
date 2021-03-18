@@ -16,6 +16,37 @@ import java.io.File
 object Repository {
 
     /**
+     * 意见反馈
+     */
+    fun feedback(lifecycle: Lifecycle, content: String, block: (feedback: Feedback) -> Unit) {
+        val feedbackApi = ServiceCreator.create<FeedbackApi>()
+        feedbackApi.feedback(content)
+            .enqueue(object : retrofit2.Callback<Feedback> {
+                override fun onResponse(
+                    call: Call<Feedback>,
+                    response: Response<Feedback>
+                ) {
+                    response.body()?.let {
+                        Log.d(
+                            TAG,
+                            "onResponse：feedback ===>${GsonUtils.toJson(it)}"
+                        )
+                        if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                            if (it.state == HTTP_OK) {
+                                block(it)
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<Feedback>, t: Throwable) {
+                    t.printStackTrace()
+                    simpleToast("反馈失败，请稍后重试")
+                }
+            })
+    }
+
+    /**
      * 获取个人基本信息
      */
     fun queryPersonBasicInfo(
@@ -44,7 +75,6 @@ object Repository {
 
                 override fun onFailure(call: Call<PersonBasicInfo>, t: Throwable) {
                     t.printStackTrace()
-                    simpleToast("修改失败，请稍后重试")
                 }
             })
     }

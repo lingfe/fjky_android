@@ -10,6 +10,7 @@ import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.activity.AccountManagerActivity
+import com.fjkyly.paradise.ui.activity.FeedbackSettingActivity
 import com.fjkyly.paradise.ui.activity.PersonalDetailsActivity
 
 /**
@@ -67,8 +68,8 @@ class MeFragment : BaseFragment() {
                 simpleToast("亲友功能开发中...")
             }
             meFeedbackContainer.setOnClickListener {
-                // TODO: 2021-03-05 进入意见反馈界面
-                simpleToast("意见反馈功能开发中...")
+                // 进入意见反馈界面
+                requireContext().startActivity<FeedbackSettingActivity>()
             }
         }
     }
