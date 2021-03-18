@@ -10,6 +10,7 @@ import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.activity.AccountManagerActivity
+import com.fjkyly.paradise.ui.activity.PersonalDetailsActivity
 
 /**
  * 我的 界面
@@ -61,7 +62,7 @@ class MeFragment : BaseFragment() {
             }
             mePersonDetailInfoContainer.setOnClickListener {
                 // TODO: 2021/2/28 进入到个人详细信息界面
-                // requireContext().startActivity<PersonalDetailsActivity>()
+                requireContext().startActivity<PersonalDetailsActivity>()
                 simpleToast("个人详细信息开发中...")
             }
             meRelativesContainer.setOnClickListener {

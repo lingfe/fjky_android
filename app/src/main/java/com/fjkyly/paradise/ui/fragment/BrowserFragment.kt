@@ -54,8 +54,8 @@ class BrowserFragment : BaseFragment() {
         super.onResume()
         mBinding.run {
             x5WebView.run {
-                loadUrl("http://192.168.124.17:81/")
-                // loadUrl("http://47.106.198.137:82/#/")
+                // loadUrl("http://192.168.124.17:81/")
+                loadUrl("http://47.106.198.137:82/#/")
                 // loadUrl(ASSETS_FOLDER + "h5/getLocation.html")
             }
         }

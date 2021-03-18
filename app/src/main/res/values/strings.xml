@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">康养乐园</string>
+    <string name="app_name">梵净康养乐园</string>
     <string name="title_activity_splash">SplashActivity</string>
 
     <!--网络请求-->

@@ -56,8 +56,6 @@ class App : Application() {
                     Repository.queryDeviceAlertListApi {
                         val data = it.data
                         if (data.isNotEmpty()) {
-                            // TODO: 2021-03-15 发送通知消息，提醒用户设备告警
-                            //  （目前后端还没有返回实际的数据，无法进行测试）
                             for (datum in data) {
                                 notifyMention(
                                     context = appContext,
