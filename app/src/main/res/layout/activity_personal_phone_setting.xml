@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activity.PersonalNameActivity">
+    tools:context=".ui.activity.PersonalPhoneSettingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:paddingBottom="5dp">
 
         <ImageView
-            android:id="@+id/personalNameBackIv"
+            android:id="@+id/personalPhoneBackIv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:contentDescription="返回上一界面"
@@ -27,10 +27,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:contentDescription="姓名"
+            android:contentDescription="联系电话"
             android:gravity="center"
             android:singleLine="true"
-            android:text="姓名"
+            android:text="联系电话"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -53,25 +53,26 @@
             android:layout_height="0px"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="用户姓名"
+            android:text="用户联系电话"
             android:textColor="@color/black" />
 
         <EditText
-            android:id="@+id/personalNameEt"
+            android:id="@+id/personalPhoneEt"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="请输入用户姓名"
-            android:maxLength="6"
+            android:hint="请输入手机号码"
+            android:inputType="phone"
+            android:maxLength="11"
             android:singleLine="true"
             android:textColor="@color/black" />
 
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/personalNameSaveBtn"
+        android:id="@+id/personalPhoneSaveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

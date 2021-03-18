@@ -20,10 +20,14 @@ data class PersonBasicInfo(
     data class Data(
         @SerializedName("age")
         val age: String,
+        @SerializedName("birthday")
+        val birthday: String,
         @SerializedName("crt_date")
         val crtDate: Long,
         @SerializedName("full_name")
         val fullName: String,
+        @SerializedName("gender")
+        val gender: String,
         @SerializedName("id")
         val id: String,
         @SerializedName("id_card")
@@ -35,8 +39,6 @@ data class PersonBasicInfo(
         @SerializedName("state")
         val state: Int,
         @SerializedName("yw_id")
-        val ywId: String,
-        @SerializedName("gender")
-        val gender: String
+        val ywId: String
     )
 }

@@ -3,11 +3,14 @@ package com.fjkyly.paradise.ui.activity
 import android.os.Bundle
 import android.view.View
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
-import com.blankj.utilcode.util.ActivityUtils
+import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalDetailsBinding
 import com.fjkyly.paradise.expand.simpleToast
+import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
+import com.vondear.rxtool.RxTimeTool
 
 /**
  * 个人详细信息界面
@@ -34,12 +37,16 @@ class PersonalDetailsActivity : BaseActivity() {
                 val data = it.data
                 // 姓名
                 personalNameTv.text = data.fullName
-                // 性别
+                // 性别，默认为“男”
                 personalSexTv.text = data.gender.ifEmpty { "男" }
                 // 身份证号码
                 personalIdentityNumberTv.text = data.idCard
+                // 生日
+                personalBirthdayTv.text = data.birthday.ifEmpty { "设置您的生日" }
                 // 年龄
-                personalAgeTv.text = data.age
+                personalAgeTv.text = data.age.ifEmpty { "0" }
+                // 名族默认为“汉”
+                personalNationTv.text = data.nation.ifEmpty { "汉" }
                 // 联系电话
                 personalPhoneNumberTv.text = data.phone
             }
@@ -53,10 +60,10 @@ class PersonalDetailsActivity : BaseActivity() {
             }
             personalNameContainer.setOnClickListener {
                 // 跳转到姓名设置界面
-                ActivityUtils.startActivity(PersonalNameActivity::class.java)
+                startActivity<PersonalNameSettingActivity>()
             }
             personalSexContainer.setOnClickListener {
-                // TODO: 2021/2/28 性别选择
+                // 性别选择
                 val sexList = mutableListOf<String>().apply {
                     add("男")
                     add("女")
@@ -76,13 +83,24 @@ class PersonalDetailsActivity : BaseActivity() {
                     }
             }
             personalIdentityNumberContainer.setOnClickListener {
-                // TODO: 2021/2/28 身份证号码设置
+                // 身份证号码设置
+                startActivity<PersonalIdCardSettingActivity>()
+            }
+            personalBirthdayContainer.setOnClickListener {
+                TimePickerBuilder(this@PersonalDetailsActivity) { date, _ ->
+                    val format = RxTimeTool.simpleDateFormat("MM月dd日", date)
+                    personalBirthdayTv.text = format
+                    modifyParams("birthday", format)
+                }
+                    .setType(booleanArrayOf(false, true, true, false, false, false))
+                    .build()
+                    .show()
             }
             personalAgeContainer.setOnClickListener {
-                // TODO: 2021/2/28 年龄选择
+                // 年龄选择
                 val ageList = mutableListOf<String>().apply {
-                    for (age in 0..50) {
-                        add((age + 50).toString())
+                    for (age in 0..130) {
+                        add((age).toString())
                     }
                 }
                 OptionsPickerBuilder(this@PersonalDetailsActivity) { options1: Int, _: Int, _: Int, _: View? ->
@@ -100,8 +118,27 @@ class PersonalDetailsActivity : BaseActivity() {
                         show()
                     }
             }
+            personalNationContainer.setOnClickListener {
+                // 56个民族的选择
+                val nationList = arrayListOf<String>()
+                nationList.addAll(resources.getStringArray(R.array.nationalityArray))
+                OptionsPickerBuilder(this@PersonalDetailsActivity) { options1: Int, _: Int, _: Int, _: View? ->
+                    val nation = nationList[options1]
+                    modifyParams("nation", nation)
+                }
+                    .isAlphaGradient(true)
+                    .build<String>()
+                    .apply {
+                        setOnDismissListener {
+                            nationList.clear()
+                        }
+                        setPicker(nationList)
+                        show()
+                    }
+            }
             personalPhoneNumberContainer.setOnClickListener {
-                // TODO: 2021/2/28 手机号
+                // 联系电话的手机号码设置
+                startActivity<PersonalPhoneSettingActivity>()
             }
         }
     }

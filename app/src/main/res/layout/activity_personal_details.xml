@@ -157,7 +157,88 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
                     android:gravity="right"
-                    android:text="500119200910118910"
+                    android:hint="请设置身份证号码"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_next" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="#FFE8E7E7" />
+
+            <LinearLayout
+                android:id="@+id/personalBirthdayContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="生日"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="生日"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/personalBirthdayTv"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_next" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="#FFE8E7E7" />
+
+            <LinearLayout
+                android:id="@+id/personalAgeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="年龄"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="年龄"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/personalAgeTv"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="50"
                     android:textColor="@color/black" />
 
                 <ImageView
@@ -240,88 +321,6 @@
                     android:layout_weight="2"
                     android:gravity="right"
                     android:hint="请填写户籍地址"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:src="@drawable/icon_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#FFE8E7E7" />
-
-            <LinearLayout
-                android:id="@+id/personalBirthdayContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="生日"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="生日"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/personalBirthdayTv"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:gravity="right"
-                    android:text="11月12日"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:src="@drawable/icon_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#FFE8E7E7" />
-
-            <LinearLayout
-                android:id="@+id/personalAgeContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="年龄"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="年龄"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/personalAgeTv"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:gravity="right"
-                    android:text="50"
                     android:textColor="@color/black" />
 
                 <ImageView
