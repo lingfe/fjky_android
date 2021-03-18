@@ -20,6 +20,10 @@
     <string name="channel_notice">系统通知</string>
     <string name="channel_call">音视频通话</string>
 
+    <!-- 地区对话框 -->
+    <string name="address_title">请选择地区</string>
+    <string name="address_hint">请选择</string>
+
     <string-array name="nationalityArray">
         <item>汉族</item>
         <item>壮族</item>

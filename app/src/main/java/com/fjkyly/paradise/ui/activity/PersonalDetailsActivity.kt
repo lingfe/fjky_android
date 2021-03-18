@@ -7,9 +7,11 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalDetailsBinding
+import com.fjkyly.paradise.expand.getProvinceJson
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
+import com.fjkyly.paradise.ui.views.AddressDialog
 import com.vondear.rxtool.RxTimeTool
 
 /**
@@ -18,6 +20,15 @@ import com.vondear.rxtool.RxTimeTool
 class PersonalDetailsActivity : BaseActivity() {
 
     private lateinit var mBinding: ActivityPersonalDetailsBinding
+
+    /** 省  */
+    private var mProvince = ""
+
+    /** 市  */
+    private var mCity = ""
+
+    /** 区  */
+    private var mArea = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +53,17 @@ class PersonalDetailsActivity : BaseActivity() {
                 // 身份证号码
                 personalIdentityNumberTv.text = data.idCard
                 // 生日
-                personalBirthdayTv.text = data.birthday.ifEmpty { "设置您的生日" }
+                personalBirthdayTv.text = data.birthday.ifEmpty { "请设置您的生日" }
                 // 年龄
                 personalAgeTv.text = data.age.ifEmpty { "0" }
                 // 名族默认为“汉”
                 personalNationTv.text = data.nation.ifEmpty { "汉" }
+                // 户籍地址
+                personalHomeAddressTv.text = data.permanentAddress
                 // 联系电话
                 personalPhoneNumberTv.text = data.phone
+                // 爱好
+                personalHobbyTv.text = data.hobby
             }
         }
     }
@@ -87,9 +102,9 @@ class PersonalDetailsActivity : BaseActivity() {
                 startActivity<PersonalIdCardSettingActivity>()
             }
             personalBirthdayContainer.setOnClickListener {
+                // 生日日期的选择
                 TimePickerBuilder(this@PersonalDetailsActivity) { date, _ ->
                     val format = RxTimeTool.simpleDateFormat("MM月dd日", date)
-                    personalBirthdayTv.text = format
                     modifyParams("birthday", format)
                 }
                     .setType(booleanArrayOf(false, true, true, false, false, false))
@@ -105,7 +120,6 @@ class PersonalDetailsActivity : BaseActivity() {
                 }
                 OptionsPickerBuilder(this@PersonalDetailsActivity) { options1: Int, _: Int, _: Int, _: View? ->
                     val age = ageList[options1]
-                    personalAgeTv.text = age
                     modifyParams("age", age)
                 }
                     .isAlphaGradient(true)
@@ -136,9 +150,58 @@ class PersonalDetailsActivity : BaseActivity() {
                         show()
                     }
             }
+            personalHomeAddressContainer.setOnClickListener {
+                // 户籍地址选择
+                val jsonArrayStr = getProvinceJson(R.raw.province) ?: return@setOnClickListener
+                AddressDialog.Builder(this@PersonalDetailsActivity)
+                    //.setTitle("选择地区")
+                    // 设置默认省份
+                    .setProvince(mProvince)
+                    // 设置默认城市（必须要先设置默认省份）
+                    .setCity(mCity)
+                    // 不选择县级区域
+                    //.setIgnoreArea()
+                    .setListener { _, province, city, area ->
+                        val address = province + city + area
+                        if (personalHomeAddressTv.text != address) {
+                            mProvince = province
+                            mCity = city
+                            mArea = area
+                            modifyParams("permanent_address", address)
+                        }
+                    }
+                    .show()
+            }
             personalPhoneNumberContainer.setOnClickListener {
                 // 联系电话的手机号码设置
                 startActivity<PersonalPhoneSettingActivity>()
+            }
+            personalHobbyContainer.setOnClickListener {
+                // 爱好选择
+                val hobbyList = mutableListOf<String>().apply {
+                    add("象棋")
+                    add("羽毛球")
+                    add("围棋")
+                    add("乒乓球")
+                    add("其它")
+                }
+                OptionsPickerBuilder(this@PersonalDetailsActivity) { options1: Int, _: Int, _: Int, _: View? ->
+                    val hobby = hobbyList[options1]
+                    modifyParams("hobby", hobby)
+                }
+                    .isAlphaGradient(true)
+                    .build<String>()
+                    .apply {
+                        setOnDismissListener {
+                            hobbyList.clear()
+                        }
+                        setPicker(hobbyList)
+                        show()
+                    }
+            }
+            personalFoodProhibitionContainer.setOnClickListener {
+                // 饮食禁忌填写
+                startActivity<PersonalFoodProhibitionSettingActivity>()
             }
         }
     }

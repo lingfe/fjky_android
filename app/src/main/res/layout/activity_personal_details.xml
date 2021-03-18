@@ -320,7 +320,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
                     android:gravity="right"
-                    android:hint="请填写户籍地址"
+                    android:hint="请选择户籍地址"
                     android:textColor="@color/black" />
 
                 <ImageView
@@ -443,7 +443,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
                     android:gravity="right"
-                    android:hint="暂时没有饮食禁忌"
+                    android:hint="填写饮食禁忌"
                     android:textColor="@color/black" />
 
                 <ImageView

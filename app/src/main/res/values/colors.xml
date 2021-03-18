@@ -16,4 +16,13 @@
     <color name="home_navigationSelected">#FF3D3D</color>
     <color name="home_navigationNormal">#BCBCC9</color>
     <color name="home_navigation_bar_color">#FFFFFF</color>
+
+    <!-- 矢量图标的颜色 -->
+    <color name="common_icon_color">#7C7C7C</color>
+
+    <!-- 对话框确认按钮的文本颜色 -->
+    <color name="common_confirm_text_color">#007AFF</color>
+    <!-- 对话框取消按钮的文本颜色 -->
+    <color name="common_cancel_text_color">#F44336</color>
+
 </resources>

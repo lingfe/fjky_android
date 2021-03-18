@@ -13,17 +13,36 @@ import android.os.FileUtils
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.provider.OpenableColumns
+import androidx.annotation.RawRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import com.fjkyly.paradise.base.App
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.io.BufferedInputStream
-import java.io.BufferedOutputStream
-import java.io.File
-import java.io.FileOutputStream
+import java.io.*
 import kotlin.math.roundToInt
+
+/**
+ * 获取资产目录下面文件的字符串
+ */
+fun getProvinceJson(@RawRes resId: Int): String? {
+    try {
+        val inputStream: InputStream = App.appContext.resources.openRawResource(resId)
+        val outStream = ByteArrayOutputStream()
+        val buffer = ByteArray(512)
+        var length = 1
+        while (inputStream.read(buffer).also { length = it } != -1) {
+            outStream.write(buffer, 0, length)
+        }
+        outStream.close()
+        inputStream.close()
+        return outStream.toString()
+    } catch (t: Throwable) {
+        t.printStackTrace()
+    }
+    return null
+}
 
 /**
  * 进行文件 uri 的适配
