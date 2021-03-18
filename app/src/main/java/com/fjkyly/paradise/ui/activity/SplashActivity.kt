@@ -2,14 +2,14 @@ package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
 import com.fjkyly.paradise.R
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.expand.mainHandler
 import com.fjkyly.paradise.expand.startActivity
 
 /**
  * 启动页界面
  */
-class SplashActivity : BaseActivity() {
+class SplashActivity : MyActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

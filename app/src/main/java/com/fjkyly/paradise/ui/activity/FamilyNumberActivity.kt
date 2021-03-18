@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.adapter.ItemKinsfolkNumAdapter
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityFamilyNumberBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
@@ -19,7 +19,7 @@ import kotlin.random.Random
  * @property itemKinsfolkNumAdapter ItemKinsfolkNumAdapter
  * @property mKinsfolkList MutableList<Kinsfolk>
  */
-class FamilyNumberActivity : BaseActivity() {
+class FamilyNumberActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityFamilyNumberBinding
     private val itemKinsfolkNumAdapter by lazy {

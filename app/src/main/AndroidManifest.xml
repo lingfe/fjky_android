@@ -39,7 +39,8 @@
         android:theme="@style/Theme.Paradise"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".ui.activity.FeedbackSettingActivity"></activity>
+        <activity android:name=".ui.activity.FriendsListActivity"></activity>
+        <activity android:name=".ui.activity.FeedbackSettingActivity" />
         <activity android:name=".ui.activity.PersonalFoodProhibitionSettingActivity" />
         <activity android:name=".ui.activity.PersonalPhoneSettingActivity" />
         <activity android:name=".ui.activity.PersonalIdCardSettingActivity" />

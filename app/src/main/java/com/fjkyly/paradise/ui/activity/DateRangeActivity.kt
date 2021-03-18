@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.blankj.utilcode.util.ActivityUtils
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityDateRangeBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.model.DeviceSettingFun
@@ -18,7 +18,7 @@ import java.util.*
 /**
  * 通用的日期范围选择界面
  */
-class DateRangeActivity : BaseActivity() {
+class DateRangeActivity : MyActivity() {
 
     private var _binding: ActivityDateRangeBinding? = null
     private val mBinding get() = _binding!!

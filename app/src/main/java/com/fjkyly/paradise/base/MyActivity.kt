@@ -2,7 +2,7 @@ package com.fjkyly.paradise.base
 
 import androidx.appcompat.app.AppCompatActivity
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class MyActivity : AppCompatActivity() {
 
     open fun callAllInit() {
         initView()

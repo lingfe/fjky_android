@@ -9,7 +9,7 @@ import android.os.Bundle
 import androidx.core.content.edit
 import com.fjkyly.paradise.HomeActivity
 import com.fjkyly.paradise.R
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityLoginBinding
 import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.network.request.Repository
@@ -18,7 +18,7 @@ import com.fjkyly.paradise.ui.views.ConfirmDialog
 /**
  * 登录界面
  */
-class LoginActivity : BaseActivity() {
+class LoginActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityLoginBinding
     private lateinit var userSettingSp: SharedPreferences

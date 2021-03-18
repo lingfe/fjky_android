@@ -5,7 +5,7 @@ import android.view.View
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.fjkyly.paradise.R
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalDetailsBinding
 import com.fjkyly.paradise.expand.getProvinceJson
 import com.fjkyly.paradise.expand.simpleToast
@@ -17,7 +17,7 @@ import com.vondear.rxtool.RxTimeTool
 /**
  * 个人详细信息界面
  */
-class PersonalDetailsActivity : BaseActivity() {
+class PersonalDetailsActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityPersonalDetailsBinding
 

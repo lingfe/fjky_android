@@ -2,7 +2,7 @@ package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
 import com.fjkyly.paradise.R
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityModifyPwdBinding
 import com.fjkyly.paradise.expand.dp
 import com.fjkyly.paradise.expand.setRoundRectBg
@@ -11,7 +11,7 @@ import com.fjkyly.paradise.expand.simpleToast
 /**
  * 修改密码界面（与找回密码功能通用）
  */
-class ModifyPwdActivity : BaseActivity() {
+class ModifyPwdActivity : MyActivity() {
 
     private var _binding: ActivityModifyPwdBinding? = null
     private val mBinding get() = _binding!!

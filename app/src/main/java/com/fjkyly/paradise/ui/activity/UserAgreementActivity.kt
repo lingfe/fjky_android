@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import com.blankj.utilcode.util.GsonUtils
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityUserAgreementBinding
 import com.fjkyly.paradise.ui.fragment.BrowserFragment
 import com.tencent.smtt.export.external.interfaces.ConsoleMessage
@@ -14,7 +14,7 @@ import com.tencent.smtt.sdk.WebViewClient
 /**
  * 用户协议界面
  */
-class UserAgreementActivity : BaseActivity() {
+class UserAgreementActivity : MyActivity() {
 
     private var _binding: ActivityUserAgreementBinding? = null
     private val mBinding get() = _binding!!

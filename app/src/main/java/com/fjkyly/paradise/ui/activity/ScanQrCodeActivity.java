@@ -28,9 +28,8 @@ import androidx.core.content.ContextCompat;
 import com.blankj.utilcode.util.GsonUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.fjkyly.paradise.R;
-import com.fjkyly.paradise.base.BaseActivity;
+import com.fjkyly.paradise.base.MyActivity;
 import com.fjkyly.paradise.expand.ConstantsKt;
-import com.fjkyly.paradise.expand.ToastKt;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
@@ -65,7 +64,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 二维码/条形码扫描页面
  */
-public class ScanQrCodeActivity extends BaseActivity {
+public class ScanQrCodeActivity extends MyActivity {
 
     /**
      * 扫描结果监听

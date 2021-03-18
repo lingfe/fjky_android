@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ActivityUtils
 import com.fjkyly.paradise.adapter.ItemFacilityListAdapter
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivitySmartBandsListBinding
 import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
@@ -14,7 +14,7 @@ import com.fjkyly.paradise.network.request.Repository
 /**
  * 智能手环列表界面
  */
-class SmartBandsListActivity : BaseActivity() {
+class SmartBandsListActivity : MyActivity() {
 
     private lateinit var mBinding: ActivitySmartBandsListBinding
     private val itemFacilityListAdapter by lazy {

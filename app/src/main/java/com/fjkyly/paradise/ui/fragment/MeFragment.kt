@@ -6,11 +6,11 @@ import com.bumptech.glide.Glide
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.databinding.FragmentMeBinding
-import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.activity.AccountManagerActivity
 import com.fjkyly.paradise.ui.activity.FeedbackSettingActivity
+import com.fjkyly.paradise.ui.activity.FriendsListActivity
 import com.fjkyly.paradise.ui.activity.PersonalDetailsActivity
 
 /**
@@ -34,10 +34,10 @@ class MeFragment : BaseFragment() {
     override fun initView() {
         mBinding.run {
             meSettingsIv.setOnClickListener {
-                simpleToast("设置功能开发中...")
+
             }
             meMessageIv.setOnClickListener {
-                simpleToast("消息功能开发中...")
+
             }
             meInclude.run {
                 Repository.queryUserBasicInfo(lifecycle = lifecycle) {
@@ -64,8 +64,8 @@ class MeFragment : BaseFragment() {
                 requireContext().startActivity<PersonalDetailsActivity>()
             }
             meRelativesContainer.setOnClickListener {
-                // TODO: 2021-03-05 进入亲友列表界面
-                simpleToast("亲友功能开发中...")
+                // 进入亲友列表界面
+                requireContext().startActivity<FriendsListActivity>()
             }
             meFeedbackContainer.setOnClickListener {
                 // 进入意见反馈界面

@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fjkyly.paradise.adapter.ItemBindFacilityAdapter
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityAddFacilityBinding
 import com.fjkyly.paradise.expand.QR_SCAN_CONTENT
 import com.fjkyly.paradise.expand.QR_SCAN_REQUEST_CODE
@@ -23,7 +23,7 @@ import com.fjkyly.paradise.network.request.Repository
  * @property itemBindFacilityAdapter ItemBindFacilityAdapter
  * @property mFacilityList MutableList<Facility>
  */
-class AddFacilityActivity : BaseActivity() {
+class AddFacilityActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityAddFacilityBinding
     private val itemBindFacilityAdapter by lazy {

@@ -1,24 +1,16 @@
 package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
-import android.util.Log
-import com.blankj.utilcode.util.GsonUtils
 import com.fjkyly.paradise.base.App
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityUserNameSettingBinding
 import com.fjkyly.paradise.expand.simpleToast
-import com.fjkyly.paradise.model.HTTP_OK
-import com.fjkyly.paradise.model.ModifyUserName
 import com.fjkyly.paradise.network.request.Repository
-import com.fjkyly.paradise.network.request.ServiceCreator
-import com.fjkyly.paradise.network.request.api.ModifyUserNameApi
-import retrofit2.Call
-import retrofit2.Response
 
 /**
  * 用户名设置界面
  */
-class UserNameSettingActivity : BaseActivity() {
+class UserNameSettingActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityUserNameSettingBinding
 

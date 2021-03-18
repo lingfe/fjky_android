@@ -1,7 +1,7 @@
 package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityRegisterBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
@@ -11,7 +11,7 @@ import com.vondear.rxtool.RxConstTool
 /**
  * 注册界面
  */
-class RegisterActivity : BaseActivity() {
+class RegisterActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityRegisterBinding
 

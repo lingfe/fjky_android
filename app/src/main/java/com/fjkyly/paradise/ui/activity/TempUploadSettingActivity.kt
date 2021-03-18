@@ -1,14 +1,14 @@
 package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityTempUploadSettingBinding
 import com.fjkyly.paradise.expand.simpleToast
 
 /**
  * 体温上传间隔设置界面
  */
-class TempUploadSettingActivity : BaseActivity() {
+class TempUploadSettingActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityTempUploadSettingBinding
 

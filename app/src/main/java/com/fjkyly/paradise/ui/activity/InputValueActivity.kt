@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.blankj.utilcode.util.ActivityUtils
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityInputValueBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.model.DeviceSettingFun
 import com.fjkyly.paradise.network.request.Repository
 
-class InputValueActivity : BaseActivity() {
+class InputValueActivity : MyActivity() {
 
     private var _binding: ActivityInputValueBinding? = null
     private val mBinding get() = _binding!!

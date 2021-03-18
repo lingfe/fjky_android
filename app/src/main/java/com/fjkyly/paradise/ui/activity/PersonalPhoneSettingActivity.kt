@@ -1,13 +1,13 @@
 package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalPhoneSettingBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.network.request.Repository
 import com.vondear.rxtool.RxRegTool
 
-class PersonalPhoneSettingActivity : BaseActivity() {
+class PersonalPhoneSettingActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityPersonalPhoneSettingBinding
 

@@ -5,13 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.SeekBar
 import com.blankj.utilcode.util.ActivityUtils
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityVolumeSettingBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.model.DeviceSettingFun
 import com.fjkyly.paradise.network.request.Repository
 
-class VolumeSettingActivity : BaseActivity() {
+class VolumeSettingActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityVolumeSettingBinding
     private var mCurrentProgress = 0

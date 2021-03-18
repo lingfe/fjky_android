@@ -1,14 +1,13 @@
 package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityCustomerTypeBinding
-import java.util.*
 
 /**
  * 客户类别选择界面
  */
-class CustomerTypeActivity : BaseActivity() {
+class CustomerTypeActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityCustomerTypeBinding
 

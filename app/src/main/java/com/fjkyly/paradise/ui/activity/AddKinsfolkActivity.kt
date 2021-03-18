@@ -1,11 +1,11 @@
 package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityAddKinsfolkBinding
 import com.fjkyly.paradise.expand.simpleToast
 
-class AddKinsfolkActivity : BaseActivity() {
+class AddKinsfolkActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityAddKinsfolkBinding
 

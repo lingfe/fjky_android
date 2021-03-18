@@ -1,12 +1,12 @@
 package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalFoodProhibitionSettingBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.network.request.Repository
 
-class PersonalFoodProhibitionSettingActivity : BaseActivity() {
+class PersonalFoodProhibitionSettingActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityPersonalFoodProhibitionSettingBinding
 

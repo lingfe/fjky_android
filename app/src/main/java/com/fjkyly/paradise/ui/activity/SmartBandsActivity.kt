@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.blankj.utilcode.util.ActivityUtils.startActivity
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivitySmartBandsBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.model.Facility
@@ -14,7 +14,7 @@ import com.fjkyly.paradise.model.Facility
  *
  * @property mBinding ActivitySmartBandsBinding
  */
-class SmartBandsActivity : BaseActivity() {
+class SmartBandsActivity : MyActivity() {
 
     private lateinit var mBinding: ActivitySmartBandsBinding
 

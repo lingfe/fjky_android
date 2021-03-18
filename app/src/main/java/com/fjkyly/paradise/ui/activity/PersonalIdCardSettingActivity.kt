@@ -1,13 +1,13 @@
 package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalIdCardSettingBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.network.request.Repository
 import com.vondear.rxtool.RxRegTool
 
-class PersonalIdCardSettingActivity : BaseActivity() {
+class PersonalIdCardSettingActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityPersonalIdCardSettingBinding
 

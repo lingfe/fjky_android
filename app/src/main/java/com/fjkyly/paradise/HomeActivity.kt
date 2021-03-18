@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.base.BaseFragmentStateAdapter
 import com.fjkyly.paradise.databinding.ActivityHomeBinding
@@ -22,7 +22,7 @@ import com.fjkyly.paradise.ui.views.NavigationMediator
  * @property fragmentList MutableList<BaseFragment>
  * @property navigationMediator NavigationMediator
  */
-class HomeActivity : BaseActivity() {
+class HomeActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityHomeBinding
     private val fragmentStateAdapter by lazy {

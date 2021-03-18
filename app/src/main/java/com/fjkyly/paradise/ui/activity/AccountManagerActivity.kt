@@ -16,7 +16,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.bumptech.glide.Glide
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.App
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityAccountManagerBinding
 import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.network.request.Repository
@@ -35,7 +35,7 @@ import com.zhihu.matisse.internal.entity.CaptureStrategy
  * @property mBinding ActivityAccountManagerBinding
  */
 @RequiresApi(Build.VERSION_CODES.R)
-class AccountManagerActivity : BaseActivity() {
+class AccountManagerActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityAccountManagerBinding
     private lateinit var mChoosePhotoDialog: Dialog

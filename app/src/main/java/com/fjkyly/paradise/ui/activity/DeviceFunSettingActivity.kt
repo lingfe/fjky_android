@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ActivityUtils
 import com.fjkyly.paradise.adapter.ItemDeviceFunSettingAdapter
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityDeviceFunSettingBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.model.DeviceSettingFun
@@ -17,7 +17,7 @@ import com.fjkyly.paradise.network.request.Repository
  * 设备功能列表界面
  *
  */
-class DeviceFunSettingActivity : BaseActivity() {
+class DeviceFunSettingActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityDeviceFunSettingBinding
     private val itemDeviceFunSettingAdapter by lazy {

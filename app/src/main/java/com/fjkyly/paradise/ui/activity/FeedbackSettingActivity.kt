@@ -1,12 +1,12 @@
 package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
-import com.fjkyly.paradise.base.BaseActivity
+import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityFeedbackSettingBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.network.request.Repository
 
-class FeedbackSettingActivity : BaseActivity() {
+class FeedbackSettingActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityFeedbackSettingBinding
 
