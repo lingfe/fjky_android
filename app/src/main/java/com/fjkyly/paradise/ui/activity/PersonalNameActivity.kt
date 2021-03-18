@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalNameBinding
 import com.fjkyly.paradise.expand.simpleToast
+import com.fjkyly.paradise.network.request.Repository
 
 class PersonalNameActivity : BaseActivity() {
 
@@ -21,9 +22,23 @@ class PersonalNameActivity : BaseActivity() {
             personalNameBackIv.setOnClickListener {
                 finish()
             }
+
             personalNameSaveBtn.setOnClickListener {
-                // TODO: 2021/2/28 保存姓名
-                simpleToast("保存姓名正在开发中...")
+                // 保存姓名
+                val personalName = personalNameEt.text.toString()
+                if (personalName.isEmpty()) {
+                    simpleToast("姓名不能为空")
+                    return@setOnClickListener
+                }
+                val params = mutableMapOf<String, String>()
+                params["full_name"] = personalName
+                Repository.modifyPersonBasicInfo(
+                    lifecycle = lifecycle,
+                    params = params,
+                ) {
+                    simpleToast(it.msg)
+                    finish()
+                }
             }
         }
     }

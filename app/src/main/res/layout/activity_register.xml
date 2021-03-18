@@ -105,6 +105,42 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="请输入密码"
+            android:inputType="textPassword"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="123456"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/regReInputPwdContainer"
+        android:layout_width="265dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/regInputPwdContainer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:background="@drawable/bg_line_gray"
+        android:imeOptions="actionNext"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_user" />
+
+        <EditText
+            android:id="@+id/regRePwdEt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请再次输入密码"
+            android:inputType="textPassword"
             android:maxLength="11"
             android:maxLines="1"
             android:singleLine="true"
@@ -117,7 +153,7 @@
         android:id="@+id/regInputIdCardContainer"
         android:layout_width="265dp"
         android:layout_height="50dp"
-        android:layout_below="@id/regInputPwdContainer"
+        android:layout_below="@id/regReInputPwdContainer"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="38dp"
         android:background="@drawable/bg_line_gray"
@@ -205,7 +241,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/bg_button_round_red"
-        android:text="验证"
+        android:text="注册"
         android:textColor="@color/white" />
 
     <TextView

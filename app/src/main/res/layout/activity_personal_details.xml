@@ -176,6 +176,129 @@
                 android:background="#FFE8E7E7" />
 
             <LinearLayout
+                android:id="@+id/personalNationContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="民族"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="民族"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/personalNationTv"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="汉"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_next" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="#FFE8E7E7" />
+
+            <LinearLayout
+                android:id="@+id/personalHomeAddressContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="户籍地址"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="户籍地址"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/personalHomeAddressTv"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:hint="请填写户籍地址"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_next" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="#FFE8E7E7" />
+
+            <LinearLayout
+                android:id="@+id/personalBirthdayContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="生日"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="生日"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/personalBirthdayTv"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:gravity="right"
+                    android:text="11月12日"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="10dp"
+                    android:src="@drawable/icon_next" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="#FFE8E7E7" />
+
+            <LinearLayout
                 android:id="@+id/personalAgeContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -220,7 +343,7 @@
                 android:id="@+id/personalPhoneNumberContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="手机号"
+                android:contentDescription="联系电话"
                 android:orientation="horizontal"
                 android:padding="10dp">
 
@@ -229,7 +352,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="手机号"
+                    android:text="联系电话"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -258,10 +381,10 @@
                 android:background="#FFE8E7E7" />
 
             <LinearLayout
-                android:id="@+id/personalCustomerTypeContainer"
+                android:id="@+id/personalHobbyContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="客户类别"
+                android:contentDescription="爱好"
                 android:orientation="horizontal"
                 android:padding="10dp">
 
@@ -270,17 +393,17 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="客户类别"
+                    android:text="爱好"
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/personalCustomerTypeTv"
+                    android:id="@+id/personalHobbyTv"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
                     android:gravity="right"
-                    android:hint="请选择客户类别"
+                    android:hint="暂时没有爱好"
                     android:textColor="@color/black" />
 
                 <ImageView
@@ -299,10 +422,10 @@
                 android:background="#FFE8E7E7" />
 
             <LinearLayout
-                android:id="@+id/personalMaritalStatusContainer"
+                android:id="@+id/personalFoodProhibitionContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:contentDescription="婚姻情况"
+                android:contentDescription="饮食禁忌"
                 android:orientation="horizontal"
                 android:padding="10dp">
 
@@ -311,233 +434,17 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="婚姻情况"
+                    android:text="饮食禁忌"
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/personalMaritalStatusTv"
+                    android:id="@+id/personalFoodProhibitionTv"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
                     android:gravity="right"
-                    android:hint="请选择婚姻情况"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:src="@drawable/icon_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#FFE8E7E7" />
-
-            <LinearLayout
-                android:id="@+id/personalLivingSituationContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="居住情况"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="居住情况"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/personalLivingSituationTv"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:gravity="right"
-                    android:hint="请选择居住情况"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:src="@drawable/icon_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#FFE8E7E7" />
-
-            <LinearLayout
-                android:id="@+id/personalHomeAddressContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="家庭住址"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="家庭住址"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/personalHomeAddressTv"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:gravity="right"
-                    android:hint="请填写家庭住址"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:src="@drawable/icon_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#FFE8E7E7" />
-
-            <LinearLayout
-                android:id="@+id/personalEmergencyContactContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="紧急联系人"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="紧急联系人"
-                    android:textColor="@color/black" />
-
-                <EditText
-                    android:id="@+id/personalEmergencyContactTv"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="3"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:hint="请填写紧急联系人姓名"
-                    android:maxLength="6"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:src="@drawable/icon_next"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#FFE8E7E7" />
-
-            <LinearLayout
-                android:id="@+id/personalEmergencyContactPhoneContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="紧急联系人电话"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center_vertical"
-                    android:text="紧急联系人电话"
-                    android:textColor="@color/black" />
-
-                <EditText
-                    android:id="@+id/personalEmergencyContactPhoneTv"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="3"
-                    android:background="@null"
-                    android:gravity="right"
-                    android:hint="请填写紧急联系人电话"
-                    android:inputType="phone"
-                    android:maxLength="11"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="10dp"
-                    android:src="@drawable/icon_next"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="#FFE8E7E7" />
-
-            <LinearLayout
-                android:id="@+id/personalCommunityContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="所属社区"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <TextView
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="所属社区"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/personalCommunityTv"
-                    android:layout_width="0px"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:gravity="right"
-                    android:hint="请输入或选择所属社区"
+                    android:hint="暂时没有饮食禁忌"
                     android:textColor="@color/black" />
 
                 <ImageView

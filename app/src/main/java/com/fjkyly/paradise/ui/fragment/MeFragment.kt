@@ -52,18 +52,15 @@ class MeFragment : BaseFragment() {
                     requireContext().startActivity<AccountManagerActivity>()
                 }
                 meFavoritesContainer.setOnClickListener {
-                    // TODO: 2021/2/28 进入到我的收藏界面
-                    simpleToast("收藏功能正在开发...")
+                    // 我的余额被点击
                 }
                 meAccountContainer.setOnClickListener {
-                    // TODO: 2021/2/28 进入到我的账户界面
-                    simpleToast("账户功能正在开发中...")
+                    // 电话号码被点击的事件
                 }
             }
             mePersonDetailInfoContainer.setOnClickListener {
-                // TODO: 2021/2/28 进入到个人详细信息界面
+                // 进入到个人详细信息界面
                 requireContext().startActivity<PersonalDetailsActivity>()
-                simpleToast("个人详细信息开发中...")
             }
             meRelativesContainer.setOnClickListener {
                 // TODO: 2021-03-05 进入亲友列表界面
@@ -72,10 +69,6 @@ class MeFragment : BaseFragment() {
             meFeedbackContainer.setOnClickListener {
                 // TODO: 2021-03-05 进入意见反馈界面
                 simpleToast("意见反馈功能开发中...")
-            }
-            meCommonProblemContainer.setOnClickListener {
-                // TODO: 2021-03-05 进入常见问题查看界面
-                simpleToast("常见问题功能开发中...")
             }
         }
     }

@@ -16,6 +16,77 @@ import java.io.File
 object Repository {
 
     /**
+     * 获取个人基本信息
+     */
+    fun queryPersonBasicInfo(
+        lifecycle: Lifecycle,
+        block: (personBasicInfo: PersonBasicInfo) -> Unit
+    ) {
+        val personBasicInfoApi = ServiceCreator.create<PersonBasicInfoApi>()
+        personBasicInfoApi.queryPersonBasicInfo()
+            .enqueue(object : retrofit2.Callback<PersonBasicInfo> {
+                override fun onResponse(
+                    call: Call<PersonBasicInfo>,
+                    response: Response<PersonBasicInfo>
+                ) {
+                    response.body()?.let {
+                        Log.d(
+                            TAG,
+                            "onResponse：queryPersonBasicInfo ===>${GsonUtils.toJson(it)}"
+                        )
+                        if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                            if (it.state == HTTP_OK) {
+                                block(it)
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<PersonBasicInfo>, t: Throwable) {
+                    t.printStackTrace()
+                    simpleToast("修改失败，请稍后重试")
+                }
+            })
+    }
+
+
+    /**
+     * 设置个人基本信息
+     */
+    fun modifyPersonBasicInfo(
+        lifecycle: Lifecycle,
+        params: Map<String, String>,
+        block: (modifyPersonalBasicInfoData: ModifyPersonalBasicInfoData) -> Unit
+    ) {
+        val personBasicInfoApi = ServiceCreator.create<PersonBasicInfoApi>()
+        personBasicInfoApi.modifyPersonBasicInfo(params = params)
+            .enqueue(object : retrofit2.Callback<ModifyPersonalBasicInfoData> {
+                override fun onResponse(
+                    call: Call<ModifyPersonalBasicInfoData>,
+                    response: Response<ModifyPersonalBasicInfoData>
+                ) {
+                    response.body()?.let {
+                        Log.d(
+                            TAG,
+                            "onResponse：modifyPersonBasicInfo ===>${GsonUtils.toJson(it)}"
+                        )
+                        if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                            if (it.state == HTTP_OK) {
+                                block(it)
+                            } else {
+                                simpleToast(it.msg)
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ModifyPersonalBasicInfoData>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+    }
+
+    /**
      * 查询用户已绑定设备的告警信息
      */
     fun queryDeviceAlertListApi(block: (deviceAlertingList: DeviceAlertingList) -> Unit) {

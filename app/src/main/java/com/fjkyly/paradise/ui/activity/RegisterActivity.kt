@@ -32,6 +32,7 @@ class RegisterActivity : BaseActivity() {
                 //  如果匹配则提示用户注册成功并返回登录界面，否则提示用户手机号或验证码错误
                 val phoneNum = regPhoneNumEt.text.toString()
                 val pwd = regPwdEt.text.toString()
+                val rePwd = regRePwdEt.text.toString()
                 val idCard = regIdCardEt.text.toString()
                 val verifyCode = regVerifyCodeEt.text.toString()
                 val mobilePatternOk = phoneNum matches Regex(RxConstTool.REGEX_MOBILE_EXACT)
@@ -41,6 +42,10 @@ class RegisterActivity : BaseActivity() {
                 }
                 if (pwd.isEmpty() || idCard.isEmpty() || verifyCode.isEmpty()) {
                     simpleToast("请重新检查您的注册信息！")
+                    return@setOnClickListener
+                }
+                if ((pwd == rePwd).not()) {
+                    simpleToast("两次输入的密码不一致！")
                     return@setOnClickListener
                 }
                 if ((idCard matches Regex(RxConstTool.REGEX_IDCARD18)).not()) {

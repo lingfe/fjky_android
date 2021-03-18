@@ -3,10 +3,11 @@ package com.fjkyly.paradise.ui.activity
 import android.os.Bundle
 import android.view.View
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
+import com.blankj.utilcode.util.ActivityUtils
 import com.fjkyly.paradise.base.BaseActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalDetailsBinding
-import com.fjkyly.paradise.expand.startActivity
-import java.util.*
+import com.fjkyly.paradise.expand.simpleToast
+import com.fjkyly.paradise.network.request.Repository
 
 /**
  * 个人详细信息界面
@@ -22,14 +23,37 @@ class PersonalDetailsActivity : BaseActivity() {
         callAllInit()
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
+
+    private fun loadData() {
+        mBinding.run {
+            Repository.queryPersonBasicInfo(lifecycle = lifecycle) {
+                val data = it.data
+                // 姓名
+                personalNameTv.text = data.fullName
+                // 性别
+                personalSexTv.text = data.gender.ifEmpty { "男" }
+                // 身份证号码
+                personalIdentityNumberTv.text = data.idCard
+                // 年龄
+                personalAgeTv.text = data.age
+                // 联系电话
+                personalPhoneNumberTv.text = data.phone
+            }
+        }
+    }
+
     override fun initEvent() {
         mBinding.run {
             personalDetailsBackIv.setOnClickListener {
                 finish()
             }
             personalNameContainer.setOnClickListener {
-                // TODO: 2021/2/28 姓名
-                startActivity<PersonalNameActivity>()
+                // 跳转到姓名设置界面
+                ActivityUtils.startActivity(PersonalNameActivity::class.java)
             }
             personalSexContainer.setOnClickListener {
                 // TODO: 2021/2/28 性别选择
@@ -39,7 +63,7 @@ class PersonalDetailsActivity : BaseActivity() {
                 }
                 OptionsPickerBuilder(this@PersonalDetailsActivity) { options1: Int, _: Int, _: Int, _: View? ->
                     val sex = sexList[options1]
-                    personalSexTv.text = sex
+                    modifyParams("gender", sex)
                 }
                     .isAlphaGradient(true)
                     .build<String>()
@@ -52,7 +76,7 @@ class PersonalDetailsActivity : BaseActivity() {
                     }
             }
             personalIdentityNumberContainer.setOnClickListener {
-                // TODO: 2021/2/28 身份证号码
+                // TODO: 2021/2/28 身份证号码设置
             }
             personalAgeContainer.setOnClickListener {
                 // TODO: 2021/2/28 年龄选择
@@ -64,6 +88,7 @@ class PersonalDetailsActivity : BaseActivity() {
                 OptionsPickerBuilder(this@PersonalDetailsActivity) { options1: Int, _: Int, _: Int, _: View? ->
                     val age = ageList[options1]
                     personalAgeTv.text = age
+                    modifyParams("age", age)
                 }
                     .isAlphaGradient(true)
                     .build<String>()
@@ -78,27 +103,26 @@ class PersonalDetailsActivity : BaseActivity() {
             personalPhoneNumberContainer.setOnClickListener {
                 // TODO: 2021/2/28 手机号
             }
-            personalCustomerTypeContainer.setOnClickListener {
-                // TODO: 2021/2/28 客户类别
-            }
-            personalMaritalStatusContainer.setOnClickListener {
-                // TODO: 2021/2/28 婚姻情况
-            }
-            personalLivingSituationContainer.setOnClickListener {
-                // TODO: 2021/2/28 居住情况
-            }
-            personalHomeAddressContainer.setOnClickListener {
-                // TODO: 2021/2/28 家庭住址
-            }
-            personalEmergencyContactContainer.setOnClickListener {
-                // TODO: 2021/2/28 紧急联系人
-            }
-            personalEmergencyContactPhoneContainer.setOnClickListener {
-                // TODO: 2021/2/28 紧急联系人电话
-            }
-            personalCommunityContainer.setOnClickListener {
-                // TODO: 2021/2/28 所属社区
-            }
         }
+    }
+
+    /**
+     * 修改参数
+     */
+    private fun modifyParams(paramName: String, paramValue: String) {
+        val params = mutableMapOf<String, String>()
+        params[paramName] = paramValue
+        Repository.modifyPersonBasicInfo(
+            lifecycle = lifecycle,
+            params = params,
+        ) {
+            // 修改成功之后，刷新界面数据
+            loadData()
+            simpleToast(it.msg)
+        }
+    }
+
+    companion object {
+        private const val TAG = "PersonalDetailsActivity"
     }
 }

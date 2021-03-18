@@ -103,8 +103,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|right"
-            android:text="张三"
             android:hint="设置用户名"
+            android:text="张三"
             android:textColor="@color/black" />
 
         <ImageView
@@ -198,7 +198,8 @@
         android:background="@color/white"
         android:contentDescription="支付密码管理"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="0px"
