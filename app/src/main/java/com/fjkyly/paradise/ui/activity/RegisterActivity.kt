@@ -28,8 +28,8 @@ class RegisterActivity : MyActivity() {
                 finish()
             }
             nextBtn.setOnClickListener {
-                // TODO: 2021/2/21 通过请求服务器数据，验证用户输入的手机号码和验证码是否正确，
-                //  如果匹配则提示用户注册成功并返回登录界面，否则提示用户手机号或验证码错误
+                // 通过请求服务器数据，验证用户输入的手机号码和验证码是否正确，
+                // 如果匹配则提示用户注册成功并返回登录界面，否则提示用户手机号或验证码错误
                 val phoneNum = regPhoneNumEt.text.toString()
                 val pwd = regPwdEt.text.toString()
                 val rePwd = regRePwdEt.text.toString()
@@ -52,7 +52,7 @@ class RegisterActivity : MyActivity() {
                     simpleToast("请输入正确的身份证号码！")
                     return@setOnClickListener
                 }
-                // TODO: 2021/2/21 手机号码格式正确，将手机号和验证码进行匹配
+                // 手机号码格式正确，将手机号和验证码进行匹配
                 checkAccountInfo(
                     phoneNum = phoneNum,
                     pwd = pwd,

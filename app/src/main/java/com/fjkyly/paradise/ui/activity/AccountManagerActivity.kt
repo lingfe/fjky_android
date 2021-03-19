@@ -109,19 +109,22 @@ class AccountManagerActivity : MyActivity() {
                 startActivity<UserNameSettingActivity>()
             }
             accountMangerPhoneNumContainer.setOnClickListener {
-                // TODO: 2021/2/25 跳转到修改登录手机号界面
-
+                // 跳转到修改登录手机号界面
+                startActivity<BindNewPhoneActivity>()
             }
             accountMangerPwdContainer.setOnClickListener {
-                // TODO: 2021/2/25 跳转到账号密码修改界面
-
+                // 跳转到账号密码修改界面
+                startActivity<ModifyPwdActivity>()
             }
             accountMangerPayContainer.setOnClickListener {
                 // TODO: 2021/2/25 支付密码管理界面
-
+            }
+            accountSettingContainer.setOnClickListener {
+                // 跳转到APP设置界面
+                startActivity<AppSettingActivity>()
             }
             accountMangerLoginOutTv.setOnClickListener {
-                // TODO: 2021/2/25 退出登录
+                // 退出登录
                 val signOutDialog = ConfirmDialog(this@AccountManagerActivity)
                 signOutDialog.run {
                     setContentView(R.layout.dialog_confirm)

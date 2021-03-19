@@ -16,6 +16,106 @@ import java.io.File
 object Repository {
 
     /**
+     * 更换用户手机号绑定
+     */
+    fun modifyUserPhoneBind(
+        lifecycle: Lifecycle,
+        newPhone: String,
+        block: (modifyPhoneBind: ModifyPhoneBind) -> Unit
+    ) {
+        val modifyPhoneBindApi = ServiceCreator.create<ModifyPhoneBindApi>()
+        modifyPhoneBindApi.modifyPhoneBind(newPhone = newPhone)
+            .enqueue(object : retrofit2.Callback<ModifyPhoneBind> {
+                override fun onResponse(
+                    call: Call<ModifyPhoneBind>,
+                    response: Response<ModifyPhoneBind>
+                ) {
+                    response.body()?.let {
+                        Log.d(
+                            TAG,
+                            "onResponse：modifyUserPhoneBind ===>${GsonUtils.toJson(it)}"
+                        )
+                        if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                            if (it.state == HTTP_OK) {
+                                block(it)
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ModifyPhoneBind>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+    }
+
+    /**
+     * 修改用户登录密码
+     */
+    fun modifyUserPwd(
+        lifecycle: Lifecycle,
+        phone: String,
+        oldPwd: String,
+        newPwd: String,
+        block: (modifyPwd: ModifyPwd) -> Unit
+    ) {
+        val modifyPwdApi = ServiceCreator.create<ModifyPwdApi>()
+        modifyPwdApi.modify(phone = phone, oldPwd = oldPwd, newPwd = newPwd)
+            .enqueue(object : retrofit2.Callback<ModifyPwd> {
+                override fun onResponse(
+                    call: Call<ModifyPwd>,
+                    response: Response<ModifyPwd>
+                ) {
+                    response.body()?.let {
+                        Log.d(
+                            TAG,
+                            "onResponse：modifyUserPwd ===>${GsonUtils.toJson(it)}"
+                        )
+                        if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                            if (it.state == HTTP_OK) {
+                                block(it)
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ModifyPwd>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+    }
+
+    /**
+     * 获取用户信息
+     */
+    fun queryUserInfo(lifecycle: Lifecycle, block: (queryUserInfo: QueryUserInfo) -> Unit) {
+        val queryUserInfoApi = ServiceCreator.create<QueryUserInfoApi>()
+        queryUserInfoApi.query()
+            .enqueue(object : retrofit2.Callback<QueryUserInfo> {
+                override fun onResponse(
+                    call: Call<QueryUserInfo>,
+                    response: Response<QueryUserInfo>
+                ) {
+                    response.body()?.let {
+                        Log.d(
+                            TAG,
+                            "onResponse：queryUserInfo ===>${GsonUtils.toJson(it)}"
+                        )
+                        if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                            if (it.state == HTTP_OK) {
+                                block(it)
+                            }
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<QueryUserInfo>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+    }
+
+    /**
      * 修改亲友信息
      */
     fun modifyFriendInfo(
@@ -43,7 +143,6 @@ object Repository {
                         "onResponse：modifyFriendInfo ===>${GsonUtils.toJson(it)}"
                     )
                     if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
-                        block(it)
                         if (it.state == HTTP_OK) {
                             block(it)
                         }

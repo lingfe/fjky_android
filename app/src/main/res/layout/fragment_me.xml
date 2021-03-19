@@ -63,7 +63,7 @@
 
                 <include
                     android:id="@+id/meInclude"
-                    layout="@layout/item_me_base_info" />
+                    layout="@layout/include_me_base_info" />
 
             </androidx.cardview.widget.CardView>
 

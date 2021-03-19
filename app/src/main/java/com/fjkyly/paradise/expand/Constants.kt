@@ -20,3 +20,9 @@ const val USER_ACCOUNT = "user_account"
 
 /** 用户账号的密码 */
 const val USER_ACCOUNT_PWD = "user_account_pwd"
+
+/** 吃药提醒 URL */
+const val REMIND_TAKE_MEDICINE_URL = "http://47.106.198.137:82/#/pages/medicationReminder/index"
+
+/** 预警通知的 URL */
+const val REMIND_ALERT_URL = "http://47.106.198.137:82/#/pages/warnningSetting/index"

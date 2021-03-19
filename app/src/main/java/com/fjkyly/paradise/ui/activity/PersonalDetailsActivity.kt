@@ -104,10 +104,9 @@ class PersonalDetailsActivity : MyActivity() {
             personalBirthdayContainer.setOnClickListener {
                 // 生日日期的选择
                 TimePickerBuilder(this@PersonalDetailsActivity) { date, _ ->
-                    val format = RxTimeTool.simpleDateFormat("MM月dd日", date)
+                    val format = RxTimeTool.simpleDateFormat("yyyy年MM月dd日", date)
                     modifyParams("birthday", format)
                 }
-                    .setType(booleanArrayOf(false, true, true, false, false, false))
                     .build()
                     .show()
             }

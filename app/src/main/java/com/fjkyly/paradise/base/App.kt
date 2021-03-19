@@ -3,15 +3,18 @@ package com.fjkyly.paradise.base
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import com.blankj.utilcode.util.Utils
 import com.bumptech.glide.Glide
 import com.fjkyly.paradise.expand.ALERT_REQUEST_INTERVAL
 import com.fjkyly.paradise.expand.AppConfig
+import com.fjkyly.paradise.expand.REMIND_ALERT_URL
 import com.fjkyly.paradise.expand.mainHandler
 import com.fjkyly.paradise.model.Login
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.network.request.RequestHandler
 import com.fjkyly.paradise.notification.notifyMention
+import com.fjkyly.paradise.ui.activity.BrowserActivity
 import com.hjq.http.EasyConfig
 import com.hjq.http.ssl.HttpSslFactory
 import com.tencent.smtt.export.external.TbsCoreSettings
@@ -57,11 +60,14 @@ class App : Application() {
                         val data = it.data
                         if (data.isNotEmpty()) {
                             for (datum in data) {
+                                val intent = Intent(this@App, BrowserActivity::class.java)
+                                intent.putExtra("URL_LINK", REMIND_ALERT_URL)
                                 notifyMention(
                                     context = appContext,
                                     id = datum.deviceId.toLongOrNull()?.toInt() ?: 0,
                                     title = datum.content,
-                                    text = datum.content
+                                    text = datum.content,
+                                    intent = intent
                                 )
                             }
                         }

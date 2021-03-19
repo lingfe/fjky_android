@@ -52,6 +52,11 @@ class UserAgreementActivity : MyActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     companion object {
         private const val TAG = "UserAgreementActivity"
     }

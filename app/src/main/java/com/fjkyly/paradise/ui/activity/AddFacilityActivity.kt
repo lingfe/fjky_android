@@ -47,11 +47,6 @@ class AddFacilityActivity : MyActivity() {
         }
     }
 
-    override fun initData() {
-        // TODO: 2021-03-04 为了测试方便，直接输入了测试数据
-        mBinding.addFacilitySv.setQuery("626160002748438", true)
-    }
-
     override fun initEvent() {
         mBinding.run {
             addFacilityBackIv.setOnClickListener {

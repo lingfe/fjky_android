@@ -21,7 +21,7 @@ import com.tencent.smtt.sdk.WebViewClient
  * @property _binding FragmentBrowserBinding?
  * @property mBinding FragmentBrowserBinding
  */
-class BrowserFragment : BaseFragment() {
+class BrowserFragment(private var mUrl: String = DEFAULT_URL) : BaseFragment() {
 
     private var _binding: FragmentBrowserBinding? = null
     private val mBinding get() = _binding!!
@@ -31,6 +31,11 @@ class BrowserFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         _binding = FragmentBrowserBinding.bind(view)
         callAllInit()
+    }
+
+    fun setUrl(urlLink: String): BrowserFragment {
+        mUrl = urlLink
+        return this
     }
 
     override fun initView() {
@@ -55,7 +60,8 @@ class BrowserFragment : BaseFragment() {
         mBinding.run {
             x5WebView.run {
                 // loadUrl("http://192.168.124.17:81/")
-                loadUrl("http://47.106.198.137:82/#/")
+                // loadUrl("http://47.106.198.137:82/#/")
+                loadUrl(mUrl)
                 // loadUrl(ASSETS_FOLDER + "h5/getLocation.html")
             }
         }
@@ -102,5 +108,6 @@ class BrowserFragment : BaseFragment() {
     companion object {
         private const val TAG = "BrowserFragment"
         const val ASSETS_FOLDER = "file:///android_asset/"
+        const val DEFAULT_URL = "http://47.106.198.137:82/#/"
     }
 }
