@@ -13,6 +13,7 @@ import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.views.AddressDialog
 import com.vondear.rxtool.RxTimeTool
+import java.util.*
 
 /**
  * 个人详细信息界面
@@ -130,11 +131,18 @@ class PersonalDetailsActivity : MyActivity() {
                 )
             }
             personalBirthdayContainer.setOnClickListener {
+                val startCalendar = Calendar.getInstance().apply {
+                    set(1820, 1, 1)
+                }
+                val endCalendar = Calendar.getInstance()
                 // 生日日期的选择
                 TimePickerBuilder(this@PersonalDetailsActivity) { date, _ ->
                     val format = RxTimeTool.simpleDateFormat("yyyy年MM月dd日", date)
                     modifyParams("birthday", format)
                 }
+                    .isCyclic(true) // 是否循环滚动
+                    .setDate(endCalendar)
+                    .setRangDate(startCalendar, endCalendar) //起始终止年月日设定
                     .build()
                     .show()
             }

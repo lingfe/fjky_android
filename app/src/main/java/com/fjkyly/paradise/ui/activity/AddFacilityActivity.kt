@@ -51,11 +51,6 @@ class AddFacilityActivity : MyActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        loadData()
-    }
-
     private fun loadData() {
         Repository.queryDeviceInfo(deviceId = mDeviceId, lifecycle = lifecycle) {
             val deviceData = it.data
@@ -146,7 +141,10 @@ class AddFacilityActivity : MyActivity() {
                 runCatching {
                     val deviceQrInfo: DeviceQrInfo = fromJson(qrContent)
                     val deviceData = deviceQrInfo.data
-                    mBinding.addFacilitySv.setQuery(deviceData.devId, true)
+                    val deviceId = deviceData.devId
+                    if (deviceId.isEmpty().not()) {
+                        mBinding.addFacilitySv.setQuery(deviceId, true)
+                    }
                 }
             }
         }
