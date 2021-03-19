@@ -3,8 +3,10 @@ package com.fjkyly.paradise.ui.fragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import com.blankj.utilcode.util.GsonUtils
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.databinding.FragmentCalendarEventTestBinding
@@ -43,6 +45,12 @@ class CalendarEventTestFragment : BaseFragment(), OnPermissionCallback {
     override fun initView() {
         mBinding.run {
             emptyTipsTv.text = "${mEmptyTips}测试界面"
+        }
+    }
+
+    @SuppressLint("NewApi")
+    override fun initEvent() {
+        mBinding.run {
             insertCalendarEventBtn.setOnClickListener {
                 checkCalendarPermission()
                 lifecycleScope.launch {
@@ -85,11 +93,21 @@ class CalendarEventTestFragment : BaseFragment(), OnPermissionCallback {
                 lifecycleScope.launch {
                     CalendarUtils().run {
                         queryAllEvent {
-                            resultInfoTv.text = it
+                            resultInfoEt.setText(it)
                         }
                         simpleToast("日历事件查询完毕")
                     }
                 }
+            }
+            createTestDataBtn.setOnClickListener {
+                val simpleCalendarEvent = CalendarUtils.SimpleCalendarEvent(
+                    title = "吃药提醒",
+                    description = "吃药药啦",
+                    location = "瑜龙世家",
+                    startTimeMillis = System.currentTimeMillis()
+                )
+                resultInfoEt.setText(GsonUtils.toJson(simpleCalendarEvent))
+                Log.d(TAG, "initEvent: ===>${GsonUtils.toJson(simpleCalendarEvent)}")
             }
         }
     }
@@ -108,11 +126,16 @@ class CalendarEventTestFragment : BaseFragment(), OnPermissionCallback {
         super.onDestroy()
         _binding = null
     }
+
     override fun onGranted(permissions: MutableList<String>?, all: Boolean) {
         granted = all
     }
 
     override fun onDenied(permissions: MutableList<String>?, never: Boolean) {
         granted = false
+    }
+
+    companion object {
+        private const val TAG = "CalendarEventTestFragme"
     }
 }

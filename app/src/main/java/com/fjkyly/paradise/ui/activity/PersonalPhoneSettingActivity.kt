@@ -1,5 +1,7 @@
 package com.fjkyly.paradise.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalPhoneSettingBinding
@@ -16,6 +18,13 @@ class PersonalPhoneSettingActivity : MyActivity() {
         mBinding = ActivityPersonalPhoneSettingBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         callAllInit()
+    }
+
+    override fun initView() {
+        mBinding.run {
+            val phoneNum = intent.getStringExtra("phoneNum")
+            personalPhoneEt.setText(phoneNum)
+        }
     }
 
     override fun initEvent() {
@@ -44,6 +53,14 @@ class PersonalPhoneSettingActivity : MyActivity() {
                     finish()
                 }
             }
+        }
+    }
+
+    companion object {
+        fun startActivity(context: Context, phoneNum: String) {
+            val intent = Intent(context, PersonalPhoneSettingActivity::class.java)
+            intent.putExtra("phoneNum", phoneNum)
+            context.startActivity(intent)
         }
     }
 }

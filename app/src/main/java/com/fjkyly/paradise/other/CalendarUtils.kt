@@ -1,6 +1,7 @@
 package com.fjkyly.paradise.other
 
 import android.Manifest
+import android.app.AlarmManager
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
@@ -601,12 +602,12 @@ class CalendarUtils {
     /**
      * 默认提供的日历事件信息接口的实现
      */
-    inner class SimpleCalendarEvent(
+    class SimpleCalendarEvent(
         private val title: String,
-        private val description: String,
-        private val location: String,
+        private val description: String = title,
+        private val location: String = "",
         private val startTimeMillis: Long,
-        private val endTimeMillis: Long
+        private val endTimeMillis: Long = startTimeMillis + (AlarmManager.INTERVAL_FIFTEEN_MINUTES / 15)
     ) : CalendarEventInfo {
 
         override fun getEventTitle(): String = title

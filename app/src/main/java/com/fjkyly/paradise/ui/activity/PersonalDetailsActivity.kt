@@ -75,7 +75,10 @@ class PersonalDetailsActivity : MyActivity() {
             }
             personalNameContainer.setOnClickListener {
                 // 跳转到姓名设置界面
-                startActivity<PersonalNameSettingActivity>()
+                PersonalNameSettingActivity.startActivity(
+                    this@PersonalDetailsActivity,
+                    personalNameTv.text.toString()
+                )
             }
             personalSexContainer.setOnClickListener {
                 // 性别选择
@@ -99,7 +102,10 @@ class PersonalDetailsActivity : MyActivity() {
             }
             personalIdentityNumberContainer.setOnClickListener {
                 // 身份证号码设置
-                startActivity<PersonalIdCardSettingActivity>()
+                PersonalIdCardSettingActivity.startActivity(
+                    this@PersonalDetailsActivity,
+                    personalIdentityNumberTv.text.toString()
+                )
             }
             personalBirthdayContainer.setOnClickListener {
                 // 生日日期的选择
@@ -173,7 +179,10 @@ class PersonalDetailsActivity : MyActivity() {
             }
             personalPhoneNumberContainer.setOnClickListener {
                 // 联系电话的手机号码设置
-                startActivity<PersonalPhoneSettingActivity>()
+                PersonalPhoneSettingActivity.startActivity(
+                    this@PersonalDetailsActivity,
+                    personalPhoneNumberTv.text.toString()
+                )
             }
             personalHobbyContainer.setOnClickListener {
                 // 爱好选择

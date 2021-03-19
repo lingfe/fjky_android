@@ -1,5 +1,7 @@
 package com.fjkyly.paradise.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalNameSettingBinding
@@ -17,12 +19,18 @@ class PersonalNameSettingActivity : MyActivity() {
         callAllInit()
     }
 
+    override fun initView() {
+        mBinding.run {
+            val personalName = intent.getStringExtra("personalName")
+            personalNameEt.setText(personalName)
+        }
+    }
+
     override fun initEvent() {
         mBinding.run {
             personalNameBackIv.setOnClickListener {
                 finish()
             }
-
             personalNameSaveBtn.setOnClickListener {
                 // 保存姓名
                 val personalName = personalNameEt.text.toString()
@@ -40,6 +48,14 @@ class PersonalNameSettingActivity : MyActivity() {
                     finish()
                 }
             }
+        }
+    }
+
+    companion object {
+        fun startActivity(context: Context, personalName: String) {
+            val intent = Intent(context, PersonalNameSettingActivity::class.java)
+            intent.putExtra("personalName", personalName)
+            context.startActivity(intent)
         }
     }
 }

@@ -42,21 +42,14 @@
 
     </LinearLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <EditText
+        android:id="@+id/feedbackEt"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
-        android:padding="10dp">
-
-        <EditText
-            android:id="@+id/feedbackEt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:hint="请填写您的意见（不少于10个字）"
-            android:textColor="@color/black" />
-
-    </androidx.core.widget.NestedScrollView>
+        android:gravity="top"
+        android:hint="请填写您的意见（不少于10个字）"
+        android:textColor="@color/black" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/feedbackSaveBtn"

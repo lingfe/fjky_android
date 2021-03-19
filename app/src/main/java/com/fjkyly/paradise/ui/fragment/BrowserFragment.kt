@@ -1,19 +1,31 @@
 package com.fjkyly.paradise.ui.fragment
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.webkit.JavascriptInterface
+import androidx.lifecycle.lifecycleScope
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.blankj.utilcode.util.GsonUtils
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.App
 import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.databinding.FragmentBrowserBinding
+import com.fjkyly.paradise.expand.fromJson
 import com.fjkyly.paradise.expand.simpleToast
+import com.fjkyly.paradise.other.CalendarUtils
 import com.fjkyly.paradise.provider.LocationProvider
+import com.fjkyly.paradise.worker.CalendarUpdateWorker
+import com.hjq.permissions.OnPermissionCallback
+import com.hjq.permissions.XXPermissions
 import com.tencent.smtt.export.external.interfaces.ConsoleMessage
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebViewClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * 浏览器界面
@@ -78,6 +90,11 @@ class BrowserFragment(private var mUrl: String = DEFAULT_URL) : BaseFragment() {
     inner class AppNative {
 
         /**
+         * 是否获得日历读写权限
+         */
+        private var obtainCalendarPermission = false
+
+        /**
          * 获取用户登录的 Token 信息
          *
          * @return String
@@ -102,6 +119,62 @@ class BrowserFragment(private var mUrl: String = DEFAULT_URL) : BaseFragment() {
         @JavascriptInterface
         fun toast() {
             simpleToast("调用了安卓原生方法")
+        }
+
+        /**
+         * 操作日历之前先检查权限是否已经获取
+         */
+        @JavascriptInterface
+        fun checkCalendarPermission() {
+            lifecycleScope.launch {
+                val result = withContext(Dispatchers.Default) {
+                    XXPermissions.with(this@BrowserFragment)
+                        .permission(
+                            arrayOf(
+                                Manifest.permission.WRITE_CALENDAR,
+                                Manifest.permission.READ_CALENDAR
+                            )
+                        )
+                        .request(object : OnPermissionCallback {
+                            override fun onGranted(
+                                permissions: MutableList<String>?,
+                                all: Boolean
+                            ) {
+                                obtainCalendarPermission = all
+                            }
+
+                            override fun onDenied(
+                                permissions: MutableList<String>?,
+                                never: Boolean
+                            ) {
+                                obtainCalendarPermission = never.not()
+                            }
+                        })
+                }
+            }
+        }
+
+        /**
+         * 返回是否已经获取到日历读写权限
+         */
+        @JavascriptInterface
+        fun hasCalendarPermission() = obtainCalendarPermission
+
+        @JavascriptInterface
+        fun insertCalendarEvent(eventJson: String) {
+            val calendarEvent: CalendarUtils.SimpleCalendarEvent = fromJson(eventJson)
+            CalendarUtils().insertCalendarEvent(calendarEventInfo = calendarEvent)
+        }
+
+        /**
+         * 通知更新日历数据，从服务器获取最新的吃药提醒数据并插入到系统日历
+         */
+        @JavascriptInterface
+        fun updateCalendarEvent() {
+            val workerRequest = OneTimeWorkRequestBuilder<CalendarUpdateWorker>()
+                .build()
+            WorkManager.getInstance(this@BrowserFragment.requireContext())
+                .enqueue(workerRequest)
         }
     }
 

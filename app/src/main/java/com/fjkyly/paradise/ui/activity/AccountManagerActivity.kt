@@ -106,7 +106,10 @@ class AccountManagerActivity : MyActivity() {
             }
             accountMangerNameContainer.setOnClickListener {
                 // 跳转到用户名设置界面
-                startActivity<UserNameSettingActivity>()
+                UserNameSettingActivity.startActivity(
+                    this@AccountManagerActivity,
+                    accountMangerNameTv.text.toString()
+                )
             }
             accountMangerPhoneNumContainer.setOnClickListener {
                 // 跳转到修改登录手机号界面

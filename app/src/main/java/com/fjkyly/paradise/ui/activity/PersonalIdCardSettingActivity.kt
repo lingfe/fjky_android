@@ -1,5 +1,7 @@
 package com.fjkyly.paradise.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalIdCardSettingBinding
@@ -16,6 +18,13 @@ class PersonalIdCardSettingActivity : MyActivity() {
         mBinding = ActivityPersonalIdCardSettingBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         callAllInit()
+    }
+
+    override fun initView() {
+        mBinding.run {
+            val idCard = intent.getStringExtra("idCard")
+            personalIdCardEt.setText(idCard)
+        }
     }
 
     override fun initEvent() {
@@ -44,6 +53,14 @@ class PersonalIdCardSettingActivity : MyActivity() {
                     finish()
                 }
             }
+        }
+    }
+
+    companion object {
+        fun startActivity(context: Context, idCard: String) {
+            val intent = Intent(context, PersonalIdCardSettingActivity::class.java)
+            intent.putExtra("idCard", idCard)
+            context.startActivity(intent)
         }
     }
 }

@@ -84,12 +84,18 @@
             android:layout_height="wrap_content"
             android:text="查询日历事件" />
 
+        <Button
+            android:id="@+id/createTestDataBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="生成测试数据" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/resultInfoTv"
+            <EditText
+                android:id="@+id/resultInfoEt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

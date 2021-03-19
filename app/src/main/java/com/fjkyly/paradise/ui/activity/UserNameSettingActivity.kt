@@ -1,5 +1,7 @@
 package com.fjkyly.paradise.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.fjkyly.paradise.base.App
 import com.fjkyly.paradise.base.MyActivity
@@ -21,13 +23,20 @@ class UserNameSettingActivity : MyActivity() {
         callAllInit()
     }
 
+    override fun initView() {
+        mBinding.run {
+            val userName = intent.getStringExtra("userName")
+            userNameEt.setText(userName)
+        }
+    }
+
     override fun initEvent() {
         mBinding.run {
             userNameSettingBackIv.setOnClickListener {
                 finish()
             }
             saveUserNameTv.setOnClickListener {
-                // TODO: 2021/2/28 通过请求接口修改用户名
+                // 通过请求接口修改用户名
                 val newUserName = userNameEt.text.toString()
                 if (newUserName.length < 2 || newUserName.length > 12) {
                     simpleToast("请输入2-12位的用户名")
@@ -48,5 +57,11 @@ class UserNameSettingActivity : MyActivity() {
 
     companion object {
         private const val TAG = "UserNameSettingActivity"
+
+        fun startActivity(context: Context, userName: String) {
+            val intent = Intent(context, UserNameSettingActivity::class.java)
+            intent.putExtra("userName", userName)
+            context.startActivity(intent)
+        }
     }
 }

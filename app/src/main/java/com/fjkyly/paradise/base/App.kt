@@ -4,6 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.blankj.utilcode.util.Utils
 import com.bumptech.glide.Glide
 import com.fjkyly.paradise.expand.ALERT_REQUEST_INTERVAL
@@ -15,12 +19,14 @@ import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.network.request.RequestHandler
 import com.fjkyly.paradise.notification.notifyMention
 import com.fjkyly.paradise.ui.activity.BrowserActivity
+import com.fjkyly.paradise.worker.CalendarUpdateWorker
 import com.hjq.http.EasyConfig
 import com.hjq.http.ssl.HttpSslFactory
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
 import com.vondear.rxtool.RxTool
 import okhttp3.OkHttpClient
+import java.time.Duration
 
 class App : Application() {
 
@@ -52,6 +58,7 @@ class App : Application() {
         initTimerTask()
     }
 
+    @SuppressLint("NewApi")
     private fun initTimerTask() {
         mainHandler.post(object : Runnable {
             override fun run() {
@@ -76,6 +83,18 @@ class App : Application() {
                 mainHandler.postDelayed(this, ALERT_REQUEST_INTERVAL)
             }
         })
+        // 设置任务的约束条件
+        val constraints = Constraints.Builder()
+            // 网络连接的时候才执行
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        // 每隔15分钟获取更新一次日历数据
+        val periodicWorkRequest =
+            PeriodicWorkRequest.Builder(CalendarUpdateWorker::class.java, Duration.ofMinutes(15))
+                .setConstraints(constraints)
+                .build()
+        WorkManager.getInstance(this)
+            .enqueue(periodicWorkRequest)
     }
 
     private fun initSDK() {

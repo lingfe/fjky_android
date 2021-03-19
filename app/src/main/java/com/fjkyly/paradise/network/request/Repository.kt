@@ -363,7 +363,7 @@ object Repository {
      * 在查看吃药提醒界面的时候进行获取
      */
     fun queryTakeMedicineRemindList(
-        lifecycle: Lifecycle,
+        lifecycle: Lifecycle? = null,
         block: (takeMedicineRemindList: TakeMedicineRemindList) -> Unit
     ) {
         val queryTakeMedicineRemindListApi = ServiceCreator.create<QueryTakeMedicineRemindListApi>()
@@ -379,8 +379,12 @@ object Repository {
                             "onResponse：queryTakeMedicineRemindList ===>${GsonUtils.toJson(it)}"
                         )
                         if (it.state == HTTP_OK) {
-                            if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                            if (lifecycle == null) {
                                 block(it)
+                            } else {
+                                if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                                    block(it)
+                                }
                             }
                         }
                     }
