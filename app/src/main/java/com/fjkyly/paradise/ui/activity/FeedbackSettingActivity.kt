@@ -25,12 +25,13 @@ class FeedbackSettingActivity : MyActivity() {
             feedbackSaveBtn.setOnClickListener {
                 // 保存饮食禁忌
                 val content = feedbackEt.text.toString()
-                if (content.length <= 10) {
+                if (content.length < 10) {
                     simpleToast("意见反馈不能少于10个字")
                     return@setOnClickListener
                 }
                 Repository.feedback(lifecycle = lifecycle, content = content) {
                     simpleToast(it.msg)
+                    finish()
                 }
             }
         }

@@ -446,7 +446,9 @@
                     android:ellipsize="end"
                     android:gravity="right"
                     android:hint="填写饮食禁忌"
+                    android:maxLines="1"
                     android:paddingStart="30dp"
+                    android:singleLine="true"
                     android:textColor="@color/black" />
 
                 <ImageView

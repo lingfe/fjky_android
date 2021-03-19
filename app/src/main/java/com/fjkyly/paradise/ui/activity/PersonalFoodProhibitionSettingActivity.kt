@@ -39,6 +39,7 @@ class PersonalFoodProhibitionSettingActivity : MyActivity() {
                     params = params,
                 ) {
                     simpleToast(it.msg)
+                    finish()
                 }
             }
         }

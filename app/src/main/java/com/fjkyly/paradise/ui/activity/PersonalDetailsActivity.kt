@@ -1,6 +1,7 @@
 package com.fjkyly.paradise.ui.activity
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
@@ -49,8 +50,8 @@ class PersonalDetailsActivity : MyActivity() {
                 personalNameTv.text = data.fullName
                 // 性别，默认为“男”
                 val sex = data.gender
-                if (sex.isNullOrEmpty().not()) {
-                    personalSexTv.text = "男"
+                if (TextUtils.isEmpty(sex)) {
+                    personalSexTv.hint = "男"
                 } else {
                     personalSexTv.text = sex
                 }
@@ -58,22 +59,22 @@ class PersonalDetailsActivity : MyActivity() {
                 personalIdentityNumberTv.text = data.idCard
                 // 生日
                 val birthday = data.birthday
-                if (birthday.isNullOrEmpty().not()) {
-                    personalBirthdayTv.text = "请设置您的生日"
+                if (TextUtils.isEmpty(birthday)) {
+                    personalBirthdayTv.hint = "请设置您的生日"
                 } else {
                     personalBirthdayTv.text = birthday
                 }
                 // 年龄
-                val age = data.birthday
-                if (age.isNullOrEmpty().not()) {
-                    personalAgeTv.text = "0"
+                val age = data.age
+                if (TextUtils.isEmpty(age)) {
+                    personalAgeTv.hint = "请选择您的年龄"
                 } else {
                     personalAgeTv.text = age
                 }
-                // 名族默认为“汉”
-                val nation = data.birthday
-                if (nation.isNullOrEmpty().not()) {
-                    personalNationTv.text = "汉"
+                // 民族默认为“汉”
+                val nation = data.nation
+                if (TextUtils.isEmpty(nation)) {
+                    personalNationTv.hint = "请选择您的民族"
                 } else {
                     personalNationTv.text = nation
                 }

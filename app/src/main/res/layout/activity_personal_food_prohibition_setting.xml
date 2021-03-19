@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_main"
     android:orientation="vertical"
     tools:context=".ui.activity.PersonalFoodProhibitionSettingActivity">
 
@@ -46,7 +47,9 @@
         android:id="@+id/personalFoodProhibitionEt"
         android:layout_width="match_parent"
         android:layout_height="0px"
+        android:layout_marginTop="1dp"
         android:layout_weight="1"
+        android:background="@color/white"
         android:gravity="top"
         android:hint="请填写您的饮食禁忌"
         android:padding="10dp"

@@ -9,6 +9,7 @@ import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityAddFriendBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.network.request.Repository
+import com.vondear.rxtool.RxKeyboardTool
 import com.vondear.rxtool.RxRegTool
 
 /**
@@ -46,6 +47,7 @@ class AddFriendActivity : MyActivity() {
                 finish()
             }
             friendRelationContainer.setOnClickListener {
+                RxKeyboardTool.hideSoftInput(this@AddFriendActivity)
                 // 亲友关系选择
                 val friendRelationList = mutableListOf<String>().apply {
                     add("父母")

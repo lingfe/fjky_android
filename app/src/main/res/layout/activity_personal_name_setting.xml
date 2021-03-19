@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:hint="请输入用户姓名"
             android:maxLength="6"
             android:singleLine="true"
