@@ -80,6 +80,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="2-12个字符，可输入汉字，数字，字母，标点符号" />
+        android:text="2-12个字符，可输入汉字，数字，字母" />
 
 </LinearLayout>

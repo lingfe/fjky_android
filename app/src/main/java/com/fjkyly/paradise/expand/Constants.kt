@@ -15,6 +15,12 @@ const val USER_SETTING = "user_setting"
 /** 是否自动登录，进入主界面 */
 const val AUTO_LOGIN_STATUS = "auto_login_status"
 
+/** 用户 Token */
+const val USER_TOKEN = "user_token"
+
+/** 用户 id */
+const val USER_ID = "user_id"
+
 /** 用户账号 */
 const val USER_ACCOUNT = "user_account"
 

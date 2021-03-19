@@ -1,11 +1,14 @@
 package com.fjkyly.paradise.ui.activity
 
+import android.graphics.Color
 import android.os.Bundle
+import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityRegisterBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
+import com.fjkyly.paradise.ui.views.ConfirmDialog
 import com.vondear.rxtool.RxConstTool
 
 /**
@@ -37,19 +40,27 @@ class RegisterActivity : MyActivity() {
                 val verifyCode = regVerifyCodeEt.text.toString()
                 val mobilePatternOk = phoneNum matches Regex(RxConstTool.REGEX_MOBILE_EXACT)
                 if (mobilePatternOk.not()) {
-                    simpleToast("手机号码格式不正确！")
+                    simpleToast("手机号码格式不正确")
                     return@setOnClickListener
                 }
                 if (pwd.isEmpty() || idCard.isEmpty() || verifyCode.isEmpty()) {
-                    simpleToast("请重新检查您的注册信息！")
+                    simpleToast("请将信息填写完整")
+                    return@setOnClickListener
+                }
+                if (pwd.length < 6) {
+                    simpleToast("密码不能小于6位")
+                    return@setOnClickListener
+                }
+                if ((pwd matches Regex("^[A-Za-z0-9]+\$")).not()) {
+                    simpleToast("密码不能含有特殊字符")
                     return@setOnClickListener
                 }
                 if ((pwd == rePwd).not()) {
-                    simpleToast("两次输入的密码不一致！")
+                    simpleToast("两次输入的密码不一致")
                     return@setOnClickListener
                 }
                 if ((idCard matches Regex(RxConstTool.REGEX_IDCARD18)).not()) {
-                    simpleToast("请输入正确的身份证号码！")
+                    simpleToast("请输入正确的身份证号码")
                     return@setOnClickListener
                 }
                 // 手机号码格式正确，将手机号和验证码进行匹配
@@ -85,7 +96,22 @@ class RegisterActivity : MyActivity() {
             idCard = idCard,
             lifecycle = lifecycle
         ) {
-            simpleToast(it.msg)
+            val backDialog = ConfirmDialog(this@RegisterActivity)
+            backDialog.run {
+                setContentView(R.layout.dialog_confirm)
+                post {
+                    setDialogMessage("注册成功，是否返回登录界面？")
+                    setConfirmTextColor(Color.parseColor("#666666"))
+                    setGivUpTextColor(Color.parseColor("#FF5050"))
+                }
+                show()
+            }
+            backDialog.setOnDialogActionClickListener(object :
+                ConfirmDialog.OnDialogActionSimpleListener() {
+                override fun onGiveUpClick() {
+                    finish()
+                }
+            })
         }
     }
 }

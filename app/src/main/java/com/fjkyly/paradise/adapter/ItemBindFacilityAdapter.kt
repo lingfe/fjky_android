@@ -1,5 +1,6 @@
 package com.fjkyly.paradise.adapter
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -26,8 +27,15 @@ class ItemBindFacilityAdapter : RecyclerView.Adapter<ItemBindFacilityAdapter.Inn
         holder.run {
             facilityNameTv.text = facility.name
             facilityIdTv.text = facility.facilityId
+            Log.d(TAG, "onBindViewHolder: ===>isBinding：${facility.facilityBinding}")
+            val isBinding = facility.facilityBinding
+            facilityBindTv.text = if (isBinding.not()) "绑定设备" else "已被绑定"
+            facilityBindTv.setBackgroundResource(
+                if (isBinding) R.drawable.bg_bind_facility_red
+                else R.drawable.bg_bind_facility_blue
+            )
             facilityBindTv.setOnClickListener {
-                if (::mListener.isInitialized) mListener(facility, position)
+                if (::mListener.isInitialized && isBinding.not()) mListener(facility, position)
             }
         }
     }
@@ -50,5 +58,9 @@ class ItemBindFacilityAdapter : RecyclerView.Adapter<ItemBindFacilityAdapter.Inn
         val facilityNameTv: TextView = itemView.findViewById(R.id.facilityNameTv)
         val facilityIdTv: TextView = itemView.findViewById(R.id.facilityIdTv)
         val facilityBindTv: TextView = itemView.findViewById(R.id.facilityBindTv)
+    }
+
+    companion object {
+        private const val TAG = "ItemBindFacilityAdapter"
     }
 }

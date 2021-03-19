@@ -4,16 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.blankj.utilcode.util.Utils
 import com.bumptech.glide.Glide
-import com.fjkyly.paradise.expand.ALERT_REQUEST_INTERVAL
-import com.fjkyly.paradise.expand.AppConfig
-import com.fjkyly.paradise.expand.REMIND_ALERT_URL
-import com.fjkyly.paradise.expand.mainHandler
+import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.model.Login
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.network.request.RequestHandler
@@ -37,6 +35,7 @@ class App : Application() {
     }
 
     private fun init() {
+        userSettingSp = getSharedPreferences(USER_SETTING, Context.MODE_PRIVATE)
         val sslConfig = HttpSslFactory.generateSslConfig()
         val okHttpClient = OkHttpClient.Builder()
             .sslSocketFactory(sslConfig.getsSLSocketFactory(), sslConfig.trustManager)
@@ -127,6 +126,7 @@ class App : Application() {
     companion object {
 
         private const val TAG = "App"
+        private lateinit var userSettingSp: SharedPreferences
 
         @SuppressLint("StaticFieldLeak")
         @JvmStatic
@@ -140,11 +140,7 @@ class App : Application() {
          * @return String
          */
         fun getUserToken(): String {
-            var appToken = ""
-            accountLoginInfo?.let {
-                appToken = it.data.token
-            }
-            return appToken
+            return userSettingSp.getString(USER_TOKEN, "") ?: ""
         }
 
         /**
@@ -153,37 +149,7 @@ class App : Application() {
          * @return String
          */
         fun getUserId(): String {
-            var userId = ""
-            accountLoginInfo?.let {
-                userId = it.data.userInfo.id
-            }
-            return userId
-        }
-
-        /**
-         * 获取用户名
-         *
-         * @return String
-         */
-        fun getUserName(): String {
-            var userName = ""
-            accountLoginInfo?.let {
-                userName = it.data.userInfo.username
-            }
-            return userName
-        }
-
-        /**
-         * 获取用户头像
-         *
-         * @return String
-         */
-        fun getUserAvatar(): String {
-            var userAvatar = ""
-            accountLoginInfo?.let {
-                userAvatar = it.data.userInfo.userImg
-            }
-            return userAvatar
+            return userSettingSp.getString(USER_ID, "") ?: ""
         }
     }
 }

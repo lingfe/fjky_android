@@ -1,5 +1,7 @@
 package com.fjkyly.paradise.ui.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -62,6 +64,11 @@ class FriendsListActivity : MyActivity() {
                 )
             }
             itemFriendInfoAdapter.setOnItemClickListener { friendsListData, _ ->
+                // 跳转到拨号界面，用户拨打亲友号码
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + friendsListData.phone))
+                startActivity(intent)
+            }
+            itemFriendInfoAdapter.setOnEditorClickListener { friendsListData, _ ->
                 // 修改亲友信息
                 AddFriendActivity.startActivity(
                     context = this@FriendsListActivity,

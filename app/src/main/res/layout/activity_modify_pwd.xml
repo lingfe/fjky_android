@@ -54,16 +54,16 @@
         android:paddingEnd="50dp"
         android:paddingBottom="60dp">
 
-        <EditText
-            android:id="@+id/modifyUserPwdAccountEt"
+        <TextView
+            android:id="@+id/modifyUserPwdAccountTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="请输入账号"
             android:paddingStart="16dp"
             android:paddingTop="14dp"
             android:paddingEnd="6dp"
-            android:paddingBottom="14dp" />
+            android:paddingBottom="14dp"
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/modifyPwdOldUserPwdEt"
@@ -72,6 +72,7 @@
             android:layout_marginTop="20dp"
             android:hint="请输入旧的登录密码"
             android:inputType="textPassword"
+            android:maxLength="16"
             android:paddingStart="16dp"
             android:paddingTop="14dp"
             android:paddingEnd="6dp"
@@ -84,6 +85,7 @@
             android:layout_marginTop="20dp"
             android:hint="请输入新的登录密码"
             android:inputType="textPassword"
+            android:maxLength="16"
             android:paddingStart="16dp"
             android:paddingTop="14dp"
             android:paddingEnd="6dp"
@@ -96,6 +98,7 @@
             android:layout_marginTop="20dp"
             android:hint="请确认新密码"
             android:inputType="textPassword"
+            android:maxLength="16"
             android:paddingStart="16dp"
             android:paddingTop="14dp"
             android:paddingEnd="6dp"

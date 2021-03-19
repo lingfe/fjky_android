@@ -103,6 +103,8 @@ class FacilityFragment : BaseFragment() {
                 }
                 itemFacilityListAdapter.setData(this)
             }
+            mBinding.noDataContainerLL.visibility =
+                if (mFacilityList.isEmpty()) View.VISIBLE else View.GONE
         }
     }
 

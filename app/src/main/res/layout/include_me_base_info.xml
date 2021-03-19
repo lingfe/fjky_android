@@ -28,7 +28,7 @@
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="123*****1234"
+                android:gravity="right"
                 android:textColor="@color/black"
                 android:textSize="22sp" />
 
@@ -46,15 +46,16 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingStart="42dp"
+        android:paddingEnd="42dp">
 
         <LinearLayout
             android:id="@+id/meFavoritesContainer"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="40dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/meFavoritesNumTv"
@@ -78,8 +79,7 @@
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingEnd="40dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/meAccountTv"

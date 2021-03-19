@@ -117,7 +117,10 @@ class AccountManagerActivity : MyActivity() {
             }
             accountMangerPwdContainer.setOnClickListener {
                 // 跳转到账号密码修改界面
-                startActivity<ModifyPwdActivity>()
+                ModifyPwdActivity.startActivity(
+                    this@AccountManagerActivity,
+                    accountMangerPhoneNumTv.text.toString()
+                )
             }
             accountMangerPayContainer.setOnClickListener {
                 // TODO: 2021/2/25 支付密码管理界面

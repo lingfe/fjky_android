@@ -11,6 +11,7 @@ import com.fjkyly.paradise.R
  * @property facilityId String 设备ID
  * @property facilityType Int 设备类型
  * @property facilityStatus Int 设备状态 0、离线，1、在线
+ * @property facilityBinding Boolean 设备是否已被绑定
  * @constructor
  */
 data class Facility(
@@ -20,7 +21,8 @@ data class Facility(
     val facilityId: String,
     val facilityType: Int,
     var facilityStatus: Int = 0,
-    val facilityTypeName: String = "未知设备类型"
+    val facilityTypeName: String = "未知设备类型",
+    val facilityBinding: Boolean = false
 ) {
     fun getFacilityStatus(): String {
         return when (facilityStatus) {

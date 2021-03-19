@@ -1,4 +1,5 @@
 package com.fjkyly.paradise.model
+
 import com.google.gson.annotations.SerializedName
 
 /**

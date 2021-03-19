@@ -2,9 +2,11 @@ package com.fjkyly.paradise.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.ActivityUtils
+import com.fjkyly.paradise.R
 import com.fjkyly.paradise.adapter.ItemDeviceFunSettingAdapter
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityDeviceFunSettingBinding
@@ -12,6 +14,7 @@ import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.model.DeviceSettingFun
 import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
+import com.fjkyly.paradise.ui.views.ConfirmDialog
 
 /**
  * 设备功能列表界面
@@ -63,10 +66,27 @@ class DeviceFunSettingActivity : MyActivity() {
                 finish()
             }
             unBindFacilityBtn.setOnClickListener {
-                Repository.unbindDevice(deviceId = mFacility.facilityId, lifecycle = lifecycle) {
-                    finish()
-                    simpleToast(it.msg)
+                // 用户点击了解绑设备按钮
+                val unBindFacilityDialog = ConfirmDialog(this@DeviceFunSettingActivity)
+                unBindFacilityDialog.run {
+                    setContentView(R.layout.dialog_confirm)
+                    post {
+                        setDialogMessage("确定解绑该设备吗？")
+                        setConfirmTextColor(Color.parseColor("#666666"))
+                        setGivUpTextColor(Color.parseColor("#FF5050"))
+                    }
+                    show()
                 }
+                unBindFacilityDialog.setOnDialogActionClickListener(object :
+                    ConfirmDialog.OnDialogActionSimpleListener() {
+                    override fun onGiveUpClick() {
+                        // 用户点击了确定按钮，解绑设备
+                        Repository.unbindDevice(deviceId = mFacility.facilityId, lifecycle = lifecycle) {
+                            finish()
+                            simpleToast(it.msg)
+                        }
+                    }
+                })
             }
         }
         itemDeviceFunSettingAdapter.setOnItemClickListener { deviceFun, _ ->

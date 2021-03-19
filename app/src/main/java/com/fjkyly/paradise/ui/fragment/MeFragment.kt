@@ -54,10 +54,12 @@ class MeFragment : BaseFragment() {
                 Repository.queryUserBasicInfo(lifecycle = lifecycle) {
                     val data = it.data
                     val userInfo = data.userInfo
-                    Glide.with(this@MeFragment)
-                        .load(userInfo.userImg)
-                        .into(meAvatarIv)
-                    meAccountIdTv.text = userInfo.username
+                    runCatching {
+                        Glide.with(this@MeFragment)
+                            .load(userInfo.userImg)
+                            .into(meAvatarIv)
+                        meAccountIdTv.text = userInfo.username
+                    }
                 }
                 Repository.queryUserInfo(lifecycle = lifecycle) {
                     val data = it.data

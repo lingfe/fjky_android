@@ -104,7 +104,6 @@
             android:layout_weight="1"
             android:gravity="center_vertical|right"
             android:hint="设置用户名"
-            android:text="张三"
             android:textColor="@color/black" />
 
         <ImageView
@@ -146,7 +145,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|right"
-            android:text="13512345678"
+            android:hint="请填写手机号码"
             android:textColor="@color/black" />
 
         <ImageView

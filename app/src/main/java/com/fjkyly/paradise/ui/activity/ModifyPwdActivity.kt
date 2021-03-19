@@ -1,6 +1,7 @@
 package com.fjkyly.paradise.ui.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.edit
 import com.fjkyly.paradise.R
@@ -28,7 +29,7 @@ class ModifyPwdActivity : MyActivity() {
 
     override fun initView() {
         mBinding.run {
-            modifyUserPwdAccountEt.setRoundRectBg(
+            modifyUserPwdAccountTv.setRoundRectBg(
                 color = getColor(R.color.gray_main),
                 cornerRadius = 5f.dp
             )
@@ -44,6 +45,8 @@ class ModifyPwdActivity : MyActivity() {
                 color = getColor(R.color.gray_main),
                 cornerRadius = 5f.dp
             )
+            val userAccount = intent.getStringExtra("userAccount")
+            modifyUserPwdAccountTv.text = userAccount
         }
     }
 
@@ -54,7 +57,7 @@ class ModifyPwdActivity : MyActivity() {
             }
             modifyPwdBtn.setOnClickListener {
                 // 用户账号
-                val userAccount = modifyUserPwdAccountEt.text.toString()
+                val userAccount = modifyUserPwdAccountTv.text.toString()
                 // 用户原来的密码
                 val oldPwd = modifyPwdOldUserPwdEt.text.toString()
                 // 验证两次输入的密码是否一致
@@ -70,6 +73,14 @@ class ModifyPwdActivity : MyActivity() {
                 }
                 if (firstPwd.isEmpty()) {
                     simpleToast("新密码不能为空")
+                    return@setOnClickListener
+                }
+                if (firstPwd.length < 6) {
+                    simpleToast("密码不能小于6位")
+                    return@setOnClickListener
+                }
+                if ((firstPwd matches Regex("^[A-Za-z0-9]+\$")).not()) {
+                    simpleToast("密码不能含有特殊字符")
                     return@setOnClickListener
                 }
                 if (firstPwd != lastPwd) {
@@ -101,6 +112,14 @@ class ModifyPwdActivity : MyActivity() {
                     }
                 }
             }
+        }
+    }
+
+    companion object {
+        fun startActivity(context: Context, userAccount: String) {
+            val intent = Intent(context, ModifyPwdActivity::class.java)
+            intent.putExtra("userAccount", userAccount)
+            context.startActivity(intent)
         }
     }
 }

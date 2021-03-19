@@ -844,8 +844,8 @@ object Repository {
     fun loginAccount(
         accountNum: String,
         accountPwd: String,
-        lifecycle: Lifecycle,
-        block: () -> Unit
+        lifecycle: Lifecycle? = null,
+        block: (login: Login) -> Unit
     ) {
         val accountLoginApi = ServiceCreator.create<AccountLoginApi>()
         accountLoginApi.login(accountNum = accountNum, accountPwd = accountPwd).enqueue(object :
@@ -854,8 +854,12 @@ object Repository {
                 val body = response.body()?.let {
                     if (it.state == HTTP_OK) {
                         App.accountLoginInfo = it
-                        if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
-                            block()
+                        if (lifecycle != null) {
+                            if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                                block(it)
+                            }
+                        } else {
+                            block(it)
                         }
                     } else {
                         simpleToast(it.msg)

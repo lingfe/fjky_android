@@ -11,7 +11,8 @@ import com.fjkyly.paradise.model.FriendsList
 class ItemFriendInfoAdapter : RecyclerView.Adapter<ItemFriendInfoAdapter.InnerHolder>() {
 
     private val mFriendsListData = arrayListOf<FriendsList.Data>()
-    private lateinit var mListener: (friendsListData: FriendsList.Data, position: Int) -> Unit
+    private lateinit var mOnEditorClickListener: (friendsListData: FriendsList.Data, position: Int) -> Unit
+    private lateinit var mOnItemClickListener: (friendsListData: FriendsList.Data, position: Int) -> Unit
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,14 +28,27 @@ class ItemFriendInfoAdapter : RecyclerView.Adapter<ItemFriendInfoAdapter.InnerHo
             friendNameTv.text = friendsListData.fullName
             friendRelationTv.text = friendsListData.andRelation
             friendPhoneNumTv.text = friendsListData.phone
+            itemView.setOnClickListener {
+                if (::mOnItemClickListener.isInitialized) mOnItemClickListener(
+                    friendsListData,
+                    position
+                )
+            }
             friendEditorTv.setOnClickListener {
-                if (::mListener.isInitialized) mListener(friendsListData, position)
+                if (::mOnEditorClickListener.isInitialized) mOnEditorClickListener(
+                    friendsListData,
+                    position
+                )
             }
         }
     }
 
+    fun setOnEditorClickListener(listener: (friendsListData: FriendsList.Data, position: Int) -> Unit) {
+        mOnEditorClickListener = listener
+    }
+
     fun setOnItemClickListener(listener: (friendsListData: FriendsList.Data, position: Int) -> Unit) {
-        mListener = listener
+        mOnItemClickListener = listener
     }
 
     override fun getItemCount(): Int = mFriendsListData.size

@@ -3,8 +3,11 @@ package com.fjkyly.paradise.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.utilcode.util.GsonUtils
 import com.fjkyly.paradise.adapter.ItemBindFacilityAdapter
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityAddFacilityBinding
@@ -25,6 +28,7 @@ import com.fjkyly.paradise.network.request.Repository
  */
 class AddFacilityActivity : MyActivity() {
 
+    private var mDeviceId = ""
     private lateinit var mBinding: ActivityAddFacilityBinding
     private val itemBindFacilityAdapter by lazy {
         ItemBindFacilityAdapter()
@@ -47,6 +51,42 @@ class AddFacilityActivity : MyActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
+
+    private fun loadData() {
+        Repository.queryDeviceInfo(deviceId = mDeviceId, lifecycle = lifecycle) {
+            val deviceData = it.data
+            val deviceName = deviceData.dname
+            val deviceId = deviceData.id
+            // 设备类型
+            val deviceType = deviceData.dtypeId.toIntOrNull() ?: -1
+            val deviceStatus = deviceData.state
+            val userId = deviceData.userId
+            Log.d(TAG, "loadData: ===>userId：$userId")
+            Log.d(
+                TAG,
+                "onQueryTextSubmit: ===>deviceData：${GsonUtils.toJson(deviceData)}"
+            )
+            mFacilityList.run {
+                clear()
+                val facility = Facility(
+                    name = deviceName,
+                    facilityId = deviceId,
+                    facilityType = deviceType,
+                    facilityStatus = deviceStatus,
+                    facilityBinding = isEmpty(userId).not()
+                )
+                add(facility)
+            }
+            itemBindFacilityAdapter.setData(mFacilityList)
+            mBinding.noDataContainerLL.visibility =
+                if (mFacilityList.isEmpty()) View.VISIBLE else View.GONE
+        }
+    }
+
     override fun initEvent() {
         mBinding.run {
             addFacilityBackIv.setOnClickListener {
@@ -60,26 +100,8 @@ class AddFacilityActivity : MyActivity() {
                         simpleToast("请输入设备ID！")
                         return false
                     }
-                    Repository.queryDeviceInfo(deviceId = query, lifecycle = lifecycle) {
-                        val deviceData = it.data
-                        val deviceName = deviceData.dname
-                        val deviceId = deviceData.id
-                        // 设备类型
-                        val deviceType = deviceData.dtypeId.toIntOrNull() ?: -1
-                        val deviceStatus = deviceData.state
-                        mFacilityList.let { facilityList ->
-                            facilityList.clear()
-                            facilityList.add(
-                                Facility(
-                                    name = deviceName,
-                                    facilityId = deviceId,
-                                    facilityType = deviceType,
-                                    facilityStatus = deviceStatus
-                                )
-                            )
-                        }
-                        itemBindFacilityAdapter.setData(mFacilityList)
-                    }
+                    mDeviceId = query
+                    loadData()
                     return false
                 }
 
@@ -100,11 +122,13 @@ class AddFacilityActivity : MyActivity() {
         }
         itemBindFacilityAdapter.setOnItemClickListener { facility, _ ->
             Repository.bindDevice(deviceId = facility.facilityId, lifecycle = lifecycle) {
-                // TODO: 2021/3/3 此处设备的绑定有数据解析的问题，需要排查解决
-                simpleToast("设备绑定成功！")
+                loadData()
+                simpleToast(it.msg)
             }
         }
     }
+
+    private fun isEmpty(text: String) = text.isEmpty() || "null" == text.trim()
 
     override fun onDestroy() {
         super.onDestroy()
@@ -126,5 +150,9 @@ class AddFacilityActivity : MyActivity() {
                 }
             }
         }
+    }
+
+    companion object {
+        private const val TAG = "AddFacilityActivity"
     }
 }

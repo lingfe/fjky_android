@@ -7,7 +7,6 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalDetailsBinding
-import com.fjkyly.paradise.expand.getProvinceJson
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
@@ -22,13 +21,13 @@ class PersonalDetailsActivity : MyActivity() {
     private lateinit var mBinding: ActivityPersonalDetailsBinding
 
     /** 省  */
-    private var mProvince = ""
+    private var mProvince = "贵州省"
 
     /** 市  */
-    private var mCity = ""
+    private var mCity = "铜仁市"
 
     /** 区  */
-    private var mArea = ""
+    private var mArea = "碧江区"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,21 +48,43 @@ class PersonalDetailsActivity : MyActivity() {
                 // 姓名
                 personalNameTv.text = data.fullName
                 // 性别，默认为“男”
-                personalSexTv.text = data.gender.ifEmpty { "男" }
+                val sex = data.gender
+                if (sex.isNullOrEmpty().not()) {
+                    personalSexTv.text = "男"
+                } else {
+                    personalSexTv.text = sex
+                }
                 // 身份证号码
                 personalIdentityNumberTv.text = data.idCard
                 // 生日
-                personalBirthdayTv.text = data.birthday.ifEmpty { "请设置您的生日" }
+                val birthday = data.birthday
+                if (birthday.isNullOrEmpty().not()) {
+                    personalBirthdayTv.text = "请设置您的生日"
+                } else {
+                    personalBirthdayTv.text = birthday
+                }
                 // 年龄
-                personalAgeTv.text = data.age.ifEmpty { "0" }
+                val age = data.birthday
+                if (age.isNullOrEmpty().not()) {
+                    personalAgeTv.text = "0"
+                } else {
+                    personalAgeTv.text = age
+                }
                 // 名族默认为“汉”
-                personalNationTv.text = data.nation.ifEmpty { "汉" }
+                val nation = data.birthday
+                if (nation.isNullOrEmpty().not()) {
+                    personalNationTv.text = "汉"
+                } else {
+                    personalNationTv.text = nation
+                }
                 // 户籍地址
                 personalHomeAddressTv.text = data.permanentAddress
                 // 联系电话
                 personalPhoneNumberTv.text = data.phone
                 // 爱好
                 personalHobbyTv.text = data.hobby
+                // 饮食禁忌
+                personalFoodProhibitionTv.text = data.dietTaboo
             }
         }
     }
@@ -157,7 +178,6 @@ class PersonalDetailsActivity : MyActivity() {
             }
             personalHomeAddressContainer.setOnClickListener {
                 // 户籍地址选择
-                val jsonArrayStr = getProvinceJson(R.raw.province) ?: return@setOnClickListener
                 AddressDialog.Builder(this@PersonalDetailsActivity)
                     //.setTitle("选择地区")
                     // 设置默认省份

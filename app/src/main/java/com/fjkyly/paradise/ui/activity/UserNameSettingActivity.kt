@@ -42,6 +42,10 @@ class UserNameSettingActivity : MyActivity() {
                     simpleToast("请输入2-12位的用户名")
                     return@setOnClickListener
                 }
+                if ((newUserName matches Regex("^[\\u4E00-\\u9FA5A-Za-z0-9]+\$")).not()) {
+                    simpleToast("用户名不合法，请重新输入")
+                    return@setOnClickListener
+                }
                 Repository.modifyUserName(newUserName = newUserName, lifecycle = lifecycle) {
                     App.accountLoginInfo?.let {
                         it.data.userInfo.username = newUserName

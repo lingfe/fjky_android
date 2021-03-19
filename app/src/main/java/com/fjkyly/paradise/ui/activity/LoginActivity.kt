@@ -113,9 +113,12 @@ class LoginActivity : MyActivity() {
         ) {
             // 下次进入 APP 时自动进行登录操作，无需用户点击登录按钮
             userSettingSp.edit {
+                val data = it.data
                 putBoolean(AUTO_LOGIN_STATUS, true)
                 putString(USER_ACCOUNT, accountNum)
                 putString(USER_ACCOUNT_PWD, accountPwd)
+                putString(USER_TOKEN, data.token)
+                putString(USER_ID, data.assInfo.id)
             }
             // 跳转到主界面，并关闭登录界面
             startActivity<HomeActivity>()
