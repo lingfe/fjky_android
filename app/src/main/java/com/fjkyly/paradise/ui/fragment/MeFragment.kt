@@ -51,19 +51,13 @@ class MeFragment : BaseFragment() {
     private fun loadData() {
         mBinding.run {
             meInclude.run {
-                Repository.queryUserBasicInfo(lifecycle = lifecycle) {
-                    val data = it.data
-                    val userInfo = data.userInfo
-                    runCatching {
-                        Glide.with(this@MeFragment)
-                            .load(userInfo.userImg)
-                            .into(meAvatarIv)
-                        meAccountIdTv.text = userInfo.username
-                    }
-                }
                 Repository.queryUserInfo(lifecycle = lifecycle) {
                     val data = it.data
                     runCatching {
+                        Glide.with(this@MeFragment)
+                            .load(data.userImg)
+                            .into(meAvatarIv)
+                        meAccountIdTv.text = data.username
                         val balance = data.balance
                         meFavoritesNumTv.text = balance.toString()
                     }

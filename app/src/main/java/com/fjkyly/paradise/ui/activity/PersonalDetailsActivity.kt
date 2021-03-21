@@ -8,11 +8,13 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalDetailsBinding
+import com.fjkyly.paradise.expand.getAgeByBirth
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.views.AddressDialog
 import com.vondear.rxtool.RxTimeTool
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -52,7 +54,7 @@ class PersonalDetailsActivity : MyActivity() {
                 // 性别，默认为“男”
                 val sex = data.gender
                 if (TextUtils.isEmpty(sex)) {
-                    personalSexTv.hint = "男"
+                    personalSexTv.hint = "请选择您的性别"
                 } else {
                     personalSexTv.text = sex
                 }
@@ -139,6 +141,20 @@ class PersonalDetailsActivity : MyActivity() {
                 TimePickerBuilder(this@PersonalDetailsActivity) { date, _ ->
                     val format = RxTimeTool.simpleDateFormat("yyyy年MM月dd日", date)
                     modifyParams("birthday", format)
+                    // 计算出生日期
+                    val sdf = SimpleDateFormat("yyyy年MM月dd", Locale.getDefault())
+                    val bornDate = sdf.parse(format)
+                    if (bornDate != null) {
+                        // 计算年龄
+                        val ageParams = mutableMapOf<String, String>()
+                        ageParams["age"] = getAgeByBirth(bornDate).toString()
+                        Repository.modifyPersonBasicInfo(
+                            lifecycle = lifecycle,
+                            params = ageParams
+                        ) {
+                            loadData()
+                        }
+                    }
                 }
                     .isCyclic(true) // 是否循环滚动
                     .setDate(endCalendar)

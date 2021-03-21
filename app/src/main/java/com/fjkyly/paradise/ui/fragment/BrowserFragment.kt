@@ -74,6 +74,7 @@ class BrowserFragment(private var mUrl: String = DEFAULT_URL) : BaseFragment() {
                 // loadUrl("http://192.168.124.17:81/")
                 // loadUrl("http://47.106.198.137:82/#/")
                 loadUrl(mUrl)
+                loadUrl("javascript:window.location.reload(true)")
                 // loadUrl(ASSETS_FOLDER + "h5/getLocation.html")
             }
         }
