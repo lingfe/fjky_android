@@ -81,7 +81,10 @@ class DeviceFunSettingActivity : MyActivity() {
                     ConfirmDialog.OnDialogActionSimpleListener() {
                     override fun onGiveUpClick() {
                         // 用户点击了确定按钮，解绑设备
-                        Repository.unbindDevice(deviceId = mFacility.facilityId, lifecycle = lifecycle) {
+                        Repository.unbindDevice(
+                            deviceId = mFacility.facilityId,
+                            lifecycle = lifecycle
+                        ) {
                             finish()
                             simpleToast(it.msg)
                         }
@@ -117,6 +120,7 @@ class DeviceFunSettingActivity : MyActivity() {
      * 直接执行指令
      */
     private fun executeInstructions(deviceFun: DeviceSettingFun.Data.DevFun) {
+        simpleToast("指令已发送")
         // 调用后端接口，修改功能参数数据
         Repository.modifyDeviceFunValue(
             deviceFunId = deviceFun.id,

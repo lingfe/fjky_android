@@ -38,6 +38,11 @@ class PersonalNameSettingActivity : MyActivity() {
                     simpleToast("姓名不能为空")
                     return@setOnClickListener
                 }
+                // 限制中英文和数字
+                if ((personalName matches Regex("^[\\u4e00-\\u9fa5_a-zA-Z0-9]+\$")).not()) {
+                    simpleToast("姓名不得包含特殊字符")
+                    return@setOnClickListener
+                }
                 val params = mutableMapOf<String, String>()
                 params["full_name"] = personalName
                 Repository.modifyPersonBasicInfo(

@@ -10,6 +10,7 @@ import com.fjkyly.paradise.model.*
 import com.fjkyly.paradise.network.request.api.*
 import com.google.gson.Gson
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 
@@ -113,6 +114,43 @@ object Repository {
                     t.printStackTrace()
                 }
             })
+    }
+
+    /**
+     * 根据亲友 ID 删除亲友
+     */
+    fun deleteFriendById(
+        lifecycle: Lifecycle,
+        friendId: String,
+        block: (httpData: HttpData) -> Unit
+    ) {
+        val friendApi = ServiceCreator.create<FriendApi>()
+        friendApi.deleteFriendById(friendId = friendId).enqueue(object : Callback<HttpData> {
+            override fun onResponse(
+                call: Call<HttpData>,
+                response: Response<HttpData>
+            ) {
+                val body = response.body()?.let {
+                    Log.d(
+                        TAG,
+                        "onResponse：deleteFriendById ===>${GsonUtils.toJson(it)}"
+                    )
+                    if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
+                        if (it.state == HTTP_OK) {
+                            block(it)
+                        }
+                    }
+                }
+                if (body == null) {
+                    simpleToast("服务器异常，请稍后重试")
+                }
+            }
+
+            override fun onFailure(call: Call<HttpData>, t: Throwable) {
+                t.printStackTrace()
+                simpleToast("亲友删除失败，请稍后重试")
+            }
+        })
     }
 
     /**

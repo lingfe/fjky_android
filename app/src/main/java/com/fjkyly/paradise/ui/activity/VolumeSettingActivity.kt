@@ -54,6 +54,7 @@ class VolumeSettingActivity : MyActivity() {
                 }
             })
             saveBtn.setOnClickListener {
+                simpleToast("指令已发送")
                 // 调用后端接口，修改功能参数数据
                 Repository.modifyDeviceFunValue(
                     deviceFunId = mDeviceFun.id,

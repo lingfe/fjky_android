@@ -63,10 +63,15 @@ class MeFragment : BaseFragment() {
                 }
                 Repository.queryUserInfo(lifecycle = lifecycle) {
                     val data = it.data
-                    meFavoritesNumTv.text = data.balance.toString()
+                    runCatching {
+                        val balance = data.balance
+                        meFavoritesNumTv.text = balance.toString()
+                    }
                     // 隐藏手机号中间四位
-                    val phone = hidePhoneNum(data.phone)
-                    meAccountTv.text = phone
+                    runCatching {
+                        val phone = hidePhoneNum(data.phone)
+                        meAccountTv.text = phone
+                    }
                 }
             }
         }

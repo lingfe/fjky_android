@@ -153,17 +153,37 @@
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/saveBtn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="87dp"
-        android:background="@drawable/bg_button_round_green"
-        android:paddingStart="120dp"
-        android:paddingEnd="120dp"
-        android:singleLine="true"
-        android:text="保存"
-        android:textColor="@color/white" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_round_red"
+            android:singleLine="true"
+            android:text="删除"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:background="@drawable/bg_button_round_green"
+            android:singleLine="true"
+            android:text="保存"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
 </LinearLayout>

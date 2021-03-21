@@ -56,17 +56,19 @@ class AccountManagerActivity : MyActivity() {
         mBinding.run {
             Repository.queryUserBasicInfo(lifecycle = lifecycle) {
                 val data = it.data
-                val userInfo = data.userInfo
-                val essInfo = data.essInfo
-                // 用户头像
-                Glide.with(this@AccountManagerActivity)
-                    .load(userInfo.userImg)
-                    .error(R.drawable.icon_person)
-                    .into(accountMangerAvatarIv)
-                // 用户名称
-                accountMangerNameTv.text = userInfo.username
-                // 用户手机号
-                accountMangerPhoneNumTv.text = essInfo.phone
+                runCatching {
+                    val userInfo = data.userInfo
+                    val essInfo = data.essInfo
+                    // 用户头像
+                    Glide.with(this@AccountManagerActivity)
+                        .load(userInfo.userImg)
+                        .error(R.drawable.icon_person)
+                        .into(accountMangerAvatarIv)
+                    // 用户名称
+                    accountMangerNameTv.text = userInfo.username
+                    // 用户手机号
+                    accountMangerPhoneNumTv.text = essInfo.phone
+                }
             }
         }
     }

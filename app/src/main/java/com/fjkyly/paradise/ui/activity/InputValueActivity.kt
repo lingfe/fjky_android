@@ -45,6 +45,7 @@ class InputValueActivity : MyActivity() {
                         simpleToast("输入不合法，请检查后重试")
                         return@checkInputValueLegality
                     }
+                    simpleToast("指令已发送")
                     // 调用后端接口，修改功能参数数据
                     Repository.modifyDeviceFunValue(
                         deviceFunId = mDeviceFun.id,

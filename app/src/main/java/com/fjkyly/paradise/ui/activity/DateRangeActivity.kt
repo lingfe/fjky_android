@@ -65,6 +65,7 @@ class DateRangeActivity : MyActivity() {
                     simpleToast("开始日期不能大于结束日期")
                     return@setOnClickListener
                 }
+                simpleToast("指令已发送")
                 // 调用后端接口，修改功能参数数据
                 Repository.modifyDeviceFunValue(
                     deviceFunId = mDeviceFun.id,

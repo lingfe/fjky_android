@@ -3,6 +3,7 @@ package com.fjkyly.paradise.ui.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.SearchView
@@ -123,7 +124,7 @@ class AddFacilityActivity : MyActivity() {
         }
     }
 
-    private fun isEmpty(text: String) = text.isEmpty() || "null" == text.trim()
+    private fun isEmpty(text: String) = TextUtils.isEmpty(text) || "null" == text.trim()
 
     override fun onDestroy() {
         super.onDestroy()

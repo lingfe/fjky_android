@@ -3,6 +3,7 @@ package com.fjkyly.paradise.network.request.api
 import com.fjkyly.paradise.base.App
 import com.fjkyly.paradise.model.AddFriend
 import com.fjkyly.paradise.model.FriendsList
+import com.fjkyly.paradise.model.HttpData
 import com.fjkyly.paradise.model.ModifyFriendInfo
 import retrofit2.Call
 import retrofit2.http.*
@@ -11,6 +12,15 @@ import retrofit2.http.*
  * 亲友
  */
 interface FriendApi {
+
+    /**
+     * 根据亲友 ID 删除亲友
+     */
+    @FormUrlEncoded
+    @POST("raf/deleteWhereId.app")
+    fun deleteFriendById(
+        @Field("id") friendId: String,
+        @Header("token") token: String = App.getUserToken()): Call<HttpData>
 
     /**
      * 修改亲友信息

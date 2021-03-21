@@ -2,13 +2,17 @@ package com.fjkyly.paradise.ui.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
+import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityAddFriendBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.network.request.Repository
+import com.fjkyly.paradise.ui.views.ConfirmDialog
 import com.vondear.rxtool.RxKeyboardTool
 import com.vondear.rxtool.RxRegTool
 
@@ -38,6 +42,7 @@ class AddFriendActivity : MyActivity() {
             addFriendNameEt.setText(friendName)
             addFriendPhoneNumEt.setText(friendPhoneNum)
             friendRelationTv.text = friendRelation
+            deleteBtn.visibility = if (isAdd) View.GONE else View.VISIBLE
         }
     }
 
@@ -72,6 +77,39 @@ class AddFriendActivity : MyActivity() {
                         show()
                     }
             }
+            deleteBtn.setOnClickListener {
+                // 根据亲友 ID 删除亲友
+                val deleteFriendDialog = ConfirmDialog(this@AddFriendActivity)
+                deleteFriendDialog.run {
+                    setContentView(R.layout.dialog_confirm)
+                    post {
+                        setDialogMessage("确定要删除该亲友吗？")
+                        setConfirmTextColor(Color.parseColor("#666666"))
+                        setGivUpTextColor(Color.parseColor("#FF5050"))
+                    }
+                    show()
+                }
+                deleteFriendDialog.setOnDialogActionClickListener(object :
+                    ConfirmDialog.OnDialogActionSimpleListener() {
+                    override fun onGiveUpClick() {
+                        val friendId = intent.getStringExtra("friendId")
+                        if (friendId == null) {
+                            simpleToast("亲友删除失败")
+                            return
+                        }
+                        simpleToast("正在删除该亲友")
+                        Log.d(TAG, "onGiveUpClick: ===>friendId：$friendId")
+                        // 根据亲友 ID 删除对应的亲友
+                        Repository.deleteFriendById(
+                            lifecycle = lifecycle,
+                            friendId = friendId
+                        ) {
+                            simpleToast(it.msg)
+                            finish()
+                        }
+                    }
+                })
+            }
             saveBtn.setOnClickListener {
                 val friendId = intent.getStringExtra("friendId")
                 val friendName = addFriendNameEt.text.toString()
@@ -79,6 +117,11 @@ class AddFriendActivity : MyActivity() {
                 val friendRelation = friendRelationTv.text.toString()
                 if (friendName.isEmpty()) {
                     simpleToast("请输入亲友姓名")
+                    return@setOnClickListener
+                }
+                // 限制中英文和数字
+                if ((friendName matches Regex("^[\\u4e00-\\u9fa5_a-zA-Z0-9]+$")).not()) {
+                    simpleToast("姓名不得包含特殊字符")
                     return@setOnClickListener
                 }
                 if (friendPhoneNum.isEmpty()) {
@@ -125,6 +168,7 @@ class AddFriendActivity : MyActivity() {
     }
 
     companion object {
+        private const val TAG = "AddFriendActivity"
         fun startActivity(
             context: Context,
             friendName: String? = null,

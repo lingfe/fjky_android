@@ -125,7 +125,7 @@ class BrowserFragment(private var mUrl: String = DEFAULT_URL) : BaseFragment() {
          * 操作日历之前先检查权限是否已经获取
          */
         @JavascriptInterface
-        fun checkCalendarPermission() {
+        fun checkCalendarPermission(block: () -> Unit) {
             lifecycleScope.launch {
                 val result = withContext(Dispatchers.Default) {
                     XXPermissions.with(this@BrowserFragment)
@@ -141,6 +141,7 @@ class BrowserFragment(private var mUrl: String = DEFAULT_URL) : BaseFragment() {
                                 all: Boolean
                             ) {
                                 obtainCalendarPermission = all
+                                block()
                             }
 
                             override fun onDenied(
@@ -148,6 +149,7 @@ class BrowserFragment(private var mUrl: String = DEFAULT_URL) : BaseFragment() {
                                 never: Boolean
                             ) {
                                 obtainCalendarPermission = never.not()
+                                block()
                             }
                         })
                 }
@@ -163,7 +165,9 @@ class BrowserFragment(private var mUrl: String = DEFAULT_URL) : BaseFragment() {
         @JavascriptInterface
         fun insertCalendarEvent(eventJson: String) {
             val calendarEvent: CalendarUtils.SimpleCalendarEvent = fromJson(eventJson)
-            CalendarUtils().insertCalendarEvent(calendarEventInfo = calendarEvent)
+            runCatching {
+                CalendarUtils().insertCalendarEvent(calendarEventInfo = calendarEvent)
+            }
         }
 
         /**
@@ -171,10 +175,12 @@ class BrowserFragment(private var mUrl: String = DEFAULT_URL) : BaseFragment() {
          */
         @JavascriptInterface
         fun updateCalendarEvent() {
-            val workerRequest = OneTimeWorkRequestBuilder<CalendarUpdateWorker>()
-                .build()
-            WorkManager.getInstance(this@BrowserFragment.requireContext())
-                .enqueue(workerRequest)
+            checkCalendarPermission {
+                val workerRequest = OneTimeWorkRequestBuilder<CalendarUpdateWorker>()
+                    .build()
+                WorkManager.getInstance(this@BrowserFragment.requireContext())
+                    .enqueue(workerRequest)
+            }
         }
     }
 

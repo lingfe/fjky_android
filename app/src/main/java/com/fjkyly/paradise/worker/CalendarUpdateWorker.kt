@@ -20,28 +20,34 @@ class CalendarUpdateWorker(val context: Context, params: WorkerParameters) :
         Repository.queryTakeMedicineRemindList(lifecycle = null) {
             val data = it.data
             for (datum in data) {
-                CalendarUtils().deleteEventByTitle(datum.mrTitle) {}
+                runCatching {
+                    CalendarUtils().deleteEventByTitle(datum.mrTitle) {}
+                }
             }
             for (datum in data) {
-                val startDate = SimpleDateFormat(
-                    "yyyy.MM.dd-HH:mm",
-                    Locale.getDefault()
-                ).parse(datum.mrStartDate + "-" + datum.mrTime)
-                val endDate = SimpleDateFormat(
-                    "yyyy.MM.dd-HH:mm",
-                    Locale.getDefault()
-                ).parse(datum.mrEntDate + "-" + datum.mrTime)
-                if (startDate != null && endDate != null) {
-                    val calendarEvent = CalendarUtils.SimpleCalendarEvent(
-                        title = datum.mrTitle,
-                        description = datum.mrTitle,
-                        location = "",
-                        startTimeMillis = startDate.time,
-                        endTimeMillis = endDate.time
-                    )
-                    CalendarUtils()
-                        .setRepeat(false)
-                        .insertCalendarEvent(calendarEventInfo = calendarEvent)
+                runCatching {
+                    val startDate = SimpleDateFormat(
+                        "yyyy.MM.dd-HH:mm",
+                        Locale.getDefault()
+                    ).parse(datum.mrStartDate + "-" + datum.mrTime)
+                    val endDate = SimpleDateFormat(
+                        "yyyy.MM.dd-HH:mm",
+                        Locale.getDefault()
+                    ).parse(datum.mrEntDate + "-" + datum.mrTime)
+                    if (startDate != null && endDate != null) {
+                        val calendarEvent = CalendarUtils.SimpleCalendarEvent(
+                            title = datum.mrTitle,
+                            description = datum.mrTitle,
+                            location = "",
+                            startTimeMillis = startDate.time,
+                            endTimeMillis = endDate.time
+                        )
+                        runCatching {
+                            CalendarUtils()
+                                .setRepeat(false)
+                                .insertCalendarEvent(calendarEventInfo = calendarEvent)
+                        }
+                    }
                 }
             }
             Log.d(TAG, "doWork: ===>TakeMedicineRemindList：${GsonUtils.toJson(it)}")
