@@ -1,19 +1,31 @@
 package com.fjkyly.paradise.ui.activity
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.blankj.utilcode.util.SizeUtils
+import com.bumptech.glide.Glide
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityPersonalDetailsBinding
-import com.fjkyly.paradise.expand.getAgeByBirth
-import com.fjkyly.paradise.expand.simpleToast
-import com.fjkyly.paradise.expand.startActivity
+import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.views.AddressDialog
+import com.hjq.permissions.OnPermissionCallback
+import com.hjq.permissions.XXPermissions
 import com.vondear.rxtool.RxTimeTool
+import com.zhihu.matisse.Matisse
+import com.zhihu.matisse.MimeType
+import com.zhihu.matisse.engine.impl.GlideEngine
+import com.zhihu.matisse.internal.entity.CaptureStrategy
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,6 +61,15 @@ class PersonalDetailsActivity : MyActivity() {
         mBinding.run {
             Repository.queryPersonBasicInfo(lifecycle = lifecycle) {
                 val data = it.data
+                // 默认头像
+                var personalRealAvatar = data.img
+                if (TextUtils.isEmpty(personalRealAvatar)) {
+                    personalRealAvatar =
+                        "https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2561659095,299912888&fm=26&gp=0.jpg"
+                }
+                Glide.with(this@PersonalDetailsActivity)
+                    .load(personalRealAvatar)
+                    .into(personalRealAvatarIv)
                 // 姓名
                 personalNameTv.text = data.fullName
                 // 性别，默认为“男”
@@ -97,6 +118,9 @@ class PersonalDetailsActivity : MyActivity() {
         mBinding.run {
             personalDetailsBackIv.setOnClickListener {
                 finish()
+            }
+            personalRealAvatarContainer.setOnClickListener {
+                choosePhoto()
             }
             personalNameContainer.setOnClickListener {
                 // 跳转到姓名设置界面
@@ -275,7 +299,90 @@ class PersonalDetailsActivity : MyActivity() {
         }
     }
 
+    /**
+     * 进入相册图片选择界面，获取用户选择的照片或拍摄的照片
+     */
+    @SuppressLint("InlinedApi")
+    private fun choosePhoto() {
+        var allPermissionGranted = false
+        // 相机权限和读写文件权限是必要的，否则用户将无法正常使用更换头像功能
+        XXPermissions.with(this)
+            .permission(
+                arrayOf(
+                    Manifest.permission.CAMERA, Manifest.permission.MANAGE_EXTERNAL_STORAGE
+                )
+            )
+            .request(object : OnPermissionCallback {
+                override fun onGranted(permissions: MutableList<String>?, all: Boolean) {
+                    allPermissionGranted = all
+                }
+
+                override fun onDenied(permissions: MutableList<String>?, never: Boolean) {
+                    simpleToast("权限申请被拒绝，请手动授予相机和存储权限！")
+                    XXPermissions.startPermissionActivity(
+                        this@PersonalDetailsActivity,
+                        permissions
+                    )
+                }
+            })
+        // 如果没有同时授予相机、存储权限，该功能将无法正常使用
+        if (allPermissionGranted.not()) return
+        Matisse.from(this)
+            .choose(MimeType.of(MimeType.JPEG, MimeType.PNG))
+            .countable(false)
+            .maxSelectable(1)
+            .gridExpectedSize(SizeUtils.dp2px(100f))
+            .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+            .thumbnailScale(0.85f)
+            .imageEngine(GlideEngine())
+            .showPreview(false) // Default is `true`
+            .capture(true)
+            .captureStrategy(
+                CaptureStrategy(
+                    false,
+                    "${AppConfig.getPackageName()}.provider",
+                    "Paradise"
+                )
+            )
+            .forResult(REQUEST_CODE_CHOOSE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK) return
+        if (requestCode == REQUEST_CODE_CHOOSE) {
+            val selected: List<Uri> = Matisse.obtainResult(data)
+            if (selected.isNullOrEmpty()) return
+            copyUriToExternalFilesDir(
+                selected[0],
+                "Temp_${System.currentTimeMillis()}.jpg"
+            ) { newFile ->
+                // Log.d(TAG, "onActivityResult: ===>File：${it.path}")
+                Repository.uploadImageFile(newFile, lifecycle = lifecycle) { uploadImage ->
+                    val newUserAvatar = uploadImage.data.imgUrl
+                    // Log.d(TAG, "onActivityResult: ===>newUserAvatar：$newUserAvatar")
+                    val params = mutableMapOf<String, String>()
+                    params["img"] = newUserAvatar
+                    Repository.modifyPersonBasicInfo(
+                        lifecycle = lifecycle,
+                        params = params,
+                    ) {
+                        // 修改成功之后，刷新界面数据
+                        Glide.with(this)
+                            .load(newUserAvatar)
+                            .error(R.drawable.icon_person)
+                            .into(mBinding.personalRealAvatarIv)
+                        simpleToast(it.msg)
+                        newFile.delete()
+                    }
+                }
+            }
+            // Log.d(TAG, "mSelected：====>$selected")
+        }
+    }
+
     companion object {
         private const val TAG = "PersonalDetailsActivity"
+        private const val REQUEST_CODE_CHOOSE = 1
     }
 }

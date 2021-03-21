@@ -1,6 +1,7 @@
 package com.fjkyly.paradise.network.request.api
 
 import com.fjkyly.paradise.base.App
+import com.fjkyly.paradise.model.HttpData
 import com.fjkyly.paradise.model.ModifyUserAvatar
 import retrofit2.Call
 import retrofit2.http.*

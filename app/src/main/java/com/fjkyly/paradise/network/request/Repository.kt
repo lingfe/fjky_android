@@ -778,9 +778,6 @@ object Repository {
                             simpleToast(it.msg)
                         }
                     }
-                    if (body == null) {
-                        simpleToast("服务器数据异常，请稍后重试！")
-                    }
                 }
 
                 override fun onFailure(call: Call<UploadImage>, t: Throwable) {

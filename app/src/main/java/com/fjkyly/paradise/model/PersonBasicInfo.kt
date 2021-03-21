@@ -45,6 +45,8 @@ data class PersonBasicInfo(
         @SerializedName("state")
         val state: Int,
         @SerializedName("yw_id")
-        val ywId: String
+        val ywId: String,
+        @SerializedName("img")
+        val img: String
     )
 }

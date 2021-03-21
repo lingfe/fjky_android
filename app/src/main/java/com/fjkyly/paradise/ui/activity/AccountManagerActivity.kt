@@ -232,12 +232,12 @@ class AccountManagerActivity : MyActivity() {
                     Repository.modifyUserAvatar(
                         newUserAvatar = newUserAvatar,
                         lifecycle = lifecycle
-                    ) {
+                    ) { modifyUserAvatar ->
                         Glide.with(this)
                             .load(newUserAvatar)
                             .error(R.drawable.icon_person)
                             .into(mBinding.accountMangerAvatarIv)
-                        simpleToast("头像修改成功！")
+                        simpleToast(modifyUserAvatar.msg)
                         newFile.delete()
                     }
                 }
