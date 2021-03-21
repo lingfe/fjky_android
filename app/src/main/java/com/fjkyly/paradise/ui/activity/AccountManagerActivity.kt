@@ -3,6 +3,7 @@ package com.fjkyly.paradise.ui.activity
 import android.Manifest
 import android.app.Activity
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -10,6 +11,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.edit
 import com.blankj.utilcode.util.SizeUtils
@@ -54,21 +56,20 @@ class AccountManagerActivity : MyActivity() {
 
     private fun loadData() {
         mBinding.run {
-            Repository.queryUserBasicInfo(lifecycle = lifecycle) {
+            Repository.queryUserInfo(lifecycle = lifecycle) {
                 val data = it.data
-                runCatching {
-                    val userInfo = data.userInfo
-                    val essInfo = data.essInfo
-                    // 用户头像
-                    Glide.with(this@AccountManagerActivity)
-                        .load(userInfo.userImg)
-                        .error(R.drawable.icon_person)
-                        .into(accountMangerAvatarIv)
-                    // 用户名称
-                    accountMangerNameTv.text = userInfo.username
-                    // 用户手机号
-                    accountMangerPhoneNumTv.text = essInfo.phone
-                }
+                val userImg = data.userImg
+                val userName = data.username
+                val userPhone = data.phone
+                Log.d(TAG, "loadData: ===>userImg：$userImg")
+                // 用户头像
+                Glide.with(this@AccountManagerActivity)
+                    .load(userImg)
+                    .into(accountMangerAvatarIv)
+                // 用户名称
+                accountMangerNameTv.text = userName
+                // 用户手机号
+                accountMangerPhoneNumTv.text = userPhone
             }
         }
     }
@@ -205,6 +206,7 @@ class AccountManagerActivity : MyActivity() {
             .imageEngine(GlideEngine())
             .showPreview(false) // Default is `true`
             .capture(true)
+            .maxOriginalSize(1)
             .captureStrategy(
                 CaptureStrategy(
                     false,
@@ -226,19 +228,25 @@ class AccountManagerActivity : MyActivity() {
                 "Temp_${System.currentTimeMillis()}.jpg"
             ) { newFile ->
                 // Log.d(TAG, "onActivityResult: ===>File：${it.path}")
-                Repository.uploadImageFile(newFile, lifecycle = lifecycle) { uploadImage ->
+                val progressDialog = ProgressDialog(this)
+                progressDialog.setTitle("正在上传图片..")
+                progressDialog.setCancelable(false)
+                progressDialog.show()
+                Repository.uploadImageFile(newFile, lifecycle = lifecycle, onFinished = {
+                    progressDialog.dismiss()
+                }) { uploadImage ->
                     val newUserAvatar = uploadImage.data.imgUrl
-                    // Log.d(TAG, "onActivityResult: ===>newUserAvatar：$newUserAvatar")
+                    Log.d(TAG, "onActivityResult: ===>newUserAvatar：$newUserAvatar")
                     Repository.modifyUserAvatar(
                         newUserAvatar = newUserAvatar,
                         lifecycle = lifecycle
                     ) { modifyUserAvatar ->
+                        progressDialog.dismiss()
                         Glide.with(this)
                             .load(newUserAvatar)
                             .error(R.drawable.icon_person)
                             .into(mBinding.accountMangerAvatarIv)
                         simpleToast(modifyUserAvatar.msg)
-                        newFile.delete()
                     }
                 }
             }

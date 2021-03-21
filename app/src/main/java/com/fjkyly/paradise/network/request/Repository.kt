@@ -327,6 +327,7 @@ object Repository {
 
                 override fun onFailure(call: Call<PersonBasicInfo>, t: Throwable) {
                     t.printStackTrace()
+                    simpleToast("服务器状态异常，请稍后重试")
                 }
             })
     }
@@ -338,14 +339,14 @@ object Repository {
     fun modifyPersonBasicInfo(
         lifecycle: Lifecycle,
         params: Map<String, String>,
-        block: (modifyPersonalBasicInfoData: ModifyPersonalBasicInfoData) -> Unit
+        block: (httpData: HttpData) -> Unit
     ) {
         val personBasicInfoApi = ServiceCreator.create<PersonBasicInfoApi>()
         personBasicInfoApi.modifyPersonBasicInfo(params = params)
-            .enqueue(object : retrofit2.Callback<ModifyPersonalBasicInfoData> {
+            .enqueue(object : retrofit2.Callback<HttpData> {
                 override fun onResponse(
-                    call: Call<ModifyPersonalBasicInfoData>,
-                    response: Response<ModifyPersonalBasicInfoData>
+                    call: Call<HttpData>,
+                    response: Response<HttpData>
                 ) {
                     response.body()?.let {
                         Log.d(
@@ -362,7 +363,7 @@ object Repository {
                     }
                 }
 
-                override fun onFailure(call: Call<ModifyPersonalBasicInfoData>, t: Throwable) {
+                override fun onFailure(call: Call<HttpData>, t: Throwable) {
                     t.printStackTrace()
                 }
             })
@@ -528,9 +529,6 @@ object Repository {
                         } else {
                             simpleToast(it.msg)
                         }
-                    }
-                    if (body == null) {
-                        simpleToast("服务器数据异常，请稍后重试！")
                     }
                 }
 
@@ -758,8 +756,10 @@ object Repository {
     fun uploadImageFile(
         file: File,
         lifecycle: Lifecycle,
+        onFinished: () -> Unit,
         block: (uploadImage: UploadImage) -> Unit
     ) {
+        Log.d(TAG, "uploadImageFile: ===>fileName：$file   fileSize：${file.length()}")
         val uploadFileApi = ServiceCreator.create<UploadFileApi>()
         val multipartBodyPart = fileToMultipartBodyParts(file)
         uploadFileApi.upload(multipartBodyPart = multipartBodyPart)
@@ -768,7 +768,10 @@ object Repository {
                     call: Call<UploadImage>,
                     response: Response<UploadImage>
                 ) {
-                    val body = response.body()?.let {
+                    // simpleToast("图片上传完成")
+                    val body = response.body()
+                    Log.d(TAG, "onResponse：uploadImageFile body===>${GsonUtils.toJson(body)}")
+                    body?.let {
                         Log.d(TAG, "onResponse：uploadImageFile ===>${GsonUtils.toJson(it)}")
                         if (it.state == HTTP_OK) {
                             if (lifecycle.currentState != Lifecycle.State.DESTROYED) {
@@ -778,10 +781,12 @@ object Repository {
                             simpleToast(it.msg)
                         }
                     }
+                    onFinished()
                 }
 
                 override fun onFailure(call: Call<UploadImage>, t: Throwable) {
                     t.printStackTrace()
+                    onFinished()
                     simpleToast("图片上传失败，请稍后重试！")
                 }
             })
@@ -797,7 +802,7 @@ object Repository {
     fun modifyUserAvatar(
         newUserAvatar: String,
         lifecycle: Lifecycle,
-        block: (modifyUserAvatar: ModifyUserAvatar) -> Unit
+        block: (httpData: ModifyUserAvatar) -> Unit
     ) {
         val modifyUserAvatarApi = ServiceCreator.create<ModifyUserAvatarApi>()
         modifyUserAvatarApi.modify(newUserAvatar = newUserAvatar)

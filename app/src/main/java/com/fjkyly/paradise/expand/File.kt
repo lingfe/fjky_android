@@ -74,8 +74,7 @@ fun fileToMultipartBodyParts(file: File): MultipartBody.Part =
 fun filesToMultipartBodyParts(files: List<File>): List<MultipartBody.Part> {
     val parts: MutableList<MultipartBody.Part> = ArrayList(files.size)
     for (file in files) {
-        // TODO: 2021/3/2 这里为了简单起见，没有判断file的类型
-        val requestBody = RequestBody.create(MediaType.parse("image/png"), file)
+        val requestBody = RequestBody.create(MediaType.parse("image/*"), file)
         val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
         parts.add(part)
     }

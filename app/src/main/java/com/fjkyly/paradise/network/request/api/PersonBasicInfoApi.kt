@@ -1,7 +1,7 @@
 package com.fjkyly.paradise.network.request.api
 
 import com.fjkyly.paradise.base.App
-import com.fjkyly.paradise.model.ModifyPersonalBasicInfoData
+import com.fjkyly.paradise.model.HttpData
 import com.fjkyly.paradise.model.PersonBasicInfo
 import retrofit2.Call
 import retrofit2.http.*
@@ -31,5 +31,5 @@ interface PersonBasicInfoApi {
         @Field("appUserId") userId: String = App.getUserId(),
         @FieldMap params: Map<String, String>,
         @Header("token") token: String = App.getUserToken()
-    ): Call<ModifyPersonalBasicInfoData>
+    ): Call<HttpData>
 }

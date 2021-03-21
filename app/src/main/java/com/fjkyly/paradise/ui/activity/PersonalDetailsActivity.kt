@@ -3,11 +3,13 @@ package com.fjkyly.paradise.ui.activity
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
@@ -337,6 +339,7 @@ class PersonalDetailsActivity : MyActivity() {
             .imageEngine(GlideEngine())
             .showPreview(false) // Default is `true`
             .capture(true)
+            .maxOriginalSize(1)
             .captureStrategy(
                 CaptureStrategy(
                     false,
@@ -357,10 +360,16 @@ class PersonalDetailsActivity : MyActivity() {
                 selected[0],
                 "Temp_${System.currentTimeMillis()}.jpg"
             ) { newFile ->
+                val progressDialog = ProgressDialog(this)
+                progressDialog.setTitle("正在上传图片..")
+                progressDialog.setCancelable(false)
+                progressDialog.show()
                 // Log.d(TAG, "onActivityResult: ===>File：${it.path}")
-                Repository.uploadImageFile(newFile, lifecycle = lifecycle) { uploadImage ->
+                Repository.uploadImageFile(newFile, lifecycle = lifecycle, onFinished = {
+                    progressDialog.dismiss()
+                }) { uploadImage ->
                     val newUserAvatar = uploadImage.data.imgUrl
-                    // Log.d(TAG, "onActivityResult: ===>newUserAvatar：$newUserAvatar")
+                    Log.d(TAG, "onActivityResult: ===>newUserAvatar：$newUserAvatar")
                     val params = mutableMapOf<String, String>()
                     params["img"] = newUserAvatar
                     Repository.modifyPersonBasicInfo(
@@ -370,10 +379,8 @@ class PersonalDetailsActivity : MyActivity() {
                         // 修改成功之后，刷新界面数据
                         Glide.with(this)
                             .load(newUserAvatar)
-                            .error(R.drawable.icon_person)
                             .into(mBinding.personalRealAvatarIv)
                         simpleToast(it.msg)
-                        newFile.delete()
                     }
                 }
             }
