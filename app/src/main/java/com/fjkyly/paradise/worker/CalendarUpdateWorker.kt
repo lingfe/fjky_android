@@ -45,6 +45,7 @@ class CalendarUpdateWorker(val context: Context, params: WorkerParameters) :
                         runCatching {
                             CalendarUtils()
                                 .setRepeat(false)
+                                .setAlarm(true)
                                 .insertCalendarEvent(calendarEventInfo = calendarEvent)
                         }
                     }

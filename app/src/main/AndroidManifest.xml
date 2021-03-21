@@ -39,7 +39,8 @@
         android:theme="@style/Theme.Paradise"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".ui.activity.BrowserActivity"></activity>
+        <activity android:name=".ui.activity.ViewBitPhotoActivity"></activity>
+        <activity android:name=".ui.activity.BrowserActivity" />
         <activity android:name=".ui.activity.BindNewPhoneActivity" />
         <activity android:name=".ui.activity.AppSettingActivity" />
         <activity android:name=".ui.activity.AddFriendActivity" />

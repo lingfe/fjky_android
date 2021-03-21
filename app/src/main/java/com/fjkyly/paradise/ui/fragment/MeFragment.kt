@@ -2,6 +2,7 @@ package com.fjkyly.paradise.ui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.BaseFragment
@@ -9,10 +10,8 @@ import com.fjkyly.paradise.databinding.FragmentMeBinding
 import com.fjkyly.paradise.expand.hidePhoneNum
 import com.fjkyly.paradise.expand.startActivity
 import com.fjkyly.paradise.network.request.Repository
-import com.fjkyly.paradise.ui.activity.AccountManagerActivity
-import com.fjkyly.paradise.ui.activity.FeedbackSettingActivity
-import com.fjkyly.paradise.ui.activity.FriendsListActivity
-import com.fjkyly.paradise.ui.activity.PersonalDetailsActivity
+import com.fjkyly.paradise.ui.activity.*
+import kotlinx.coroutines.launch
 
 /**
  * 我的 界面
@@ -24,6 +23,7 @@ class MeFragment : BaseFragment() {
 
     private var _binding: FragmentMeBinding? = null
     private val mBinding get() = _binding!!
+    private var avatarUrl: String? = null
 
     override fun getLayoutResId(): Int = R.layout.fragment_me
 
@@ -54,9 +54,19 @@ class MeFragment : BaseFragment() {
                 Repository.queryUserInfo(lifecycle = lifecycle) {
                     val data = it.data
                     runCatching {
-                        Glide.with(this@MeFragment)
-                            .load(data.userImg)
-                            .into(meAvatarIv)
+                        lifecycleScope.launch {
+                            avatarUrl = data.userImg
+                            Glide.with(this@MeFragment)
+                                .load(data.userImg)
+                                .into(meAvatarIv)
+                            // meAvatarIv.setImageDrawable(
+                            //     RoundImageDrawable(
+                            //         bitmap.getOrThrow(),
+                            //         SizeUtils.dp2px(0f).toFloat()
+                            //     )
+                            // )
+                        }
+
                         meAccountIdTv.text = data.username
                         val balance = data.balance
                         meFavoritesNumTv.text = balance.toString()
@@ -74,6 +84,12 @@ class MeFragment : BaseFragment() {
     override fun initEvent() {
         mBinding.run {
             meInclude.run {
+                meAvatarIv.setOnClickListener {
+                    ViewBitPhotoActivity.startActivity(
+                        this@MeFragment.requireContext(),
+                        avatarUrl = avatarUrl
+                    )
+                }
                 mePhoneModifyContainer.setOnClickListener {
                     // 进入账号管理界面
                     requireContext().startActivity<AccountManagerActivity>()

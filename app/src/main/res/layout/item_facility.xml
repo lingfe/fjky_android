@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:layout_marginTop="2dp"
@@ -27,12 +28,15 @@
 
         <TextView
             android:id="@+id/facilityNameTv"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:contentDescription="设备名称"
-            android:text="智能摄像头名称"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:text="智能摄像头名称名称名称" />
 
         <TextView
             android:id="@+id/facilityStatusTv"

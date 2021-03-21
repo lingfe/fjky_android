@@ -51,15 +51,15 @@
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="10dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_marginTop="10dp"
                 android:contentDescription="用户基础数据"
-                app:cardCornerRadius="16dp"
-                app:cardUseCompatPadding="true">
+                app:cardCornerRadius="16dp">
 
                 <include
                     android:id="@+id/meInclude"
@@ -70,9 +70,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                app:cardCornerRadius="16dp"
-                app:cardUseCompatPadding="true">
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -156,7 +155,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginStart="-8dp"
+                android:layout_marginEnd="-8dp"
                 app:cardCornerRadius="16dp"
                 app:cardUseCompatPadding="true">
 
