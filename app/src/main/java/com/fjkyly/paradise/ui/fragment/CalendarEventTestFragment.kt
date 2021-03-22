@@ -55,7 +55,6 @@ class CalendarEventTestFragment : BaseFragment(), OnPermissionCallback {
                 checkCalendarPermission()
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
-                        // TODO: 2021-03-09 测试日历添加、删除、查询功能，后期将从此处移除
                         CalendarUtils().apply {
                             setAlarmTime(0)
                             setRepeat(repeatRemindCb.isChecked)

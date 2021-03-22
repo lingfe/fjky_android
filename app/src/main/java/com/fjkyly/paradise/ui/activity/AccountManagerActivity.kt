@@ -89,31 +89,6 @@ class AccountManagerActivity : MyActivity() {
             }
             accountMangerAvatarContainer.setOnClickListener {
                 choosePhoto()
-                // TODO: 2021/2/25 弹出对话框，选择头像的来源（相册或拍摄）
-                // if (::mChoosePhotoDialog.isInitialized.not()) {
-                //     mChoosePhotoDialog = Dialog(this@AccountManagerActivity)
-                //     val dialogBinding =
-                //         DialogChoosePhotoBinding.inflate(mChoosePhotoDialog.layoutInflater)
-                //     mChoosePhotoDialog.setContentView(dialogBinding.root)
-                //     dialogBinding.run {
-                //         dialogAlbumChooseTv.setOnClickListener {
-                //             // TODO: 2021/3/1 打开相册界面，并获取用户选择的图片数据（暂未实现获取图片数据）
-                //             // selectAlbum()
-                //             choosePhoto()
-                //             simpleToast("从相册获取图片正在开发...")
-                //         }
-                //         dialogTakePhotoTv.setOnClickListener {
-                //             // TODO: 2021/3/1 打开相机界面，并获取用户拍照后的图片数据（暂未实现获取图片数据）
-                //             // openCamera()
-                //             simpleToast("拍摄图片正在开发...")
-                //         }
-                //         dialogCancelTv.setOnClickListener {
-                //             mChoosePhotoDialog.dismiss()
-                //         }
-                //     }
-                // }
-                // mChoosePhotoDialog.show()
-                // simpleToast("更换头像正在开发中...")
             }
             accountMangerNameContainer.setOnClickListener {
                 // 跳转到用户名设置界面
@@ -134,7 +109,7 @@ class AccountManagerActivity : MyActivity() {
                 )
             }
             accountMangerPayContainer.setOnClickListener {
-                // TODO: 2021/2/25 支付密码管理界面
+
             }
             accountSettingContainer.setOnClickListener {
                 // 跳转到APP设置界面

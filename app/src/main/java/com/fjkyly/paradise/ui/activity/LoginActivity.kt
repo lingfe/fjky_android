@@ -42,7 +42,6 @@ class LoginActivity : MyActivity() {
 
     override fun initEvent() {
         mBinding.run {
-            // TODO: 2021-03-04 此处后期需要做代码优化，使用扩展函数进行设置
             loginAccountNumEt.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     loginAccountNumEt.let { editText ->
@@ -105,7 +104,6 @@ class LoginActivity : MyActivity() {
      * 登录账号
      */
     private fun loginAccount(accountNum: String, accountPwd: String) {
-        // TODO: 2021/2/21 和服务器的账号数据进行匹配
         Repository.loginAccount(
             accountNum = accountNum,
             accountPwd = accountPwd,

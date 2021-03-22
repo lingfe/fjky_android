@@ -259,7 +259,6 @@ class CalendarUtils {
         event.put("calendar_id", calId) // 插入账户的 id
         event.put(CalendarContract.Events.EVENT_LOCATION, location)
         event.put(CalendarContract.Events.DTSTART, startDate.time)
-        // TODO: 2021-03-09 可以在这里设置事件的重复规则
         if (isRepeat.not()) {
             // 不重复，仅一次
             event.put(CalendarContract.Events.DTEND, endDate.time)

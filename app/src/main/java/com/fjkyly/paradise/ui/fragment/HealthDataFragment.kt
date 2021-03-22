@@ -61,8 +61,7 @@ class HealthDataFragment : BaseFragment() {
     }
 
     override fun initEvent() {
-        // itemHealthDataAdapter.setOnItemClickListener { menuAction, position ->
-        //     // TODO: 2021/2/22 跳转到指定功能菜单对应的界面
+        // itemHealthDataAdapter.setOnItemClickListener { menuAction,
         //     simpleToast("跳转到${menuAction.menuName}界面")
         // }
     }

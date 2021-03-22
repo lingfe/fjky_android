@@ -36,10 +36,8 @@ class MeFragment : BaseFragment() {
     override fun initView() {
         mBinding.run {
             meSettingsIv.setOnClickListener {
-                // TODO: 2021-03-19 设置按钮
             }
             meMessageIv.setOnClickListener {
-                // TODO: 2021-03-19 消息按钮
             }
         }
     }

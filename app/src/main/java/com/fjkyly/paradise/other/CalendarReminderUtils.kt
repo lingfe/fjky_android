@@ -231,8 +231,6 @@ object CalendarReminderUtils {
             val columns = mapOf<String, Any>()
             // 如果不是最后一行，则继续循环
             while (eventCursor.isAfterLast.not()) {
-                // TODO: 2021-03-09 对查询出来的字段进行封装
-
                 // 将游标移动到下一行
                 eventCursor.moveToNext()
             }

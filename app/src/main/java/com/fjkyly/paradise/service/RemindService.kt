@@ -10,7 +10,6 @@ import androidx.core.content.getSystemService
 
 /**
  * 提醒服务
- * 功能尚未完善，还有逻辑 BUG 等待修复
  */
 class RemindService : Service() {
     override fun onBind(intent: Intent?): IBinder? {
