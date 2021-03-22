@@ -14,7 +14,6 @@ import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.text.TextUtils
-import android.text.format.Formatter
 import androidx.annotation.RawRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
@@ -115,15 +114,14 @@ fun copyUriToExternalFilesDir(uri: Uri, fileName: String, block: (file: File) ->
                 bos.flush()
                 bytes = bis.read(byteArray)
             }
-            simpleToast(
-                "文件写入完成，文件大小：${Formatter.formatFileSize(
-                    App.appContext,
-                    file.length()
-                )}，文件类型：$fileName"
-            )
+            // simpleToast(
+            //     "文件写入完成，文件大小：${Formatter.formatFileSize(
+            //         App.appContext,
+            //         file.length()
+            //     )}，文件类型：$fileName"
+            // )
         } catch (t: Throwable) {
             t.printStackTrace()
-            simpleToast("文件写入失败")
         } finally {
             bufis?.close()
             bufos?.close()
