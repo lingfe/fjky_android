@@ -11,9 +11,6 @@ import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.views.ConfirmDialog
 import com.vondear.rxtool.RxConstTool
 
-/**
- * 注册界面
- */
 class RegisterActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityRegisterBinding

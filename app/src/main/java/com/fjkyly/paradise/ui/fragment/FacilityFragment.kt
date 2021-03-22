@@ -24,14 +24,6 @@ import com.fjkyly.paradise.provider.LocationProvider
 import com.fjkyly.paradise.ui.activity.AddFacilityActivity
 import com.fjkyly.paradise.ui.activity.DeviceFunSettingActivity
 
-/**
- * 设备列表界面
- *
- * @property _binding FragmentFacilityBinding?
- * @property mBinding FragmentFacilityBinding
- * @property itemFacilityListAdapter ItemFacilityListAdapter
- * @property mFacilityList MutableList<Facility>
- */
 class FacilityFragment : BaseFragment() {
 
     private var _binding: FragmentFacilityBinding? = null

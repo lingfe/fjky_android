@@ -18,7 +18,6 @@ interface UploadFileApi {
     @POST("images/imageUploadPublic")
     fun upload(
         @Query("yw_id") ywId: String = App.getUserId(),
-        @Query("folder") folder: String = App.getUserId(),
-        @Part multipartBodyPart: MultipartBody.Part
+        @Part multipartBodyPart: MultipartBody.Part,
     ): Call<UploadImage>
 }

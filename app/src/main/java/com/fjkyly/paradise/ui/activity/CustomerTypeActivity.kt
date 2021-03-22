@@ -4,9 +4,6 @@ import android.os.Bundle
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.databinding.ActivityCustomerTypeBinding
 
-/**
- * 客户类别选择界面
- */
 class CustomerTypeActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityCustomerTypeBinding

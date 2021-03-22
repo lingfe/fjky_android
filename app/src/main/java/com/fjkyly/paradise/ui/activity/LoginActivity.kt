@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import androidx.core.content.edit
+import androidx.core.widget.addTextChangedListener
 import com.fjkyly.paradise.HomeActivity
 import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.MyActivity
@@ -15,9 +16,6 @@ import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.views.ConfirmDialog
 
-/**
- * 登录界面
- */
 class LoginActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityLoginBinding
@@ -42,6 +40,12 @@ class LoginActivity : MyActivity() {
 
     override fun initEvent() {
         mBinding.run {
+            loginAccountNumEt.addTextChangedListener {
+                val localAccount = userSettingSp.getString(USER_ACCOUNT, "")
+                if (localAccount != loginAccountNumEt.text.toString()) {
+                    loginAccountPwdEt.setText("")
+                }
+            }
             loginAccountNumEt.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     loginAccountNumEt.let { editText ->

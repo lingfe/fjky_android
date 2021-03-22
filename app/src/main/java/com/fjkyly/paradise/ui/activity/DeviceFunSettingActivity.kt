@@ -16,10 +16,6 @@ import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.views.ConfirmDialog
 
-/**
- * 设备功能列表界面
- *
- */
 class DeviceFunSettingActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityDeviceFunSettingBinding

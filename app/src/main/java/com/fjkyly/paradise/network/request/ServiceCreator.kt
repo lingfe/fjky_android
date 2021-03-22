@@ -1,9 +1,12 @@
 package com.fjkyly.paradise.network.request
 
+import android.util.Log
 import com.fjkyly.paradise.expand.AppConfig
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.time.Duration
 
 object ServiceCreator {
 
@@ -12,6 +15,12 @@ object ServiceCreator {
     private val BASE_URL = if (AppConfig.isDebug()) OFF_LINE_BASE_URL else ON_LINE_BASE_URL
     private val client = OkHttpClient()
         .newBuilder()
+        .readTimeout(Duration.ofMinutes(3))
+        .connectTimeout(Duration.ofMinutes(3))
+        .writeTimeout(Duration.ofMinutes(3))
+        .addInterceptor(HttpLoggingInterceptor(HttpLoggingInterceptor.Logger {
+            Log.d(TAG, "ServiceCreator: ===>$it")
+        }))
         .build()
 
     private val retrofit = Retrofit.Builder()
@@ -23,4 +32,6 @@ object ServiceCreator {
     fun <T> create(serviceClass: Class<T>): T = retrofit.create(serviceClass)
 
     inline fun <reified T> create(): T = create(T::class.java)
+
+    private const val TAG = "ServiceCreator"
 }

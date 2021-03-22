@@ -8,9 +8,6 @@ import com.fjkyly.paradise.R
 import com.fjkyly.paradise.base.MyActivity
 import com.fjkyly.paradise.expand.*
 
-/**
- * 启动页界面
- */
 class SplashActivity : MyActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

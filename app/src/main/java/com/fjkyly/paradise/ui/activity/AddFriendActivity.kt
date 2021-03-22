@@ -16,9 +16,6 @@ import com.fjkyly.paradise.ui.views.ConfirmDialog
 import com.vondear.rxtool.RxKeyboardTool
 import com.vondear.rxtool.RxRegTool
 
-/**
- * 添加亲友界面
- */
 class AddFriendActivity : MyActivity() {
 
     private var _binding: ActivityAddFriendBinding? = null

@@ -15,9 +15,6 @@ import com.vondear.rxtool.RxTimeTool
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * 通用的日期范围选择界面
- */
 class DateRangeActivity : MyActivity() {
 
     private var _binding: ActivityDateRangeBinding? = null

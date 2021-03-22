@@ -11,9 +11,6 @@ import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.model.DeviceSettingFun
 import com.fjkyly.paradise.network.request.Repository
 
-/**
- * 通用的范围选择界面
- */
 class RangeRulerActivity : MyActivity() {
 
     private var _binding: ActivityRangeRulerBinding? = null

@@ -13,6 +13,8 @@ import android.os.FileUtils
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.provider.OpenableColumns
+import android.text.TextUtils
+import android.text.format.Formatter
 import androidx.annotation.RawRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
@@ -74,7 +76,14 @@ fun fileToMultipartBodyParts(file: File): MultipartBody.Part =
 fun filesToMultipartBodyParts(files: List<File>): List<MultipartBody.Part> {
     val parts: MutableList<MultipartBody.Part> = ArrayList(files.size)
     for (file in files) {
-        val requestBody = RequestBody.create(MediaType.parse("image/*"), file)
+        val fileSuffix = file.name.toLowerCase()
+        val fileType = "image/*"
+        if (TextUtils.isEmpty(fileType)) {
+            simpleToast("不支持的文件类型")
+            return emptyList()
+        }
+        val requestBody = RequestBody.create(MediaType.parse(fileType), file)
+        // val requestBody = RequestBody.create(MediaType.parse("image/*"), file)
         val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
         parts.add(part)
     }
@@ -83,10 +92,6 @@ fun filesToMultipartBodyParts(files: List<File>): List<MultipartBody.Part> {
 
 /**
  * 将 Uri 对象所对应的文件复制到应用程序的关联目录下
- *
- * @param uri Uri
- * @param fileName String
- * @param block Function1<[@kotlin.ParameterName] File, Unit>
  */
 fun copyUriToExternalFilesDir(uri: Uri, fileName: String, block: (file: File) -> Unit) {
     val context: Context = App.appContext
@@ -95,18 +100,34 @@ fun copyUriToExternalFilesDir(uri: Uri, fileName: String, block: (file: File) ->
     val tempDir = context.getExternalFilesDir("temp")
     if (inputStream != null && tempDir != null) {
         val file = File("$tempDir/$fileName")
-        val fos = FileOutputStream(file)
-        val bis = BufferedInputStream(inputStream)
-        val bos = BufferedOutputStream(fos)
-        val byteArray = ByteArray(1024)
-        var bytes = bis.read(byteArray)
-        while (bytes > 0) {
-            bos.write(byteArray, 0, bytes)
-            bos.flush()
-            bytes = bis.read(byteArray)
+        var bufis: BufferedInputStream? = null
+        var bufos: BufferedOutputStream? = null
+        try {
+            bufis = BufferedInputStream(inputStream)
+            bufos = BufferedOutputStream(FileOutputStream(file))
+            val fos = FileOutputStream(file)
+            val bis = BufferedInputStream(inputStream)
+            val bos = BufferedOutputStream(fos)
+            val byteArray = ByteArray(10485760)
+            var bytes = bis.read(byteArray)
+            while (bytes > 0) {
+                bos.write(byteArray, 0, bytes)
+                bos.flush()
+                bytes = bis.read(byteArray)
+            }
+            simpleToast(
+                "文件写入完成，文件大小：${Formatter.formatFileSize(
+                    App.appContext,
+                    file.length()
+                )}，文件类型：$fileName"
+            )
+        } catch (t: Throwable) {
+            t.printStackTrace()
+            simpleToast("文件写入失败")
+        } finally {
+            bufis?.close()
+            bufos?.close()
         }
-        bos.close()
-        fos.close()
         block(file)
     }
 }

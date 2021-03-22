@@ -10,9 +10,6 @@ import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.model.DeviceSettingFun
 import com.fjkyly.paradise.network.request.Repository
 
-/**
- * 通用的开关界面
- */
 class ToggleActivity : MyActivity() {
 
     private var _binding: ActivityToggleBinding? = null

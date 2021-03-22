@@ -9,11 +9,6 @@ import com.fjkyly.paradise.databinding.ActivitySmartBandsBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.model.Facility
 
-/**
- * 智能手环界面
- *
- * @property mBinding ActivitySmartBandsBinding
- */
 class SmartBandsActivity : MyActivity() {
 
     private lateinit var mBinding: ActivitySmartBandsBinding

@@ -27,12 +27,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/**
- * 浏览器界面
- *
- * @property _binding FragmentBrowserBinding?
- * @property mBinding FragmentBrowserBinding
- */
 class BrowserFragment(private var mUrl: String = DEFAULT_URL) : BaseFragment() {
 
     private var _binding: FragmentBrowserBinding? = null

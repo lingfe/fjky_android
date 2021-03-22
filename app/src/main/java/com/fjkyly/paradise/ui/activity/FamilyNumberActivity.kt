@@ -12,13 +12,6 @@ import com.fjkyly.paradise.model.Kinsfolk
 import com.fjkyly.paradise.ui.views.ConfirmDialog
 import kotlin.random.Random
 
-/**
- * 亲情号码列表展示界面
- *
- * @property mBinding ActivityAddFamilyNumberBinding
- * @property itemKinsfolkNumAdapter ItemKinsfolkNumAdapter
- * @property mKinsfolkList MutableList<Kinsfolk>
- */
 class FamilyNumberActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityFamilyNumberBinding

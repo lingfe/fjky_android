@@ -8,14 +8,6 @@ import com.fjkyly.paradise.base.BaseFragment
 import com.fjkyly.paradise.databinding.FragmentHealthDataBinding
 import com.fjkyly.paradise.model.HealthMenuAction
 
-/**
- * 健康数据界面
- *
- * @property _binding FragmentHealthDataBinding?
- * @property mBinding FragmentHealthDataBinding
- * @property itemHealthDataAdapter ItemHealthDataAdapter
- * @property menuActionList MutableList<MenuAction>
- */
 class HealthDataFragment : BaseFragment() {
 
     private var _binding: FragmentHealthDataBinding? = null

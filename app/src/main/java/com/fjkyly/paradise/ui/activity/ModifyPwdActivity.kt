@@ -12,9 +12,6 @@ import com.fjkyly.paradise.expand.*
 import com.fjkyly.paradise.network.request.Repository
 import com.vondear.rxtool.RxActivityTool
 
-/**
- * 修改密码界面（与找回密码功能通用）
- */
 class ModifyPwdActivity : MyActivity() {
 
     private var _binding: ActivityModifyPwdBinding? = null

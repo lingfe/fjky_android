@@ -14,12 +14,6 @@ import com.fjkyly.paradise.network.request.Repository
 import com.fjkyly.paradise.ui.activity.*
 import kotlinx.coroutines.launch
 
-/**
- * 我的 界面
- *
- * @property _binding FragmentMeBinding?
- * @property mBinding FragmentMeBinding
- */
 class MeFragment : BaseFragment() {
 
     private var _binding: FragmentMeBinding? = null

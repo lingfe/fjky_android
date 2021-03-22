@@ -20,13 +20,6 @@ import com.fjkyly.paradise.model.DeviceQrInfo
 import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
 
-/**
- * 添加设备界面
- *
- * @property mBinding ActivityAddFacilityBinding
- * @property itemBindFacilityAdapter ItemBindFacilityAdapter
- * @property mFacilityList MutableList<Facility>
- */
 class AddFacilityActivity : MyActivity() {
 
     private var mDeviceId = ""

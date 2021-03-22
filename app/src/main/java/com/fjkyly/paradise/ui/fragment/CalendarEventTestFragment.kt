@@ -18,9 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/**
- * 日历测试界面
- */
 class CalendarEventTestFragment : BaseFragment(), OnPermissionCallback {
 
     private var _binding: FragmentCalendarEventTestBinding? = null

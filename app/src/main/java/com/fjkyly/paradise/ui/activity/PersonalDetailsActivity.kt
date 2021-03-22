@@ -31,9 +31,6 @@ import com.zhihu.matisse.internal.entity.CaptureStrategy
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * 个人详细信息界面
- */
 class PersonalDetailsActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityPersonalDetailsBinding
@@ -339,7 +336,7 @@ class PersonalDetailsActivity : MyActivity() {
             .imageEngine(GlideEngine())
             .showPreview(false) // Default is `true`
             .capture(true)
-            .maxOriginalSize(1)
+            .maxOriginalSize(5)
             .captureStrategy(
                 CaptureStrategy(
                     false,

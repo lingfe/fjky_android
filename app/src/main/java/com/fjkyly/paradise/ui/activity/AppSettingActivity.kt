@@ -17,9 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/**
- * APP设置界面
- */
 class AppSettingActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityAppSettingBinding

@@ -11,9 +11,6 @@ import com.fjkyly.paradise.databinding.ActivitySmartBandsListBinding
 import com.fjkyly.paradise.model.Facility
 import com.fjkyly.paradise.network.request.Repository
 
-/**
- * 智能手环列表界面
- */
 class SmartBandsListActivity : MyActivity() {
 
     private lateinit var mBinding: ActivitySmartBandsListBinding

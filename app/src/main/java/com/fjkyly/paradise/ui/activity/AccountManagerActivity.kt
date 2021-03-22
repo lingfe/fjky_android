@@ -31,11 +31,6 @@ import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.engine.impl.GlideEngine
 import com.zhihu.matisse.internal.entity.CaptureStrategy
 
-/**
- * 账户管理界面
- *
- * @property mBinding ActivityAccountManagerBinding
- */
 @RequiresApi(Build.VERSION_CODES.R)
 class AccountManagerActivity : MyActivity() {
 
@@ -57,7 +52,7 @@ class AccountManagerActivity : MyActivity() {
     private fun loadData() {
         mBinding.run {
             Repository.queryUserInfo(lifecycle = lifecycle) {
-                if (it ==null){
+                if (it == null) {
                     return@queryUserInfo
                 }
                 val data = it.data
@@ -189,7 +184,7 @@ class AccountManagerActivity : MyActivity() {
             .imageEngine(GlideEngine())
             .showPreview(false) // Default is `true`
             .capture(true)
-            .maxOriginalSize(1)
+            .maxOriginalSize(5)
             .captureStrategy(
                 CaptureStrategy(
                     false,

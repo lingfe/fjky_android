@@ -11,9 +11,6 @@ import com.tencent.smtt.export.external.interfaces.ConsoleMessage
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebViewClient
 
-/**
- * 用户协议界面
- */
 class UserAgreementActivity : MyActivity() {
 
     private var _binding: ActivityUserAgreementBinding? = null

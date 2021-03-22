@@ -9,9 +9,6 @@ import com.fjkyly.paradise.databinding.ActivityUserNameSettingBinding
 import com.fjkyly.paradise.expand.simpleToast
 import com.fjkyly.paradise.network.request.Repository
 
-/**
- * 用户名设置界面
- */
 class UserNameSettingActivity : MyActivity() {
 
     private lateinit var mBinding: ActivityUserNameSettingBinding
