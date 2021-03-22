@@ -141,9 +141,9 @@ object Repository {
                             }
                         }
                     }
-                    if (body == null) {
-                        simpleToast("服务器异常，请稍后重试")
-                    }
+                    // if (body == null) {
+                    //     simpleToast("服务器异常，请稍后重试")
+                    // }
                 }
 
                 override fun onFailure(call: Call<HttpData>, t: Throwable) {
@@ -460,9 +460,9 @@ object Repository {
                             simpleToast(it.msg)
                         }
                     }
-                    if (body == null) {
-                        simpleToast("服务器数据异常，请稍后重试！")
-                    }
+                    // if (body == null) {
+                    //     simpleToast("服务器数据异常，请稍后重试！")
+                    // }
                 }
 
                 override fun onFailure(call: Call<ModifyDeviceSettingFun>, t: Throwable) {

@@ -57,19 +57,27 @@ class AccountManagerActivity : MyActivity() {
     private fun loadData() {
         mBinding.run {
             Repository.queryUserInfo(lifecycle = lifecycle) {
+                if (it ==null){
+                    return@queryUserInfo
+                }
                 val data = it.data
-                val userImg = data.userImg
-                val userName = data.username
-                val userPhone = data.phone
-                Log.d(TAG, "loadData: ===>userImg：$userImg")
-                // 用户头像
-                Glide.with(this@AccountManagerActivity)
-                    .load(userImg)
-                    .into(accountMangerAvatarIv)
-                // 用户名称
-                accountMangerNameTv.text = userName
-                // 用户手机号
-                accountMangerPhoneNumTv.text = userPhone
+                kotlin.runCatching {
+                    val userImg = data.userImg
+                    // 用户头像
+                    Glide.with(this@AccountManagerActivity)
+                        .load(userImg)
+                        .into(accountMangerAvatarIv)
+                }
+                kotlin.runCatching {
+                    val userName = data.username
+                    // 用户名称
+                    accountMangerNameTv.text = userName
+                }
+                kotlin.runCatching {
+                    val userPhone = data.phone
+                    // 用户手机号
+                    accountMangerPhoneNumTv.text = userPhone
+                }
             }
         }
     }

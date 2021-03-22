@@ -1,6 +1,7 @@
 package com.fjkyly.paradise.ui.fragment
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -52,22 +53,30 @@ class MeFragment : BaseFragment() {
         mBinding.run {
             meInclude.run {
                 Repository.queryUserInfo(lifecycle = lifecycle) {
+                    if (it == null) {
+                        return@queryUserInfo
+                    }
                     val data = it.data
-                    runCatching {
-                        lifecycleScope.launch {
-                            avatarUrl = data.userImg
+                    lifecycleScope.launch {
+                        runCatching {
+                            if (TextUtils.isEmpty(data.userImg).not()) {
+                                avatarUrl = data.userImg
+                            }
                             Glide.with(this@MeFragment)
-                                .load(data.userImg)
+                                .load(avatarUrl)
                                 .into(meAvatarIv)
-                            // meAvatarIv.setImageDrawable(
-                            //     RoundImageDrawable(
-                            //         bitmap.getOrThrow(),
-                            //         SizeUtils.dp2px(0f).toFloat()
-                            //     )
-                            // )
                         }
-
+                        // meAvatarIv.setImageDrawable(
+                        //     RoundImageDrawable(
+                        //         bitmap.getOrThrow(),
+                        //         SizeUtils.dp2px(0f).toFloat()
+                        //     )
+                        // )
+                    }
+                    runCatching {
                         meAccountIdTv.text = data.username
+                    }
+                    runCatching {
                         val balance = data.balance
                         meFavoritesNumTv.text = balance.toString()
                     }
